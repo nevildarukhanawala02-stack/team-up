@@ -1,0 +1,284 @@
+/**
+ * Team Up Civic Editorial Experiences page: this is the chapter after the homepage.
+ * Real stories use replaceable documentary imagery; idea cards use line icons so unbuilt
+ * concepts cannot be mistaken for delivered work. The page keeps the same paper, ink,
+ * coral, gold, teal, serif, sans, mono, and bunting vocabulary as the homepage.
+ */
+
+import { useEffect, useState } from "react";
+import {
+  Accessibility,
+  ArrowDownRight,
+  ArrowRight,
+  BookHeart,
+  ChefHat,
+  CircleHelp,
+  Flower2,
+  HandHeart,
+  Leaf,
+  Menu,
+  MessageCircle,
+  Music2,
+  Shield,
+  Sparkles,
+  Store,
+  TreePine,
+  UsersRound,
+  WandSparkles,
+  Waves,
+  X,
+} from "lucide-react";
+import { toast } from "sonner";
+import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+
+const stories = [
+  {
+    number: "01",
+    title: "The Beat That Traveled",
+    label: "Dharavi Hip-Hop Kids",
+    image: "/images/team-up-proof-dancers.jpg",
+    alt: "Young dancers performing outdoors in an urban Mumbai setting",
+    happened: "A group of young dancers from Dharavi took their moves out of their neighborhood and onto Mumbai’s biggest stages.",
+    celebrated: "We didn’t just point a camera at the performance — we decided, before the day even began, that this was a story about talent finally getting room to breathe.",
+    became: "One video of the day found its way to over 500,000 people, entirely on its own.",
+  },
+  {
+    number: "02",
+    title: "Colors on the Ward",
+    label: "Cancer Ward Art Competition",
+    image: "/images/team-up-proof-art.jpg",
+    alt: "Children creating paintings together in a bright common room",
+    happened: "For one afternoon, a hospital ward became an art studio, and every child in it became an artist first, a patient second.",
+    celebrated: "Every participant went home with a Super Duper Kids t-shirt and a win. The story here wasn’t the competition — it was watching a room forget, for a while, where it was.",
+    became: "A room full of colour, focus, and a reason to leave smiling.",
+  },
+  {
+    number: "03",
+    title: "Christmas for Three Hundred",
+    label: "Juhu Christmas Event",
+    image: "/images/team-up-proof-christmas.jpg",
+    alt: "Children gathering around a modest Christmas celebration",
+    happened: "Three hundred children, a decorated tree, Santa, and an afternoon that felt like any other family’s Christmas — because it was one.",
+    celebrated: "The celebration wasn’t added on top of the day. It was the whole point of it.",
+    became: "A simple, full-hearted day people could carry home.",
+  },
+];
+
+const ideas = [
+  { name: "Sunset Sessions", hook: "An afternoon with an elder care home, built around music and memory.", icon: Music2, color: "gold" },
+  { name: "The Little Chefs", hook: "Employees and children from a community kitchen cook together, ending in a shared meal everyone made.", icon: ChefHat, color: "coral" },
+  { name: "Wonder Day", hook: "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way.", icon: WandSparkles, color: "teal" },
+  { name: "Green Relay", hook: "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task.", icon: TreePine, color: "gold" },
+  { name: "Storytellers’ Circle", hook: "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording.", icon: BookHeart, color: "coral" },
+  { name: "Her Turn to Shine", hook: "A showcase and market day for local women artisans and entrepreneurs, employees as first customers and cheerleaders.", icon: Store, color: "teal" },
+  { name: "Sports Day, No Sidelines", hook: "A joint sports day with a differently-abled community group — everyone plays, nobody just watches.", icon: Accessibility, color: "gold" },
+  { name: "Threads of Home", hook: "A textile or craft workshop with a rural or slum community, styled into a small showcase at the end of the day.", icon: HandHeart, color: "coral" },
+  { name: "Guardians of the Coast", hook: "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore.", icon: Waves, color: "teal" },
+  { name: "Heroes in Uniform", hook: "A felicitation and storytelling afternoon honoring armed forces veterans and their families.", icon: Shield, color: "gold" },
+];
+
+function useReveal() {
+  useEffect(() => {
+    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-experience-reveal]"));
+    if (!("IntersectionObserver" in window)) {
+      items.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+}
+
+export default function Experiences() {
+  useReveal();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    toast("Your starting point is captured for the prototype.", {
+      description: "Connect the form to the preferred inbox before launch.",
+    });
+  };
+
+  const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    toast("Add the official WhatsApp number here before launch.", {
+      description: "The lower-friction conversation path is ready in the design.",
+    });
+  };
+
+  return (
+    <div className="experiences-page">
+      <header className="site-header experiences-header">
+        <div className="site-header__inner">
+          <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}>
+            <TeamUpLogo compact />
+          </a>
+          <nav className="desktop-nav" aria-label="Primary navigation">
+            <a href="/experiences" className="nav-current">Experiences</a>
+            <a href="/about">About us</a>
+            <a href="/stories">Our stories</a>
+            <a href="/how-we-celebrate">How we celebrate</a>
+            <a href="/contact" className="nav-cta">Contact us <ArrowRight size={15} strokeWidth={1.7} /></a>
+          </nav>
+          <button className="mobile-menu-button" type="button" aria-expanded={mobileOpen} aria-controls="experiences-mobile-navigation" onClick={() => setMobileOpen((open) => !open)}>
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            <span className="sr-only">Toggle navigation</span>
+          </button>
+        </div>
+        <nav id="experiences-mobile-navigation" className={`mobile-nav ${mobileOpen ? "experiences-mobile-nav--open" : ""}`} aria-label="Mobile navigation">
+          <a href="/experiences" onClick={() => setMobileOpen(false)}>Experiences</a>
+          <a href="/about" onClick={() => setMobileOpen(false)}>About us</a>
+          <a href="/how-we-celebrate" onClick={() => setMobileOpen(false)}>How we celebrate</a>
+          <a href="/contact" onClick={() => setMobileOpen(false)}>Contact us <ArrowRight size={16} /></a>
+          <a href="/stories" onClick={() => setMobileOpen(false)}>Our stories</a>
+          <a href="#inquiry" onClick={() => setMobileOpen(false)}>Start a conversation <ArrowRight size={16} /></a>
+        </nav>
+      </header>
+
+      <main>
+        <section className="experiences-hero section-paper">
+          <div className="experiences-hero__image" aria-hidden="true" />
+          <div className="editorial-container experiences-hero__inner" data-experience-reveal>
+            <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Experiences</p>
+            <h1>Experiences that<br /><em>become stories.</em></h1>
+            <p>Every experience we build turns into something people carry with them — a story they tell in the office, a video they share with their family, a memory that outlasts the day itself.</p>
+            <BuntingDivider />
+            <a href="#real-experiences" className="arrow-link">See the stories <ArrowDownRight size={18} /></a>
+          </div>
+          <span className="experiences-hero__chapter">02 <span>/</span> 06</span>
+        </section>
+
+        <section className="real-experiences section-paper section-space" id="real-experiences">
+          <div className="editorial-container">
+            <div className="experiences-section-heading" data-experience-reveal>
+              <p className="eyebrow"><span className="eyebrow__dot" /> Real experiences</p>
+              <h2>A few we’ve<br /><em>already lived.</em></h2>
+              <p>What happened, how it was celebrated, and what it became. Real stories first — everything else is a starting point.</p>
+            </div>
+
+            <div className="story-list">
+              {stories.map((story, index) => (
+                <article className={`experience-story experience-story--${index % 2 === 0 ? "image-left" : "image-right"}`} key={story.title} data-experience-reveal>
+                  <div className="experience-story__image-wrap">
+                    <img src={story.image} alt={story.alt} />
+                    <span className="experience-story__number">{story.number}</span>
+                  </div>
+                  <div className="experience-story__body">
+                    <p className="experience-story__label">{story.label}</p>
+                    <h3>{story.title}</h3>
+                    <div className="experience-story__beats">
+                      <div><span>What happened</span><p>{story.happened}</p></div>
+                      <div><span>How it was celebrated</span><p>{story.celebrated}</p></div>
+                      <div><span>What it became</span><p>{story.became}</p></div>
+                    </div>
+                    <span className="experience-story__rule" aria-hidden="true" />
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="experiences-placeholder-note" data-experience-reveal><CircleHelp size={17} strokeWidth={1.5} /> Story images are placeholders for this prototype and should be replaced with approved event photography.</p>
+          </div>
+        </section>
+
+        <section className="idea-section section-sand section-space" id="ideas">
+          <div className="editorial-container">
+            <div className="experiences-section-heading experiences-section-heading--ideas" data-experience-reveal>
+              <p className="eyebrow"><span className="eyebrow__dot" /> Experience ideas</p>
+              <h2>Some ideas we’re<br /><em>already excited about.</em></h2>
+              <p>These aren’t packages, and they’re not fixed — they’re starting points. Tell us what excites you about one, and we’ll shape it around your team, your cause, and your budget.</p>
+            </div>
+            <div className="idea-grid">
+              {ideas.map((idea, index) => {
+                const Icon = idea.icon;
+                return (
+                  <article className={`idea-card idea-card--${idea.color}`} key={idea.name} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
+                    <div className="idea-card__top"><span className="idea-card__number">{String(index + 1).padStart(2, "0")}</span><Icon size={26} strokeWidth={1.4} /></div>
+                    <h3>{idea.name}</h3>
+                    <p>{idea.hook}</p>
+                    <span className="idea-card__arrow"><ArrowUpRightIcon /></span>
+                  </article>
+                );
+              })}
+            </div>
+            <p className="idea-section__note" data-experience-reveal><Sparkles size={16} strokeWidth={1.5} /> Illustrative concepts — never fixed packages.</p>
+          </div>
+        </section>
+
+        <section className="build-section section-paper section-space" id="build">
+          <div className="editorial-container">
+            <BuntingDivider />
+            <div className="build-heading" data-experience-reveal>
+              <p className="eyebrow"><span className="eyebrow__dot" /> Build your own</p>
+              <h2>Don’t see it here?<br /><em>Let’s build it together.</em></h2>
+              <p>We can’t put every idea on this page — most of the best ones come from a real conversation. Here’s roughly how we think it through with you:</p>
+            </div>
+            <div className="build-steps">
+              <article className="build-step" data-experience-reveal><span>01</span><h3>Start with your cause.</h3><p>Whatever your team is already committed to — education, environment, health, anything else — that’s our starting point too.</p></article>
+              <article className="build-step" data-experience-reveal><span>02</span><h3>Pick a shape.</h3><p>A hands-on day where your team gets involved directly, a showcase where a community’s talent takes the stage, a festive touch added to something that’s already happening, or something bigger.</p></article>
+              <article className="build-step" data-experience-reveal><span>03</span><h3>Bring us your flavor.</h3><p>A performer, a surprise, a small idea that’s been sitting in your head — if it fits, we’ll find a way to build it in.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section className="story-method section-teal-tint" data-experience-reveal>
+          <div className="editorial-container story-method__inner">
+            <p className="eyebrow"><span className="eyebrow__dot" /> How the story gets told</p>
+            <h2>That’s what makes it a<br /><em>Team Up experience.</em></h2>
+            <p>Before anything happens, we decide together what story the day is actually telling. That story — not just a shot list — is what gets handed to everyone on the ground, from the performers to the camera crew. Everyone shows up already knowing what they’re there to capture and create.</p>
+            <BuntingDivider />
+          </div>
+        </section>
+
+        <section className="experience-cta section-ink" id="inquiry">
+          <div className="editorial-container">
+            <BuntingDivider light />
+            <div className="experience-cta__layout">
+              <div className="experience-cta__copy" data-experience-reveal>
+                <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> Your starting point</p>
+                <h2>Have an idea?<br /><em>Even a rough one is enough.</em></h2>
+                <p>Tell us what you’re already thinking. We’ll bring the questions, the shape, and the celebration.</p>
+              </div>
+              <form className="experience-inquiry" onSubmit={handleSubmit} data-experience-reveal>
+                <label><span>Your name</span><input name="name" placeholder="How should we call you?" required /></label>
+                <label><span>Organization</span><input name="organization" placeholder="Where are you working from?" required /></label>
+                <label><span>Your starting point</span><textarea name="thought" rows={3} placeholder="One line about what you’re thinking" required /></label>
+                <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
+                <button type="submit" className="button button--gold">Send us an inquiry <ArrowRight size={17} /></button>
+                <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
+                <p className="experience-inquiry__fineprint">Short form, low pressure. This prototype does not send submissions yet.</p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer section-paper experiences-footer">
+        <div className="editorial-container">
+          <div className="site-footer__top">
+            <div><a className="brand-link brand-link--footer" href="/" aria-label="Back to homepage"><TeamUpLogo /></a><p className="site-footer__mission">We turn CSR employee activities into moments people remember.</p></div>
+            <div className="site-footer__contact"><p className="eyebrow"><span className="eyebrow__dot" /> Keep in touch</p><a href="mailto:hello@teamup.org">hello@teamup.org</a><div className="site-footer__socials"><a href="#inquiry">Instagram</a><a href="#inquiry">LinkedIn</a></div></div>
+          </div>
+          <div className="site-footer__bottom"><span>Team Up is a registered NGO, with provisional 12A and 80G certification.</span><span>Celebration, not charity.</span></div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function ArrowUpRightIcon() {
+  return <ArrowRight size={16} strokeWidth={1.5} className="idea-card__arrow-icon" />;
+}

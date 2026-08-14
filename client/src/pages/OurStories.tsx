@@ -1,0 +1,231 @@
+/**
+ * Team Up Civic Editorial Our Stories archive: a slower, magazine-style experience after the
+ * compact Experiences previews. Story media is intentionally replaceable; the current image set
+ * is clearly marked as prototype scaffolding until approved event photography and video arrive.
+ * Panel D renders only when an approved video source is supplied, never as an empty player.
+ */
+
+import { useEffect, useState } from "react";
+import { ArrowDownRight, ArrowRight, Camera, CirclePlay, Menu, MessageCircle, X } from "lucide-react";
+import { toast } from "sonner";
+import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+
+type Story = {
+  id: string;
+  number: string;
+  title: string;
+  scene: string;
+  image: string;
+  alt: string;
+  story: string;
+  moment: string;
+  proof: string;
+  galleryCaptions: string[];
+  videoSrc?: string;
+  accent: "coral" | "gold" | "teal";
+  galleryStyle: "evidence" | "timeline" | "closeups";
+};
+
+const stories: Story[] = [
+  {
+    id: "beat-that-traveled",
+    number: "01",
+    title: "The Beat That Traveled",
+    scene: "A group of young dancers from Dharavi took their moves out of their neighborhood — and onto Mumbai’s biggest stages.",
+    image: "/images/team-up-proof-dancers.jpg",
+    alt: "Young dancers performing outdoors in an urban Mumbai setting",
+    story: "We didn’t just point a camera at a performance. Before this day happened, we decided what story it was going to tell — that talent doesn’t need permission to be seen, it just needs room to breathe. So that’s what we built: a real stage, a real audience, and a crew who knew exactly what they were there to capture. What happened next wasn’t something we planned — it just happened, because the story underneath it was already true.",
+    moment: "One video. Over 500,000 people. Zero paid promotion.",
+    proof: "500K+ organic views",
+    galleryCaptions: ["Warming up", "Into the light", "A real audience", "The beat carries"],
+    accent: "coral",
+    galleryStyle: "evidence",
+  },
+  {
+    id: "colors-on-the-ward",
+    number: "02",
+    title: "Colors on the Ward",
+    scene: "For one afternoon, a hospital ward became an art studio — and every child in it became an artist first.",
+    image: "/images/team-up-proof-art.jpg",
+    alt: "Children creating paintings together in a bright common room",
+    story: "The story we wanted to tell here wasn’t about a competition or a winner. It was about a room forgetting, just for a while, where it was. Every child who picked up a brush that day left as a winner — a Super Duper Kids t-shirt and, more than that, an afternoon that looked nothing like the rest of their week.",
+    moment: "Every single participant. A winner.",
+    proof: "A room that forgot where it was",
+    galleryCaptions: ["The first brushstroke", "Colour in focus", "A small masterpiece", "Artists first"],
+    accent: "teal",
+    galleryStyle: "closeups",
+  },
+  {
+    id: "christmas-for-three-hundred",
+    number: "03",
+    title: "Christmas for Three Hundred",
+    scene: "Three hundred children, a decorated tree, and an afternoon that felt like family — because it was one.",
+    image: "/images/team-up-proof-christmas.jpg",
+    alt: "Children gathering around a modest Christmas celebration",
+    story: "The celebration wasn’t something we added on top of the day. It was the whole point of it. Santa showed up. The tree was lit. Three hundred kids who don’t always get a Christmas like this one, got exactly that — simple, full-hearted, nothing held back.",
+    moment: "300 kids. One very full afternoon.",
+    proof: "A full-hearted day for 300",
+    galleryCaptions: ["The tree goes up", "Santa arrives", "A room full of wonder", "Nothing held back"],
+    accent: "gold",
+    galleryStyle: "timeline",
+  },
+];
+
+function useReveal() {
+  useEffect(() => {
+    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-story-reveal]"));
+    if (!("IntersectionObserver" in window)) {
+      items.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+}
+
+export default function OurStories() {
+  useReveal();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    toast("Your next story starts with a conversation.", { description: "Connect the form to the preferred inbox before launch." });
+  };
+
+  const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    toast("Add the official WhatsApp number here before launch.", { description: "The lower-friction conversation path is ready in the design." });
+  };
+
+  return (
+    <div className="stories-page">
+      <header className="site-header stories-header">
+        <div className="site-header__inner">
+          <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}><TeamUpLogo compact /></a>
+          <nav className="desktop-nav" aria-label="Primary navigation">
+            <a href="/experiences">Experiences</a>
+            <a href="/about">About us</a>
+            <a href="/stories" className="nav-current">Our stories</a>
+            <a href="/how-we-celebrate">How we celebrate</a>
+            <a href="/contact" className="nav-cta">Contact us <ArrowRight size={15} strokeWidth={1.7} /></a>
+          </nav>
+          <button className="mobile-menu-button" type="button" aria-expanded={mobileOpen} aria-controls="stories-mobile-navigation" onClick={() => setMobileOpen((open) => !open)}>
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}<span className="sr-only">Toggle navigation</span>
+          </button>
+        </div>
+        <nav id="stories-mobile-navigation" className={`mobile-nav ${mobileOpen ? "stories-mobile-nav--open" : ""}`} aria-label="Mobile navigation">
+          <a href="/experiences" onClick={() => setMobileOpen(false)}>Experiences</a>
+          <a href="/about" onClick={() => setMobileOpen(false)}>About us</a>
+          <a href="/stories" onClick={() => setMobileOpen(false)}>Our stories</a>
+          <a href="/how-we-celebrate" onClick={() => setMobileOpen(false)}>How we celebrate</a>
+          <a href="/contact" onClick={() => setMobileOpen(false)}>Contact us <ArrowRight size={16} /></a>
+          <a href="#inquiry" onClick={() => setMobileOpen(false)}>Start a conversation <ArrowRight size={16} /></a>
+        </nav>
+      </header>
+
+      <main>
+        <section className="stories-hero section-paper">
+          <div className="editorial-container stories-hero__inner" data-story-reveal>
+            <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Our stories</p>
+            <h1>Our<br /><em>Stories.</em></h1>
+            <p>Every one of these started as a single afternoon. Here’s what they became.</p>
+            <BuntingDivider />
+          </div>
+          <div className="story-index" aria-label="Story index">
+            <div className="editorial-container story-index__inner">
+              <span className="story-index__label">Jump to a story</span>
+              {stories.map((story) => <a key={story.id} href={`#${story.id}`}>{story.title} <ArrowDownRight size={14} /></a>)}
+            </div>
+          </div>
+        </section>
+
+        <div className="story-media-note"><Camera size={15} strokeWidth={1.5} /><span>Prototype media shown here is replaceable scaffolding — approved event photography and video should take its place before launch.</span></div>
+
+        {stories.map((story) => <StorySequence key={story.id} story={story} />)}
+
+        <section className="stories-cta section-ink" id="inquiry">
+          <div className="editorial-container">
+            <BuntingDivider light />
+            <div className="stories-cta__layout">
+              <div className="stories-cta__copy" data-story-reveal>
+                <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> The next chapter</p>
+                <h2>Ready to write<br /><em>the next one?</em></h2>
+                <p>Bring us the cause, the team, or even the roughest first thought. We’ll help shape what comes next.</p>
+              </div>
+              <form className="stories-inquiry" onSubmit={handleSubmit} data-story-reveal>
+                <label><span>Your name</span><input name="name" placeholder="How should we call you?" required /></label>
+                <label><span>Organization</span><input name="organization" placeholder="Where are you working from?" required /></label>
+                <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
+                <button type="submit" className="button button--gold">Send us an inquiry <ArrowRight size={17} /></button>
+                <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
+                <p className="stories-inquiry__fineprint">Short form, low pressure. This prototype does not send submissions yet.</p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer section-paper stories-footer">
+        <div className="editorial-container">
+          <div className="site-footer__top"><div><a className="brand-link brand-link--footer" href="/" aria-label="Back to homepage"><TeamUpLogo /></a><p className="site-footer__mission">We turn CSR employee activities into moments people remember.</p></div><div className="site-footer__contact"><p className="eyebrow"><span className="eyebrow__dot" /> Keep in touch</p><a href="mailto:hello@teamup.org">hello@teamup.org</a><div className="site-footer__socials"><a href="#inquiry">Instagram</a><a href="#inquiry">LinkedIn</a></div></div></div>
+          <div className="site-footer__bottom"><span>Team Up is a registered NGO, with provisional 12A and 80G certification.</span><span>Celebration, not charity.</span></div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function StorySequence({ story }: { story: Story }) {
+  return (
+    <article className={`story-sequence story-sequence--${story.accent}`} id={story.id}>
+      <section className="story-panel story-panel--banner" data-story-reveal>
+        <img src={story.image} alt={story.alt} />
+        <div className="story-panel__scrim" />
+        <div className="story-panel__banner-copy">
+          <p className="story-panel__kicker">{story.number} / The story</p>
+          <h2>{story.title}</h2>
+          <p>{story.scene}</p>
+        </div>
+        <span className="story-panel__scroll">Scroll to enter <ArrowDownRight size={16} /></span>
+      </section>
+
+      <section className={`story-panel story-panel--narrative story-panel--narrative-${story.galleryStyle} section-paper`} data-story-reveal>
+        <div className="editorial-container story-narrative__inner">
+          <p className="eyebrow"><span className="eyebrow__dot" /> The story</p>
+          <div className="story-narrative__copy"><h3>{story.galleryStyle === "timeline" ? <>A day that<br /><em>felt like family.</em></> : story.galleryStyle === "closeups" ? <>A room that<br /><em>forgot itself.</em></> : <>What happened<br /><em>beneath the day.</em></>}</h3><p>{story.story}</p></div>
+          <div className="story-narrative__signature"><span className="story-narrative__line" /><span>{story.proof}</span></div>
+          {story.galleryStyle === "timeline" ? <div className="story-timeline"><span>Tree</span><span>Santa</span><span>300 children</span><span>One full afternoon</span></div> : null}
+        </div>
+      </section>
+
+      <section className="story-panel story-panel--gallery section-sand" data-story-reveal>
+        <div className="editorial-container">
+          <div className="story-gallery__heading"><p className="eyebrow"><span className="eyebrow__dot" /> The gallery</p><p>{story.galleryStyle === "evidence" ? "The stage, the crowd, and the moment the beat left the room." : story.galleryStyle === "closeups" ? "Brushes, hands, paper, and the small concentration of making something new." : "The tree, the guests, and the details that made an ordinary afternoon feel complete."}</p></div>
+          <div className={`story-gallery-grid story-gallery-grid--${story.galleryStyle}`}>
+            {story.galleryCaptions.map((caption, index) => <figure key={caption} className={`story-gallery-frame story-gallery-frame--${index + 1}`}><img src={story.image} alt={`${story.alt} — ${caption}`} /><figcaption><span>{String(index + 1).padStart(2, "0")}</span>{caption}</figcaption></figure>)}
+          </div>
+          <p className="story-gallery__note"><Camera size={15} strokeWidth={1.5} /> Gallery frames await the approved event image set.</p>
+        </div>
+      </section>
+
+      {story.videoSrc ? <section className="story-panel story-panel--video section-paper" data-story-reveal><div className="editorial-container"><div className="story-video"><video controls src={story.videoSrc} /><div className="story-video__label"><CirclePlay size={16} /> The Dharavi reel</div></div></div></section> : null}
+
+      <section className="story-panel story-panel--moment section-teal" data-story-reveal>
+        <div className="editorial-container story-moment__inner"><p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> The moment</p><blockquote>“{story.moment}”</blockquote><BuntingDivider light /><span className="story-moment__proof">{story.proof}</span></div>
+      </section>
+
+      <div className="story-chapter-break" aria-hidden="true"><BuntingDivider /></div>
+    </article>
+  );
+}
