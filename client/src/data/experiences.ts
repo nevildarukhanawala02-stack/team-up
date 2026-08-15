@@ -1,10 +1,11 @@
 /**
  * Team Up experience catalogue — the "Team Up format" content framework.
  *
- * This is the site's single source of truth for every experience — concept
- * or delivered. To add a new REAL experience, fill in every field of
- * `ExperienceDetail` below (that's the framework — see the field comments).
- * A concept idea just needs the top-level fields and an `icon`, no `detail`.
+ * The taxonomy (categories, formats, and the field shapes below) lives in
+ * code since it's structural, not day-to-day content. The actual experience
+ * entries live in the database now and are managed from /admin/experiences —
+ * `fetchExperiencesFromApi()` / `rowToExperience()` below fetch and reshape
+ * them into the same shape the site's pages already render.
  *
  * The `detail` shape mirrors the Master Framework's Celebration Formula
  * (§5A): every real experience must show Story Direction and Ceremony —
@@ -47,6 +48,20 @@ export const formats: { id: EngagementFormat; label: string; description: string
   { id: "festive-immersion", label: "Festive Immersion", description: "Employees join an existing celebration, adding the fun and gifting layer." },
   { id: "flagship-journey", label: "Flagship Journey", description: "The biggest format — multi-location, multi-brand, high production." },
 ];
+
+/** Icons available for concept cards, keyed by name (matches what the admin form lets you pick). */
+export const iconOptions: Record<string, LucideIcon> = {
+  Accessibility,
+  BookHeart,
+  ChefHat,
+  HandHeart,
+  Music2,
+  Shield,
+  Store,
+  TreePine,
+  WandSparkles,
+  Waves,
+};
 
 export interface ExperienceDetail {
   heroImage: string;
@@ -96,318 +111,88 @@ export interface Experience {
   preview?: ConceptPreview;
 }
 
-export const experiences: Experience[] = [
-  {
-    slug: "dharavi-dreams",
-    name: "Dharavi Dreams",
-    hook: "India's first musical hip-hop theatre production — thirteen teenage artists from Dharavi, one real stage.",
-    category: "education",
-    format: "showcase",
-    color: "coral",
-    detail: {
-      heroImage: "/images/dharavi-dreams-hero.jpg",
-      heroAlt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
-      partner: "Rahi Theatre Collaboration & The Dharavi Dream Project",
-      storyDirection:
-        "Before this day happened, we decided what story it was going to tell: that talent doesn't need permission to be seen, it just needs a real stage. We partnered with Rahi Theatre Collaboration and The Dharavi Dream Project — an after-school hip-hop program for underprivileged children in Dharavi, Asia's biggest slum — on Dharavi Dreams, India's first musical hip-hop theatre production, written and directed by Neha Singh. The brief to the crew wasn't 'go capture the event' — it was built around a real audience who came for the show, not the cause.",
-      ceremony:
-        "Thirteen teenage hip-hop artists took the stage in specially made Sooper Dooper Kids t-shirts — a small, deliberate spotlight moment that made the night feel like an actual premiere, not a community activity with cameras present.",
-      highlights: [
-        "India's first musical hip-hop theatre production",
-        "13 teenage hip-hop artists from Dharavi performed live",
-        "Written and directed by Neha Singh",
-        "Delivered with Rahi Theatre Collaboration and The Dharavi Dream Project",
-      ],
-      gallery: [
-        { src: "/images/dharavi-dreams-warmup.jpg", alt: "Cast members before the show", caption: "Warming up" },
-        { src: "/images/dharavi-dreams-light.jpg", alt: "A breakdancer under stage lighting", caption: "Into the light" },
-        { src: "/images/dharavi-dreams-cast.jpg", alt: "The full cast taking a bow on stage", caption: "A real audience" },
-        { src: "/images/dharavi-dreams-energy.jpg", alt: "The group celebrating mid-performance", caption: "The beat carries" },
-      ],
-      proof: "500K+ organic views, zero paid promotion",
-      pressLinks: [
-        { title: "Clothing brand Sooper Dooper Kids teams with Dharavi Dream Project", source: "Apparel Resources", url: "https://apparelresources.com/business-news/sustainability/clothing-brand-sooper-dooper-kids-teams-dharavi-dream-project/" },
-      ],
-      storyLink: "beat-that-traveled",
-    },
-  },
-  {
-    slug: "colors-on-the-ward",
-    name: "Colors on the Ward",
-    hook: "A hospital ward turned into an art studio for an afternoon — every child left a winner.",
-    category: "health-inclusion",
-    format: "volunteering",
-    color: "teal",
-    detail: {
-      heroImage: "/images/access-life-hero.jpg",
-      heroAlt: "A group of children in matching Little Rockstars t-shirts posing together with a parent",
-      partner: "Access Life Assistance Foundation",
-      storyDirection:
-        "We decided, before the day began, that this wasn't going to be a competition with a winner — it was going to be about a room forgetting, just for a while, where it was. In partnership with Access Life Assistance Foundation, an Indian non-profit supporting over 2,050 underprivileged children with cancer and their families, we turned a hospital ward into an art studio for an afternoon.",
-      ceremony:
-        "Every child who picked up a brush left with a Sooper Dooper Kids t-shirt and, more than that, an afternoon that looked nothing like the rest of their week — the small ritual of every single participant leaving as a winner, not just one.",
-      highlights: [
-        "Delivered with Access Life Assistance Foundation",
-        "Every single participant went home a winner",
-        "Art, music, and dance across the full afternoon",
-        "Part of Sooper Dooper Kids' One Purchased = One Donated pledge",
-      ],
-      gallery: [
-        { src: "/images/access-life-brushstroke.jpg", alt: "A child concentrating while drawing", caption: "The first brushstroke" },
-        { src: "/images/access-life-colour.jpg", alt: "A child drawing a colourful character", caption: "Colour in focus" },
-        { src: "/images/access-life-masterpiece.jpg", alt: "A group of children drawing together on the floor", caption: "A small masterpiece" },
-        { src: "/images/access-life-artists-first.jpg", alt: "A smiling child at a desk with crayons", caption: "Artists first" },
-      ],
-      proof: "Every one went home a winner",
-      pressLinks: [
-        { title: "Sooper Dooper Kids and Access Life Assistance Foundation unite to support children battling cancer", source: "Apparel Resources", url: "https://apparelresources.com/business-news/sustainability/sooper-dooper-kids-access-life-assistance-foundation-unite-support-children-battling-cancer/" },
-        { title: "Sooper Dooper Kids clothing brand partners with Access Life Assistance Foundation", source: "The CSR Journal", url: "https://thecsrjournal.in/csr-news-sooper-dooper-kids-clothing-brand-partners-access-life-assistance-foundation/" },
-      ],
-      storyLink: "colors-on-the-ward",
-    },
-  },
-  {
-    slug: "independence-day-childrens-festival",
-    name: "Independence Day Children's Festival",
-    hook: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of.",
-    category: "community",
-    format: "festive-immersion",
-    color: "gold",
-    detail: {
-      heroImage: "/images/giving-tree-hero.jpg",
-      heroAlt: "A large hall full of children celebrating together under chandeliers",
-      partner: "Giving Tree Foundation & Way of Hope Charitable Trust",
-      storyDirection:
-        "We joined Giving Tree Foundation and Way of Hope Charitable Trust's Independence Day Children's Festival — a full-scale celebration held in a Mumbai banquet hall, complete with costumed mascots, music, and 300 children. We didn't organize the day; we showed up as participants, the same way we believe every brand should — present, not just providing.",
-      ceremony:
-        "Every child who came through the door left in a specially donated Sooper Dooper Kids t-shirt — a small, tangible piece of the celebration to carry home, in a hall full of colour, mascots, and kids who, for one afternoon, got to just be kids on India's biggest national holiday.",
-      highlights: [
-        "Delivered with Giving Tree Foundation and Way of Hope Charitable Trust",
-        "300 children celebrated Independence Day together",
-        "Sooper Dooper Kids t-shirts donated to every child present",
-        "Held as a full festival in a Mumbai banquet hall, not a scaled-down gesture",
-      ],
-      gallery: [
-        { src: "/images/giving-tree-mascot.jpg", alt: "A costumed mascot greeting children at the festival", caption: "A new friend arrives" },
-        { src: "/images/giving-tree-energy.jpg", alt: "Children dancing and cheering in front of the festival banner", caption: "Independence Day energy" },
-        { src: "/images/giving-tree-festival.jpg", alt: "Rows of children in matching festival t-shirts seated together", caption: "One festival, matching colours" },
-        { src: "/images/giving-tree-friends.jpg", alt: "A group of boys hugging each other, laughing", caption: "Friends first" },
-      ],
-      proof: "300 children, celebrating together",
-      pressLinks: [
-        { title: "Nevil Darukhanawala testimonial", source: "Giving Tree Foundation", url: "https://www.givingtree.org.in/" },
-      ],
-      storyLink: "independence-day-childrens-festival",
-    },
-  },
-  {
-    slug: "sunset-sessions",
-    name: "Sunset Sessions",
-    hook: "An afternoon with an elder care home, built around music and memory.",
-    category: "community",
-    format: "volunteering",
-    color: "gold",
-    icon: Music2,
-    image: "/images/sunset-sessions.jpg",
-    imageAlt: "An older man and a younger visitor sitting together on a veranda at golden hour, listening to music",
+/** Raw shape returned by /api/experiences — flat, matches the database row. */
+export interface ExperienceRow {
+  id: number;
+  slug: string;
+  name: string;
+  hook: string;
+  category: string;
+  format: string;
+  color: string;
+  isReal: boolean;
+  displayOrder: number;
+  iconName: string | null;
+  image: string | null;
+  imageAlt: string | null;
+  previewDescription: string | null;
+  previewPossibleElements: string[] | null;
+  heroImage: string | null;
+  heroAlt: string | null;
+  partner: string | null;
+  storyDirection: string | null;
+  ceremony: string | null;
+  highlights: string[] | null;
+  gallery: { src: string; alt: string; caption: string }[] | null;
+  proof: string | null;
+  pressLinks: { title: string; source: string; url: string }[] | null;
+  storyLink: string | null;
+  imagePlaceholder: boolean | null;
+}
+
+/** Reshapes an API row into the nested Experience shape the pages already render. */
+export function rowToExperience(row: ExperienceRow): Experience {
+  const base = {
+    slug: row.slug,
+    name: row.name,
+    hook: row.hook,
+    category: row.category as ExperienceCategory,
+    format: row.format as EngagementFormat,
+    color: row.color as "gold" | "coral" | "teal",
+  };
+
+  if (row.isReal) {
+    return {
+      ...base,
+      detail: {
+        heroImage: row.heroImage || "",
+        heroAlt: row.heroAlt || "",
+        partner: row.partner || "",
+        storyDirection: row.storyDirection || "",
+        ceremony: row.ceremony || "",
+        highlights: row.highlights || [],
+        gallery: row.gallery || [],
+        proof: row.proof || "",
+        pressLinks: row.pressLinks && row.pressLinks.length > 0 ? row.pressLinks : undefined,
+        storyLink: row.storyLink || row.slug,
+        imagePlaceholder: row.imagePlaceholder || undefined,
+      },
+    };
+  }
+
+  return {
+    ...base,
+    icon: row.iconName ? iconOptions[row.iconName] : undefined,
+    image: row.image || undefined,
+    imageAlt: row.imageAlt || undefined,
     preview: {
-      description:
-        "Picture an afternoon built entirely around music and memory — employees sitting with residents at an elder care home, swapping songs and stories at conversation pace rather than a schedule. A day like this could turn quietly into the most affecting one your team has, without ever needing to try hard to be moving.",
-      possibleElements: [
-        "A playlist built from residents' own memories",
-        "One-on-one pairings, not group activities",
-        "Live or recorded music as the throughline of the day",
-        "A quiet, unhurried pace — no forced agenda",
-      ],
+      description: row.previewDescription || "",
+      possibleElements: row.previewPossibleElements || [],
     },
-  },
-  {
-    slug: "the-little-chefs",
-    name: "The Little Chefs",
-    hook: "Employees and children from a community kitchen cook together, ending in a shared meal everyone made.",
-    category: "education",
-    format: "volunteering",
-    color: "coral",
-    icon: ChefHat,
-    image: "/images/the-little-chefs.jpg",
-    imageAlt: "An adult and a child cooking together at a kitchen counter, both laughing",
-    preview: {
-      description:
-        "Employees and children from a community kitchen program, cooking side by side rather than employees serving and children receiving. A day like this could end with everyone sitting down to eat the meal they made together — a small shift that changes the whole shape of the afternoon.",
-      possibleElements: [
-        "Employees and kids cooking as equals, not servers and served",
-        "A shared meal at the end, made by everyone at the table",
-        "Kitchen roles mixed across ages",
-        "A keepsake recipe card or photo from the day",
-      ],
-    },
-  },
-  {
-    slug: "wonder-day",
-    name: "Wonder Day",
-    hook: "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way.",
-    category: "education",
-    format: "festive-immersion",
-    color: "teal",
-    icon: WandSparkles,
-    image: "/images/wonder-day.jpg",
-    imageAlt: "A room full of children leaning forward in wide-eyed wonder, lit by a warm spotlight",
-    preview: {
-      description:
-        "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way. This kind of day could be built around one performer holding a room's attention completely — no big production, just genuine astonishment — with employees seated among the kids, not standing at the back.",
-      possibleElements: [
-        "One performer, one room, full attention",
-        "Employees seated among the kids, not observing from the side",
-        "Small enough to feel intimate, not staged",
-        "A simple trick every child learns themselves",
-      ],
-    },
-  },
-  {
-    slug: "green-relay",
-    name: "Green Relay",
-    hook: "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task.",
-    category: "environment",
-    format: "volunteering",
-    color: "gold",
-    icon: TreePine,
-    image: "/images/green-relay.jpg",
-    imageAlt: "A line of young adults passing a sapling hand to hand across a field",
-    preview: {
-      description:
-        "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task. A day like this could turn a typically heads-down activity into something teams do together — planting in bursts, cheering each other on, ending with everyone seeing the full result at once.",
-      possibleElements: [
-        "Relay-style team structure instead of solo planting",
-        "A light, friendly energy without losing the purpose",
-        "A visible tally of what got planted",
-        "A closing moment where teams see the result together",
-      ],
-    },
-  },
-  {
-    slug: "storytellers-circle",
-    name: "Storytellers' Circle",
-    hook: "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording.",
-    category: "education",
-    format: "volunteering",
-    color: "coral",
-    icon: BookHeart,
-    image: "/images/storytellers-circle.jpg",
-    imageAlt: "Children sitting in a circle listening to an adult tell a story from an open book",
-    preview: {
-      description:
-        "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording. This could look like small pairings or groups, each choosing or shaping a story together, recorded simply enough that every child goes home with something to replay.",
-      possibleElements: [
-        "Small pairings or groups, not one big read-aloud",
-        "Children help choose or shape the story, not just listen",
-        "A simple keepsake recording every child keeps",
-        "Room for the day to be quiet, not performative",
-      ],
-    },
-  },
-  {
-    slug: "her-turn-to-shine",
-    name: "Her Turn to Shine",
-    hook: "A showcase and market day for local women artisans and entrepreneurs, employees as first customers and cheerleaders.",
-    category: "womens-empowerment",
-    format: "showcase",
-    color: "teal",
-    icon: Store,
-    image: "/images/her-turn-to-shine.jpg",
-    imageAlt: "A woman artisan at her market stall, mid-conversation with a smiling customer",
-    preview: {
-      description:
-        "A showcase and market day for local women artisans and entrepreneurs, with employees as first customers and cheerleaders rather than passive attendees. A day like this could put real stalls, real products, and real transactions at the center — employees buying, asking questions, giving the kind of attention a first customer gives.",
-      possibleElements: [
-        "Employees as first customers, not just visitors",
-        "Real products and real transactions, not a display-only exhibition",
-        "Artisans introducing their own work in their own words",
-        "A market energy, not a formal presentation",
-      ],
-    },
-  },
-  {
-    slug: "sports-day-no-sidelines",
-    name: "Sports Day, No Sidelines",
-    hook: "A joint sports day with a differently-abled community group — everyone plays, nobody just watches.",
-    category: "health-inclusion",
-    format: "volunteering",
-    color: "gold",
-    icon: Accessibility,
-    image: "/images/sports-day-no-sidelines.jpg",
-    imageAlt: "Two teammates, one using a wheelchair, reaching for a basketball mid-play",
-    preview: {
-      description:
-        "A joint sports day with a differently-abled community group, where everyone plays and nobody just watches. This could mean mixed teams from the start, formats adapted so everyone genuinely plays, and no separate activity running on the sidelines while the main event happens elsewhere.",
-      possibleElements: [
-        "Mixed teams from the first whistle, not separate activities",
-        "Formats adapted so everyone genuinely plays",
-        "No sideline or spectator role for anyone",
-        "Games chosen with the community group, not for them",
-      ],
-    },
-  },
-  {
-    slug: "threads-of-home",
-    name: "Threads of Home",
-    hook: "A textile or craft workshop with a rural artisan collective, styled into a small showcase at the end of the day.",
-    category: "womens-empowerment",
-    format: "showcase",
-    color: "coral",
-    icon: HandHeart,
-    image: "/images/threads-of-home.jpg",
-    imageAlt: "Two pairs of hands working together on a loom with brightly colored thread",
-    preview: {
-      description:
-        "A textile or craft workshop with a rural artisan collective, styled into a small showcase at the end of the day. A day like this could pair employees with artisans learning a real technique — not a simplified demo — with the pieces made that day on display at a closing showcase everyone walks through together.",
-      possibleElements: [
-        "A real technique taught, not a simplified demo",
-        "Employees as learners, artisans as the experts",
-        "Work-in-progress displayed at a closing showcase",
-        "Artisans presenting their own craft, in their own words",
-      ],
-    },
-  },
-  {
-    slug: "guardians-of-the-coast",
-    name: "Guardians of the Coast",
-    hook: "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore.",
-    category: "environment",
-    format: "volunteering",
-    color: "teal",
-    icon: Waves,
-    image: "/images/guardians-of-the-coast.jpg",
-    imageAlt: "A group walking along a shoreline at golden hour carrying cleanup bags",
-    preview: {
-      description:
-        "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore. This could mean mixed teams of employees and youth group members working sections together, a friendly count-and-compare at the end, and enough built into the day that the cleanup itself doesn't feel like the whole point.",
-      possibleElements: [
-        "Mixed teams working sections together, not separate groups",
-        "A friendly tally or comparison at the end",
-        "Music or a shared meal built into the day",
-        "Framed as an adventure, not an obligation",
-      ],
-    },
-  },
-  {
-    slug: "heroes-in-uniform",
-    name: "Heroes in Uniform",
-    hook: "A felicitation and storytelling afternoon honoring armed forces veterans and their families.",
-    category: "community",
-    format: "festive-immersion",
-    color: "gold",
-    icon: Shield,
-    image: "/images/heroes-in-uniform.jpg",
-    imageAlt: "An elderly veteran telling a story to an attentive group under warm string lights",
-    preview: {
-      description:
-        "A felicitation and storytelling afternoon honoring armed forces veterans and their families. A day like this could center on veterans telling their own stories rather than being spoken about — employees as an attentive audience, a small ceremony of recognition, family members included as honored guests.",
-      possibleElements: [
-        "Veterans telling their own stories, not being spoken about",
-        "A small, genuine ceremony of recognition",
-        "Family members included as honored guests",
-        "Employees as an attentive audience, not passive observers",
-      ],
-    },
-  },
-];
+  };
+}
+
+export async function fetchExperiencesFromApi(): Promise<Experience[]> {
+  const res = await fetch("/api/experiences");
+  if (!res.ok) throw new Error("Failed to load experiences.");
+  const data = await res.json();
+  return (data.experiences as ExperienceRow[]).map(rowToExperience);
+}
+
+export async function fetchExperienceFromApi(slug: string): Promise<Experience | null> {
+  const res = await fetch(`/api/experiences/${slug}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("Failed to load experience.");
+  const data = await res.json();
+  return rowToExperience(data.experience as ExperienceRow);
+}
