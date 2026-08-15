@@ -22,7 +22,7 @@ type Story = {
   proof: string;
   galleryCaptions: string[];
   galleryImages?: string[];
-  videoSrc?: string;
+  videos?: { src: string; label: string }[];
   accent: "coral" | "gold" | "teal";
   galleryStyle: "evidence" | "timeline" | "closeups" | "festival";
 };
@@ -47,6 +47,10 @@ const stories: Story[] = [
     ],
     accent: "coral",
     galleryStyle: "evidence",
+    videos: [
+      { src: "/videos/dharavi-dreams-street.mp4", label: "Where it started" },
+      { src: "/videos/dharavi-dreams-interview.mp4", label: "In their own words" },
+    ],
   },
   {
     id: "colors-on-the-ward",
@@ -72,12 +76,12 @@ const stories: Story[] = [
     id: "independence-day-childrens-festival",
     number: "03",
     title: "Independence Day Children's Festival",
-    scene: "A banquet hall, hundreds of kids, and a full-scale Independence Day celebration we showed up to be part of.",
+    scene: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of.",
     image: "/images/giving-tree-hero.jpg",
     alt: "A large hall full of children celebrating together under chandeliers",
-    story: "We joined Giving Tree Foundation and Way of Hope Charitable Trust's Independence Day Children's Festival, held in a Mumbai banquet hall complete with costumed mascots, music, and hundreds of children. We didn't organize the day — we showed up as participants, the same way we believe every brand should. Every child who came through the door left in a specially donated Sooper Dooper Kids t-shirt, one small, tangible piece of the celebration to carry home.",
-    moment: "Hundreds of children. One shared Independence Day.",
-    proof: "A banquet hall full of children, celebrating together",
+    story: "We joined Giving Tree Foundation and Way of Hope Charitable Trust's Independence Day Children's Festival, held in a Mumbai banquet hall complete with costumed mascots, music, and 300 children. We didn't organize the day — we showed up as participants, the same way we believe every brand should. Every child who came through the door left in a specially donated Sooper Dooper Kids t-shirt, one small, tangible piece of the celebration to carry home.",
+    moment: "300 children. One shared Independence Day.",
+    proof: "300 children, celebrating together",
     galleryCaptions: ["A new friend arrives", "Independence Day energy", "One festival, matching colours", "Friends first"],
     galleryImages: [
       "/images/giving-tree-mascot.jpg",
@@ -87,6 +91,9 @@ const stories: Story[] = [
     ],
     accent: "coral",
     galleryStyle: "festival",
+    videos: [
+      { src: "/videos/giving-tree-celebration.mp4", label: "Inside the celebration" },
+    ],
   },
 ];
 
@@ -239,7 +246,21 @@ function StorySequence({ story }: { story: Story }) {
         </div>
       </section>
 
-      {story.videoSrc ? <section className="story-panel story-panel--video section-paper" data-story-reveal><div className="editorial-container"><div className="story-video"><video controls src={story.videoSrc} /><div className="story-video__label"><CirclePlay size={16} /> The Dharavi reel</div></div></div></section> : null}
+      {story.videos && story.videos.length > 0 ? (
+        <section className="story-panel story-panel--video section-paper" data-story-reveal>
+          <div className="editorial-container">
+            <p className="eyebrow"><span className="eyebrow__dot" /> On the day</p>
+            <div className={`story-video-row story-video-row--${story.videos.length}`}>
+              {story.videos.map((video) => (
+                <div className="story-video" key={video.src}>
+                  <video controls preload="metadata" src={video.src} playsInline />
+                  <div className="story-video__label"><CirclePlay size={16} /> {video.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="story-panel story-panel--moment section-teal" data-story-reveal>
         <div className="editorial-container story-moment__inner"><p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> The moment</p><blockquote>“{story.moment}”</blockquote><BuntingDivider light /><span className="story-moment__proof">{story.proof}</span></div>
