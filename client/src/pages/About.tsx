@@ -102,6 +102,7 @@ export default function About() {
 
       <main>
         <section className="about-hero section-paper">
+          <div className="about-hero__image" aria-hidden="true" />
           <div className="editorial-container about-hero__inner" data-about-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / About us</p>
             <h1>About<br /><em>Team Up.</em></h1>
