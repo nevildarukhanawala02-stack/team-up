@@ -85,6 +85,7 @@ export default function HowWeCelebrate() {
 
       <main>
         <section className="celebrate-hero section-paper">
+          <div className="celebrate-hero__image" aria-hidden="true" />
           <div className="editorial-container celebrate-hero__inner" data-celebrate-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / How we celebrate</p>
             <h1>How we<br /><em>celebrate.</em></h1>
@@ -116,7 +117,7 @@ export default function HowWeCelebrate() {
                 <a className="arrow-link" href="/experiences">See the experiences we’ve shaped <ArrowRight size={18} /></a>
               </div>
               <figure className="celebrate-story__image" data-celebrate-reveal>
-                <img src="/images/team-up-hero.jpg" alt="People and community gathering during a warm Team Up celebration" />
+                <img src="/images/access-life-hero.jpg" alt="A group of children in matching Little Rockstars t-shirts posing together with a parent" />
                 <figcaption><span>Before the day begins.</span><span>With people and place in mind.</span></figcaption>
               </figure>
             </div>
