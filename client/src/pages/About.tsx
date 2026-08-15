@@ -9,10 +9,12 @@ import { ArrowDownRight, ArrowRight, Download, FileCheck2, Menu, MessageCircle, 
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
 
-const trustees = [
+const trustees: { initials: string; name: string; bio: string; color: string; photo?: string; photoAlt?: string }[] = [
   {
     initials: "ND",
     name: "Nevil Darukhanawala",
+    photo: "/images/nevil-darukhanawala.jpg",
+    photoAlt: "Nevil Darukhanawala, Trustee, Team Up",
     bio: "Nevil brings over two decades of entrepreneurial experience across web technology and business systems, most recently as founder of StartupAIAdvantage, building AI-driven automation systems that help startups and manufacturing and logistics businesses run smarter. That same systems-thinking — building things that scale without losing their heart — is what shaped how Team Up operates behind the scenes.",
     color: "gold",
   },
@@ -129,7 +131,11 @@ export default function About() {
             <div className="trustee-grid">
               {trustees.map((trustee, index) => (
                 <article className={`trustee-card trustee-card--${trustee.color}`} key={trustee.name} data-about-reveal style={{ animationDelay: `${index * 90}ms` }}>
-                  <div className="trustee-card__photo" aria-label={`${trustee.name} photograph placeholder`}><span>{trustee.initials}</span><small>Real photograph required</small></div>
+                  {trustee.photo ? (
+                    <div className="trustee-card__photo trustee-card__photo--real"><img src={trustee.photo} alt={trustee.photoAlt ?? trustee.name} /></div>
+                  ) : (
+                    <div className="trustee-card__photo" aria-label={`${trustee.name} photograph placeholder`}><span>{trustee.initials}</span><small>Real photograph required</small></div>
+                  )}
                   <div className="trustee-card__body">
                     <p className="trustee-card__role">Trustee, Team Up</p>
                     <h3>{trustee.name}</h3>
