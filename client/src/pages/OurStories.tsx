@@ -21,6 +21,7 @@ type Story = {
   moment: string;
   proof: string;
   galleryCaptions: string[];
+  galleryImages?: string[];
   videoSrc?: string;
   accent: "coral" | "gold" | "teal";
   galleryStyle: "evidence" | "timeline" | "closeups";
@@ -32,12 +33,18 @@ const stories: Story[] = [
     number: "01",
     title: "The Beat That Traveled",
     scene: "A group of young dancers from Dharavi took their moves out of their neighborhood — and onto Mumbai’s biggest stages.",
-    image: "/images/team-up-proof-dancers.jpg",
-    alt: "Young dancers performing outdoors in an urban Mumbai setting",
+    image: "/images/dharavi-dreams-hero.jpg",
+    alt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
     story: "We didn’t just point a camera at a performance. Before this day happened, we decided what story it was going to tell — that talent doesn’t need permission to be seen, it just needs room to breathe. So that’s what we built: a real stage, a real audience, and a crew who knew exactly what they were there to capture. What happened next wasn’t something we planned — it just happened, because the story underneath it was already true.",
     moment: "One video. Over 500,000 people. Zero paid promotion.",
     proof: "500K+ organic views",
     galleryCaptions: ["Warming up", "Into the light", "A real audience", "The beat carries"],
+    galleryImages: [
+      "/images/dharavi-dreams-warmup.jpg",
+      "/images/dharavi-dreams-light.jpg",
+      "/images/dharavi-dreams-cast.jpg",
+      "/images/dharavi-dreams-energy.jpg",
+    ],
     accent: "coral",
     galleryStyle: "evidence",
   },
@@ -213,7 +220,7 @@ function StorySequence({ story }: { story: Story }) {
         <div className="editorial-container">
           <div className="story-gallery__heading"><p className="eyebrow"><span className="eyebrow__dot" /> The gallery</p><p>{story.galleryStyle === "evidence" ? "The stage, the crowd, and the moment the beat left the room." : story.galleryStyle === "closeups" ? "Brushes, hands, paper, and the small concentration of making something new." : "The tree, the guests, and the details that made an ordinary afternoon feel complete."}</p></div>
           <div className={`story-gallery-grid story-gallery-grid--${story.galleryStyle}`}>
-            {story.galleryCaptions.map((caption, index) => <figure key={caption} className={`story-gallery-frame story-gallery-frame--${index + 1}`}><img src={story.image} alt={`${story.alt} — ${caption}`} /><figcaption><span>{String(index + 1).padStart(2, "0")}</span>{caption}</figcaption></figure>)}
+            {story.galleryCaptions.map((caption, index) => <figure key={caption} className={`story-gallery-frame story-gallery-frame--${index + 1}`}><img src={story.galleryImages?.[index] ?? story.image} alt={`${story.alt} — ${caption}`} /><figcaption><span>{String(index + 1).padStart(2, "0")}</span>{caption}</figcaption></figure>)}
           </div>
           <p className="story-gallery__note"><Camera size={15} strokeWidth={1.5} /> Gallery frames await the approved event image set.</p>
         </div>
