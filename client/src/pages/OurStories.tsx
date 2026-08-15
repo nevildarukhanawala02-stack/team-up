@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { ArrowDownRight, ArrowRight, Camera, CirclePlay, Menu, MessageCircle, X } from "lucide-react";
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { submitContactForm } from "@/lib/api";
 
 type Story = {
   id: string;
@@ -123,10 +124,27 @@ function useReveal() {
 export default function OurStories() {
   useReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    toast("Your next story starts with a conversation.", { description: "Connect the form to the preferred inbox before launch." });
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setSubmitting(true);
+    const result = await submitContactForm({
+      name: String(data.get("name") || ""),
+      organization: String(data.get("organization") || ""),
+      email: String(data.get("contact") || ""),
+      source: "experience_inquiry",
+      sourceDetail: "OurStories page inquiry",
+    });
+    setSubmitting(false);
+    if (result.success) {
+      toast("Thanks — we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
+      form.reset();
+    } else {
+      toast("Something went wrong.", { description: result.error });
+    }
   };
 
   const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -194,9 +212,9 @@ export default function OurStories() {
                 <label><span>Your name</span><input name="name" placeholder="How should we call you?" required /></label>
                 <label><span>Organization</span><input name="organization" placeholder="Where are you working from?" required /></label>
                 <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
-                <button type="submit" className="button button--coral">Send us an inquiry <ArrowRight size={17} /></button>
+                <button type="submit" className="button button--coral" disabled={submitting}>{submitting ? "Sending…" : "Send us an inquiry"} <ArrowRight size={17} /></button>
                 <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
-                <p className="stories-inquiry__fineprint">Short form, low pressure. This prototype does not send submissions yet.</p>
+                <p className="stories-inquiry__fineprint">Short form, low pressure. We'll get back to you soon.</p>
               </form>
             </div>
           </div>
