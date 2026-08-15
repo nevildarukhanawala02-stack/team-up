@@ -451,7 +451,7 @@ h1.hero-message em { max-width: 490px; }
 .about-origin::before { content: "“"; position: absolute; top: -54px; right: 7%; color: rgba(240,230,210,.06); font-family: "DM Serif Display", serif; font-size: 300px; line-height: 1; }
 .about-origin__inner { position: relative; z-index: 1; max-width: 900px; text-align: center; }
 .about-origin__inner .eyebrow { justify-content: center; }
-.about-origin__copy { max-width: 815px; margin: 0 auto; color: var(--paper); font-family: "DM Serif Display", serif; font-size: clamp(31px, 3.8vw, 53px); letter-spacing: -.045em; line-height: 1.04; }
+.about-origin__copy { max-width: 780px; margin: 0 auto; color: var(--paper); font-family: "DM Serif Display", serif; font-size: clamp(27px, 3.2vw, 44px); letter-spacing: -.045em; line-height: 1.12; }
 .about-origin__link { display: inline-flex; align-items: center; gap: 9px; margin-top: 35px; padding-bottom: 7px; border-bottom: 1px solid var(--gold); color: var(--gold); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .about-origin__link:hover { color: var(--paper); border-color: var(--paper); }
 .about-origin .bunting-divider { margin: 48px auto 0; }
@@ -877,7 +877,7 @@ h1.hero-message em { max-width: 490px; }
   .about-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .about-hero__chapter { right: 18px; bottom: 22px; }
   .about-origin { padding: 88px 0 82px; }
-  .about-origin__copy { font-size: 31px; }
+  .about-origin__copy { font-size: 26px; }
   .about-section-heading h2, .credentials-copy h2, .about-cta h2 { font-size: 52px; }
   .trustees-section.section-space, .credentials-section.section-space { padding-block: 91px; }
   .trustee-grid { margin-top: 57px; }
