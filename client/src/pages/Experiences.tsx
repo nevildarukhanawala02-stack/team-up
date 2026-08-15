@@ -201,12 +201,12 @@ export default function Experiences() {
                 }
                 const Icon = item.icon!;
                 return (
-                  <article className={`idea-card idea-card--${item.color}`} key={item.slug} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
+                  <Link href={`/experiences/${item.slug}`} key={item.slug} className={`idea-card idea-card--${item.color}`} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
                     <div className="idea-card__top"><span className="idea-card__number">{String(index + 1).padStart(2, "0")}</span><Icon size={26} strokeWidth={1.4} /></div>
                     <h3>{item.name}</h3>
                     <p>{item.hook}</p>
                     <span className="idea-card__arrow"><ArrowUpRightIcon /></span>
-                  </article>
+                  </Link>
                 );
               })}
             </div>
