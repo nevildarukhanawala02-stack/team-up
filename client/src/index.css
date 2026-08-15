@@ -645,7 +645,7 @@ h1.hero-message em { max-width: 490px; }
 .celebrate-hero__image { position: absolute; inset: 0 0 0 42%; background: linear-gradient(90deg, var(--paper) 0%, rgba(240,230,210,.96) 15%, rgba(240,230,210,.15) 60%, rgba(28,27,26,.12) 100%), url("/images/giving-tree-energy.jpg") center 38%/cover no-repeat; opacity: .88; }
 .celebrate-hero__inner { position: relative; z-index: 1; }
 .celebrate-hero h1 { margin: 0; font-family: "DM Serif Display", serif; font-size: clamp(66px, 8.4vw, 113px); font-weight: 400; letter-spacing: -.075em; line-height: .84; }
-.celebrate-hero h1 em { color: var(--gold); font-style: italic; }
+.celebrate-hero h1 em { color: var(--coral); font-style: italic; }
 .celebrate-hero__inner > p:not(.eyebrow) { max-width: 560px; margin: 35px 0 0; color: #5f574b; font-size: 16px; line-height: 1.72; }
 .celebrate-hero__chapter { position: absolute; right: 7%; bottom: 48px; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .08em; }
 .celebrate-hero__chapter span { color: var(--coral); padding-inline: 5px; }
@@ -653,12 +653,12 @@ h1.hero-message em { max-width: 490px; }
 .celebrate-meaning__inner { max-width: 910px; text-align: center; }
 .celebrate-meaning__inner .eyebrow { justify-content: center; }
 .celebrate-meaning h2 { margin: 0; color: var(--paper); font-family: "DM Serif Display", serif; font-size: clamp(49px, 5.7vw, 79px); font-weight: 400; letter-spacing: -.06em; line-height: .92; }
-.celebrate-meaning h2 em { color: var(--gold); font-style: italic; }
+.celebrate-meaning h2 em { color: var(--coral); font-style: italic; }
 .celebrate-meaning__inner > p:not(.eyebrow) { max-width: 780px; margin: 35px auto 0; color: rgba(240,230,210,.76); font-size: 15px; line-height: 1.8; }
 .celebrate-meaning .bunting-divider { margin: 48px auto 0; }
 .celebrate-story__heading { display: grid; grid-template-columns: .44fr 1fr; align-items: end; gap: 70px; }
 .celebrate-story__heading h2, .celebrate-small-moment h2, .celebrate-expectations__heading h2, .celebrate-cta h2 { margin: 0; font-family: "DM Serif Display", serif; font-size: clamp(50px, 5.8vw, 79px); font-weight: 400; letter-spacing: -.06em; line-height: .91; }
-.celebrate-story__heading h2 em, .celebrate-small-moment h2 em, .celebrate-expectations__heading h2 em { color: var(--gold); font-style: italic; }
+.celebrate-story__heading h2 em, .celebrate-small-moment h2 em, .celebrate-expectations__heading h2 em { color: var(--coral); font-style: italic; }
 .celebrate-story__layout { display: grid; grid-template-columns: .73fr 1.27fr; align-items: center; gap: clamp(56px, 9vw, 125px); margin-top: 90px; }
 .celebrate-story__copy { max-width: 410px; padding-left: 15px; border-left: 2px solid var(--gold); }
 .celebrate-story__copy p { margin: 0; color: #5f574b; font-size: 15px; line-height: 1.82; }
@@ -694,7 +694,7 @@ h1.hero-message em { max-width: 490px; }
 .celebrate-cta > .editorial-container > .bunting-divider { margin: 0 0 65px; }
 .celebrate-cta__layout { display: grid; grid-template-columns: 1fr .76fr; gap: clamp(55px, 10vw, 145px); align-items: start; }
 .celebrate-cta h2 { font-size: clamp(48px, 5.3vw, 74px); }
-.celebrate-cta h2 em { color: var(--gold); font-style: italic; }
+.celebrate-cta h2 em { color: var(--coral); font-style: italic; }
 .celebrate-cta__copy > p:not(.eyebrow) { max-width: 460px; margin: 34px 0 0; color: rgba(240,230,210,.75); font-size: 15px; line-height: 1.75; }
 .celebrate-inquiry { padding: 28px; background: rgba(240,230,210,.075); border: 1px solid rgba(240,230,210,.22); }
 .celebrate-inquiry label { display: block; margin-bottom: 20px; }
