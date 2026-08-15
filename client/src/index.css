@@ -440,6 +440,7 @@ h1.hero-message em { max-width: 490px; }
 .about-header { position: absolute; }
 .about-header .nav-current { color: var(--coral); }
 .about-hero { position: relative; min-height: 540px; padding: 176px 0 88px; overflow: hidden; }
+.about-hero__image { position: absolute; inset: 0 0 0 42%; background: linear-gradient(90deg, var(--paper) 0%, rgba(240,230,210,.96) 15%, rgba(240,230,210,.15) 60%, rgba(28,27,26,.12) 100%), url("/images/dharavi-dreams-cast.jpg") center 38%/cover no-repeat; opacity: .88; }
 .about-hero::after { content: "ABOUT / TEAM UP"; position: absolute; right: -24px; bottom: 54px; color: rgba(31,92,86,.14); font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .19em; transform: rotate(90deg); }
 .about-hero__inner { position: relative; z-index: 1; }
 .about-hero h1 { margin: 0; font-family: "DM Serif Display", serif; font-size: clamp(69px, 8.8vw, 120px); font-weight: 400; letter-spacing: -.07em; line-height: .84; }
@@ -722,7 +723,8 @@ h1.hero-message em { max-width: 490px; }
   .celebrate-inquiry { padding: 22px 19px; }
 }
 .stories-mobile-nav--open { max-height: 300px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
-.stories-hero { min-height: 565px; padding: 176px 0 0; position: relative; }
+.stories-hero { min-height: 565px; padding: 176px 0 0; position: relative; overflow: hidden; }
+.stories-hero__image { position: absolute; inset: 0 0 0 42%; background: linear-gradient(90deg, var(--paper) 0%, rgba(240,230,210,.96) 15%, rgba(240,230,210,.15) 60%, rgba(28,27,26,.12) 100%), url("/images/dharavi-dreams-energy.jpg") center 42%/cover no-repeat; opacity: .88; }
 .stories-hero__inner { position: relative; z-index: 1; }
 .stories-hero h1 { margin: 0; font-family: "DM Serif Display", serif; font-size: clamp(72px, 9.5vw, 128px); font-weight: 400; letter-spacing: -.075em; line-height: .82; }
 .stories-hero h1 em { color: var(--coral); font-style: italic; }
@@ -824,6 +826,7 @@ h1.hero-message em { max-width: 490px; }
 }
 @media (max-width: 560px) {
   .stories-hero { min-height: 570px; padding-top: 122px; }
+  .stories-hero__image { inset: 42% 0 0; background: linear-gradient(180deg, rgba(240,230,210,.24), rgba(28,27,26,.2)), url("/images/dharavi-dreams-energy.jpg") center 42%/cover no-repeat; }
   .stories-hero h1 { font-size: 82px; }
   .stories-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .story-index__inner { align-items: flex-start; flex-direction: column; gap: 12px; }
@@ -876,6 +879,7 @@ h1.hero-message em { max-width: 490px; }
 }
 @media (max-width: 560px) {
   .about-hero { min-height: 600px; padding-top: 122px; padding-bottom: 65px; }
+  .about-hero__image { inset: 44% 0 0; background: linear-gradient(180deg, rgba(240,230,210,.24), rgba(28,27,26,.2)), url("/images/dharavi-dreams-cast.jpg") center 38%/cover no-repeat; }
   .about-hero h1 { font-size: 77px; }
   .about-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .about-hero__chapter { right: 18px; bottom: 22px; }
