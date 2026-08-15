@@ -1045,3 +1045,33 @@ h1.hero-message em { max-width: 490px; }
   .experience-brief__grid { grid-template-columns: 1fr; gap: 28px; }
   .experience-thumbnails__grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Admin */
+.admin-login-page { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; background: var(--paper); }
+.admin-login-card { width: 100%; max-width: 380px; padding: 40px 36px; background: var(--white-paper); border: 1px solid rgba(28,27,26,.12); }
+.admin-login-card__icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-bottom: 18px; background: var(--ink); color: var(--gold); }
+.admin-login-card h1 { margin: 0 0 8px; font-family: "DM Serif Display", serif; font-size: 30px; font-weight: 400; letter-spacing: -.02em; color: var(--ink); }
+.admin-login-card > p { margin: 0 0 28px; color: #5f574b; font-size: 14px; }
+.admin-login-card form { display: flex; flex-direction: column; gap: 18px; }
+.admin-login-card label { display: block; }
+.admin-login-card label span { display: block; margin-bottom: 7px; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.admin-login-card input { width: 100%; padding: 11px 12px; border: 1px solid rgba(28,27,26,.18); background: var(--paper); font-size: 14px; color: var(--ink); outline: none; }
+.admin-login-card input:focus { border-color: var(--coral); }
+.admin-login-card__error { margin: 0; padding: 10px 12px; background: rgba(232,93,76,.1); border-left: 3px solid var(--coral); color: #8a3427; font-size: 13px; }
+.admin-login-card .button { width: 100%; margin-top: 4px; }
+
+.admin-page { min-height: 100vh; padding: 40px clamp(20px, 4vw, 56px) 80px; background: var(--paper); }
+.admin-page__header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid rgba(28,27,26,.14); }
+.admin-page__header h1 { margin: 6px 0 0; font-family: "DM Serif Display", serif; font-size: 40px; font-weight: 400; letter-spacing: -.03em; color: var(--ink); }
+.admin-page__header-actions { display: flex; align-items: center; gap: 22px; }
+.admin-page__status { padding: 40px; color: #5f574b; font-size: 14px; text-align: center; }
+.admin-page__status--error { color: var(--coral); }
+.admin-leads-table__wrap { overflow-x: auto; border: 1px solid rgba(28,27,26,.14); }
+.admin-leads-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.admin-leads-table th { padding: 12px 16px; background: var(--paper-deep); color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-align: left; white-space: nowrap; }
+.admin-leads-table td { padding: 14px 16px; border-top: 1px solid rgba(28,27,26,.1); color: var(--ink); vertical-align: top; }
+.admin-leads-table__contact { display: flex; align-items: center; gap: 6px; white-space: nowrap; color: #5f574b; }
+.admin-leads-table__contact + .admin-leads-table__contact { margin-top: 4px; }
+.admin-leads-table__message { max-width: 320px; color: #5f574b; }
+.admin-leads-table__source { display: block; font-weight: 700; }
+.admin-leads-table__source-detail { display: block; margin-top: 2px; color: #756c5d; font-size: 12px; }
