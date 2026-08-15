@@ -1,8 +1,12 @@
 import type { Express, Request, Response } from "express";
-import { desc } from "drizzle-orm";
+import { desc, eq, asc } from "drizzle-orm";
+import multer from "multer";
 import { db } from "./db/client";
-import { contactSubmissions } from "./db/schema";
+import { contactSubmissions, experiences } from "./db/schema";
 import { createAdminSession, verifyAdminSession, getSessionCookieOptions, requireAdmin, COOKIE_NAME } from "./auth";
+import { uploadToCloudinary } from "./cloudinary";
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 8 * 1024 * 1024 } });
 
 export function registerRoutes(app: Express) {
   // --- Auth ---
@@ -73,6 +77,100 @@ export function registerRoutes(app: Express) {
     } catch (err) {
       console.error("Failed to fetch leads:", err);
       res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  // --- Experiences (public read, admin write) ---
+
+  app.get("/api/experiences", async (_req: Request, res: Response) => {
+    try {
+      const rows = await db.select().from(experiences).orderBy(asc(experiences.displayOrder));
+      res.json({ experiences: rows });
+    } catch (err) {
+      console.error("Failed to fetch experiences:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.get("/api/experiences/:slug", async (req: Request, res: Response) => {
+    try {
+      const rows = await db.select().from(experiences).where(eq(experiences.slug, req.params.slug)).limit(1);
+      if (rows.length === 0) return res.status(404).json({ error: "Not found." });
+      res.json({ experience: rows[0] });
+    } catch (err) {
+      console.error("Failed to fetch experience:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.get("/api/admin/experiences", requireAdmin, async (_req: Request, res: Response) => {
+    try {
+      const rows = await db.select().from(experiences).orderBy(asc(experiences.displayOrder));
+      res.json({ experiences: rows });
+    } catch (err) {
+      console.error("Failed to fetch experiences:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.post("/api/admin/experiences", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const body = req.body as typeof experiences.$inferInsert;
+      if (!body.slug || !body.name) {
+        return res.status(400).json({ error: "Slug and name are required." });
+      }
+      const result = await db.insert(experiences).values(body);
+      res.json({ success: true, id: result[0].insertId });
+    } catch (err: any) {
+      console.error("Failed to create experience:", err);
+      if (err?.code === "ER_DUP_ENTRY") {
+        return res.status(409).json({ error: "An experience with that slug already exists." });
+      }
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.put("/api/admin/experiences/:id", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const body = req.body as Partial<typeof experiences.$inferInsert>;
+      await db.update(experiences).set(body).where(eq(experiences.id, id));
+      res.json({ success: true });
+    } catch (err: any) {
+      console.error("Failed to update experience:", err);
+      if (err?.code === "ER_DUP_ENTRY") {
+        return res.status(409).json({ error: "An experience with that slug already exists." });
+      }
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.delete("/api/admin/experiences/:id", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      await db.delete(experiences).where(eq(experiences.id, id));
+      res.json({ success: true });
+    } catch (err) {
+      console.error("Failed to delete experience:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  // --- Image upload (admin only) ---
+
+  app.post("/api/admin/upload", requireAdmin, upload.single("file"), async (req: Request, res: Response) => {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded." });
+    }
+    if (!req.file.mimetype.startsWith("image/")) {
+      return res.status(400).json({ error: "Only image files are allowed." });
+    }
+    try {
+      const url = await uploadToCloudinary(req.file.buffer, req.file.originalname);
+      res.json({ success: true, url });
+    } catch (err) {
+      console.error("Cloudinary upload failed:", err);
+      res.status(500).json({ error: "Upload failed. Please try again." });
     }
   });
 }
