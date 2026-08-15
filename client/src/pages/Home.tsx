@@ -40,13 +40,13 @@ const proofStories = [
   },
   {
     number: "03",
-    title: "Christmas for Three Hundred",
-    subtitle: "Juhu Christmas Event",
-    text: "Santa, a tree, and a celebration for 300 children who don’t always get one. A simple, full-hearted day.",
-    image: "/images/team-up-proof-christmas.jpg",
-    alt: "Children gathering around a modest Christmas celebration",
+    title: "Independence Day Children's Festival",
+    subtitle: "Giving Tree Foundation",
+    text: "A banquet hall, hundreds of kids, and a full-scale Independence Day celebration we showed up to be part of.",
+    image: "/images/giving-tree-hero.jpg",
+    alt: "A large hall full of children celebrating together under chandeliers",
     color: "gold",
-    proof: "A full-hearted day for 300 children",
+    proof: "A banquet hall full of children, celebrating together",
   },
 ];
 
