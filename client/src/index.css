@@ -149,8 +149,8 @@ img { display: block; max-width: 100%; }
 .button:active { transform: scale(0.97); }
 .button--ink { background: var(--ink); color: var(--paper); box-shadow: 5px 5px 0 var(--gold); }
 .button--ink:hover { background: var(--teal); box-shadow: 3px 3px 0 var(--gold); transform: translate(2px, 2px); }
-.button--gold { background: var(--gold); color: var(--ink); }
-.button--gold:hover { background: var(--paper); color: var(--ink); }
+.button--coral { background: var(--coral); color: var(--paper); }
+.button--coral:hover { background: var(--gold); color: var(--ink); }
 .text-link, .arrow-link { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
 .text-link { border-bottom: 1px solid var(--ink); padding-bottom: 6px; transition: color 180ms var(--ease-out), border-color 180ms var(--ease-out); }
 .text-link:hover, .arrow-link:hover { color: var(--coral); border-color: var(--coral); }
@@ -524,8 +524,6 @@ img { display: block; max-width: 100%; }
 .contact-page-form input::placeholder, .contact-page-form textarea::placeholder { color: #a19682; }
 .contact-page-form input:focus, .contact-page-form textarea:focus { border-color: var(--gold); }
 .contact-page-form .button { width: 100%; margin-top: 1px; }
-.button--coral { background: var(--gold); color: var(--ink); }
-.button--coral:hover { background: var(--coral); color: var(--paper); }
 .contact-success { padding: 45px 35px; background: var(--white-paper); border-top: 3px solid var(--gold); box-shadow: 0 10px 0 rgba(28,27,26,.045); }
 .contact-success__icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin-bottom: 35px; border: 1px solid var(--gold); color: var(--gold); }
 .contact-success h3 { margin: 0; font-family: "DM Serif Display", serif; font-size: 46px; font-weight: 400; letter-spacing: -.05em; line-height: .96; }
