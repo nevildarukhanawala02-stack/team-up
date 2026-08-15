@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
-import { LogOut, Mail, Phone, RefreshCw } from "lucide-react";
+import { Link, useLocation } from "wouter";
+import { LogOut, Mail, Phone, RefreshCw, Sparkles } from "lucide-react";
 import { adminLogout, checkAdminSession, fetchLeads, type Lead } from "@/lib/api";
 
 export default function Admin() {
@@ -48,6 +48,7 @@ export default function Admin() {
           <h1>Leads</h1>
         </div>
         <div className="admin-page__header-actions">
+          <Link href="/admin/experiences" className="text-link"><Sparkles size={15} strokeWidth={1.7} /> Experiences</Link>
           <button type="button" className="text-link" onClick={loadLeads}><RefreshCw size={15} strokeWidth={1.7} /> Refresh</button>
           <button type="button" className="text-link" onClick={handleLogout}><LogOut size={15} strokeWidth={1.7} /> Sign out</button>
         </div>
