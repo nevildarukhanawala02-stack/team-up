@@ -143,6 +143,7 @@ export default function OurStories() {
 
       <main>
         <section className="stories-hero section-paper">
+          <div className="stories-hero__image" aria-hidden="true" />
           <div className="editorial-container stories-hero__inner" data-story-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Our stories</p>
             <h1>Our<br /><em>Stories.</em></h1>
