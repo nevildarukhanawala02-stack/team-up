@@ -133,7 +133,7 @@ export default function Experiences() {
           <div className="experiences-hero__image" aria-hidden="true" />
           <div className="editorial-container experiences-hero__inner" data-experience-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Experiences</p>
-            <h1><span>Experiences</span><span>that become</span><em>stories.</em></h1>
+            <h1 className="hero-message"><span>Experiences</span><span>that become</span><em>stories.</em></h1>
             <p>Every experience we build turns into something people carry with them — a story they tell in the office, a video they share with their family, a memory that outlasts the day itself.</p>
             <BuntingDivider />
             <a href="#real-experiences" className="arrow-link">See the stories <ArrowDownRight size={18} /></a>
