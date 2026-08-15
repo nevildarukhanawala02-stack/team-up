@@ -257,7 +257,7 @@ export default function Experiences() {
                 <label><span>Organization</span><input name="organization" placeholder="Where are you working from?" required /></label>
                 <label><span>Your starting point</span><textarea name="thought" rows={3} placeholder="One line about what you’re thinking" required /></label>
                 <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
-                <button type="submit" className="button button--gold">Send us an inquiry <ArrowRight size={17} /></button>
+                <button type="submit" className="button button--coral">Send us an inquiry <ArrowRight size={17} /></button>
                 <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
                 <p className="experience-inquiry__fineprint">Short form, low pressure. This prototype does not send submissions yet.</p>
               </form>
