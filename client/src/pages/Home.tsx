@@ -42,11 +42,11 @@ const proofStories = [
     number: "03",
     title: "Independence Day Children's Festival",
     subtitle: "Giving Tree Foundation",
-    text: "A banquet hall, hundreds of kids, and a full-scale Independence Day celebration we showed up to be part of.",
+    text: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of.",
     image: "/images/giving-tree-hero.jpg",
     alt: "A large hall full of children celebrating together under chandeliers",
     color: "gold",
-    proof: "A banquet hall full of children, celebrating together",
+    proof: "300 children, celebrating together",
   },
 ];
 
