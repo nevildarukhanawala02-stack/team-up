@@ -113,7 +113,7 @@ export default function About() {
         <section className="about-origin section-ink" id="why-we-exist" data-about-reveal>
           <div className="editorial-container about-origin__inner">
             <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> Why we exist</p>
-            <p className="about-origin__copy">Team Up started with three real afternoons — a hospital ward that turned into an art studio, a group of young dancers from Dharavi who found a much bigger stage, a Christmas that felt like family for 300 kids who don’t always get one. We didn’t set out with a theory. We noticed, after the fact, that celebration works better than charity — and built an organization around doing it properly, every time.</p>
+            <p className="about-origin__copy">Team Up started with three real afternoons — a hospital ward turned art studio, young dancers from Dharavi who found a bigger stage, a Christmas that felt like family for 300 kids. We didn’t set out with a theory. We noticed, after the fact, that celebration works better than charity — and built an organization around doing it properly, every time.</p>
             <a className="about-origin__link" href="/experiences">See the full stories <ArrowRight size={17} /></a>
             <BuntingDivider light />
           </div>
