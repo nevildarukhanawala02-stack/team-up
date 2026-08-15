@@ -90,17 +90,27 @@ export default function ExperienceDetail() {
               <div className="hero-section__edge" aria-hidden="true" />
             </section>
 
-            <section className="story-panel story-panel--narrative section-paper">
-              <div className="editorial-container story-narrative__inner">
-                <p className="eyebrow"><span className="eyebrow__dot" /> Delivered with {experience.detail.partner}</p>
-                <div className="story-narrative__copy">
-                  <h3>The story<br /><em>we set out to tell.</em></h3>
+            <section className="experience-facts section-paper">
+              <div className="editorial-container experience-facts__grid">
+                <div className="experience-facts__item"><span>Format</span><strong>{format ? format.label : "—"}</strong></div>
+                <div className="experience-facts__item"><span>Category</span><strong>{category ? category.label : "—"}</strong></div>
+                <div className="experience-facts__item"><span>Delivered with</span><strong>{experience.detail.partner}</strong></div>
+                <div className="experience-facts__item"><span>The proof</span><strong>{experience.detail.proof}</strong></div>
+              </div>
+            </section>
+
+            <section className="experience-brief section-paper">
+              <div className="editorial-container experience-brief__grid">
+                <div className="experience-brief__block">
+                  <p className="experience-brief__label">The story we set out to tell</p>
                   <p>{experience.detail.storyDirection}</p>
                 </div>
                 <div className="experience-detail__ceremony">
                   <span className="experience-detail__ceremony-label">The ceremony</span>
                   <p>{experience.detail.ceremony}</p>
                 </div>
+              </div>
+              <div className="editorial-container">
                 <ul className="experience-detail__highlights">
                   {experience.detail.highlights.map((highlight) => (
                     <li key={highlight}><CircleCheck size={16} strokeWidth={1.6} /> {highlight}</li>
@@ -110,31 +120,26 @@ export default function ExperienceDetail() {
             </section>
 
             {experience.detail.gallery.length > 0 ? (
-              <section className="story-panel story-panel--gallery section-sand">
-                <div className="editorial-container">
-                  <div className={experience.detail.gallery.length === 1 ? "experience-detail__gallery-single" : "story-gallery-grid"}>
-                    {experience.detail.gallery.map((item, index) => (
-                      <figure key={item.src} className={`story-gallery-frame story-gallery-frame--${index + 1}`}>
-                        <img src={item.src} alt={item.alt} />
-                        <figcaption><span>{String(index + 1).padStart(2, "0")}</span>{item.caption}</figcaption>
-                      </figure>
-                    ))}
-                  </div>
+              <section className="experience-thumbnails section-sand">
+                <div className="editorial-container experience-thumbnails__grid">
+                  {experience.detail.gallery.map((item, index) => (
+                    <figure key={item.src}>
+                      <img src={item.src} alt={item.alt} />
+                      <figcaption><span>{String(index + 1).padStart(2, "0")}</span>{item.caption}</figcaption>
+                    </figure>
+                  ))}
                 </div>
               </section>
             ) : null}
 
-            <section className="story-panel story-panel--moment section-teal">
-              <div className="editorial-container story-moment__inner">
-                <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> The proof</p>
-                <blockquote>“{experience.detail.proof}”</blockquote>
-                <BuntingDivider light />
-                <Link href={`/stories#${experience.detail.storyLink}`} className="text-link text-link--light">Read the full story <ArrowRight size={15} strokeWidth={1.7} /></Link>
+            <section className="experience-closing section-paper">
+              <div className="editorial-container experience-closing__inner">
+                <Link href={`/stories#${experience.detail.storyLink}`} className="text-link">Read the full story <ArrowRight size={15} strokeWidth={1.7} /></Link>
                 {experience.detail.pressLinks && experience.detail.pressLinks.length > 0 ? (
                   <div className="experience-detail__press">
                     <span className="experience-detail__press-label">As seen in</span>
                     {experience.detail.pressLinks.map((press) => (
-                      <a key={press.url} href={press.url} target="_blank" rel="noreferrer" className="text-link text-link--light">{press.source}</a>
+                      <a key={press.url} href={press.url} target="_blank" rel="noreferrer" className="text-link">{press.source}</a>
                     ))}
                   </div>
                 ) : null}
