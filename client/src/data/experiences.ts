@@ -195,6 +195,40 @@ export const experiences: Experience[] = [
     },
   },
   {
+    slug: "independence-day-childrens-festival",
+    name: "Independence Day Children's Festival",
+    hook: "A banquet hall, hundreds of kids, and a full-scale Independence Day celebration we showed up to be part of.",
+    category: "community",
+    format: "festive-immersion",
+    color: "gold",
+    detail: {
+      heroImage: "/images/giving-tree-hero.jpg",
+      heroAlt: "A large hall full of children celebrating together under chandeliers",
+      partner: "Giving Tree Foundation & Way of Hope Charitable Trust",
+      storyDirection:
+        "We joined Giving Tree Foundation and Way of Hope Charitable Trust's Independence Day Children's Festival — a full-scale celebration held in a Mumbai banquet hall, complete with costumed mascots, music, and hundreds of children. We didn't organize the day; we showed up as participants, the same way we believe every brand should — present, not just providing.",
+      ceremony:
+        "Every child who came through the door left in a specially donated Sooper Dooper Kids t-shirt — a small, tangible piece of the celebration to carry home, in a hall full of colour, mascots, and kids who, for one afternoon, got to just be kids on India's biggest national holiday.",
+      highlights: [
+        "Delivered with Giving Tree Foundation and Way of Hope Charitable Trust",
+        "Hundreds of children celebrated Independence Day together",
+        "Sooper Dooper Kids t-shirts donated to every child present",
+        "Held as a full festival in a Mumbai banquet hall, not a scaled-down gesture",
+      ],
+      gallery: [
+        { src: "/images/giving-tree-mascot.jpg", alt: "A costumed mascot greeting children at the festival", caption: "A new friend arrives" },
+        { src: "/images/giving-tree-energy.jpg", alt: "Children dancing and cheering in front of the festival banner", caption: "Independence Day energy" },
+        { src: "/images/giving-tree-festival.jpg", alt: "Rows of children in matching festival t-shirts seated together", caption: "One festival, matching colours" },
+        { src: "/images/giving-tree-friends.jpg", alt: "A group of boys hugging each other, laughing", caption: "Friends first" },
+      ],
+      proof: "A banquet hall full of children, celebrating together",
+      pressLinks: [
+        { title: "Nevil Darukhanawala testimonial", source: "Giving Tree Foundation", url: "https://www.givingtree.org.in/" },
+      ],
+      storyLink: "independence-day-childrens-festival",
+    },
+  },
+  {
     slug: "sunset-sessions",
     name: "Sunset Sessions",
     hook: "An afternoon with an elder care home, built around music and memory.",
