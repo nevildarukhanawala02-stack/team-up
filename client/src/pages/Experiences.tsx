@@ -35,9 +35,9 @@ const stories = [
   {
     number: "01",
     title: "The Beat That Traveled",
-    label: "Dharavi Hip-Hop Kids",
-    image: "/images/team-up-proof-dancers.jpg",
-    alt: "Young dancers performing outdoors in an urban Mumbai setting",
+    label: "The Dharavi Dream Project",
+    image: "/images/dharavi-dreams-hero.jpg",
+    alt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
     happened: "A group of young dancers from Dharavi took their moves out of their neighborhood and onto Mumbai’s biggest stages.",
     celebrated: "We didn’t just point a camera at the performance — we decided, before the day even began, that this was a story about talent finally getting room to breathe.",
     became: "One video of the day found its way to over 500,000 people, entirely on its own.",
