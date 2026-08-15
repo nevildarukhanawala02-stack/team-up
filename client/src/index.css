@@ -798,8 +798,11 @@ h1.hero-message em { max-width: 490px; }
 .story-gallery-grid--timeline .story-gallery-frame--4 { grid-column: span 2; grid-row: 2; }
 .story-gallery__note { display: flex; align-items: center; gap: 9px; margin: 28px 0 0; color: #847b6d; font-family: "IBM Plex Mono", monospace; font-size: 9px; }
 .story-panel--video { padding: 105px 0; }
-.story-video { position: relative; max-width: 980px; margin: auto; background: var(--ink); }
-.story-video video { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; background: var(--ink); }
+.story-video-row { display: flex; justify-content: center; gap: 20px; max-width: 900px; margin: 28px auto 0; }
+.story-video-row--1 .story-video { max-width: 360px; }
+.story-video-row--2 .story-video { max-width: 300px; }
+.story-video { position: relative; flex: 1 1 260px; background: var(--ink); overflow: hidden; }
+.story-video video { display: block; width: 100%; aspect-ratio: 9/16; object-fit: cover; background: var(--ink); }
 .story-video__label { display: flex; align-items: center; gap: 9px; padding: 13px 16px; color: var(--paper); font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .story-panel--moment { padding: 126px 0 119px; }
 .story-moment__inner { max-width: 900px; text-align: center; }
@@ -918,6 +921,8 @@ h1.hero-message em { max-width: 490px; }
   .about-inquiry { padding: 22px 19px; }
 }
 @media (max-width: 560px) {
+  .story-video-row { flex-direction: column; align-items: center; }
+  .story-video-row--2 .story-video { max-width: 280px; }
   .experiences-hero__image { inset: 50% 0 0; }
   .experiences-hero h1 { font-size: 59px; }
   .experiences-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
