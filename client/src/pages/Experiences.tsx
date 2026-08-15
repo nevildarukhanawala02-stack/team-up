@@ -17,7 +17,7 @@ import {
 import { toast } from "sonner";
 import { Link } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
-import { categories, experiences } from "@/data/experiences";
+import { categories, fetchExperiencesFromApi, type Experience } from "@/data/experiences";
 import { submitContactForm } from "@/lib/api";
 
 
@@ -51,6 +51,15 @@ export default function Experiences() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [loadingExperiences, setLoadingExperiences] = useState(true);
+
+  useEffect(() => {
+    fetchExperiencesFromApi()
+      .then(setExperiences)
+      .catch(() => setExperiences([]))
+      .finally(() => setLoadingExperiences(false));
+  }, []);
 
   const visibleExperiences = activeCategory === "all" ? experiences : experiences.filter((item) => item.category === activeCategory);
 
@@ -138,6 +147,9 @@ export default function Experiences() {
                 <button key={category.id} type="button" role="tab" aria-selected={activeCategory === category.id} className={`category-filter__pill ${activeCategory === category.id ? "is-active" : ""}`} onClick={() => setActiveCategory(category.id)}>{category.label}</button>
               ))}
             </div>
+            {loadingExperiences ? (
+              <p className="idea-grid__loading">Loading experiences…</p>
+            ) : (
             <div className="idea-grid">
               {visibleExperiences.map((item, index) => {
                 if (item.detail) {
@@ -172,6 +184,7 @@ export default function Experiences() {
                 );
               })}
             </div>
+            )}
             <p className="idea-section__note" data-experience-reveal><Sparkles size={16} strokeWidth={1.5} /> Illustrative concepts — never fixed packages.</p>
           </div>
         </section>
