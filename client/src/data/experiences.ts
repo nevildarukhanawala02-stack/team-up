@@ -89,6 +89,9 @@ export interface Experience {
   format: EngagementFormat;
   color: "gold" | "coral" | "teal";
   icon?: LucideIcon;
+  /** Illustrative mood image for concept cards — never claims to document a real event (no "Delivered" badge shows for these). */
+  image?: string;
+  imageAlt?: string;
   detail?: ExperienceDetail;
   preview?: ConceptPreview;
 }
@@ -196,6 +199,8 @@ export const experiences: Experience[] = [
     format: "volunteering",
     color: "gold",
     icon: Music2,
+    image: "/images/sunset-sessions.jpg",
+    imageAlt: "An older man and a younger visitor sitting together on a veranda at golden hour, listening to music",
     preview: {
       description:
         "Picture an afternoon built entirely around music and memory — employees sitting with residents at an elder care home, swapping songs and stories at conversation pace rather than a schedule. A day like this could turn quietly into the most affecting one your team has, without ever needing to try hard to be moving.",
@@ -215,6 +220,8 @@ export const experiences: Experience[] = [
     format: "volunteering",
     color: "coral",
     icon: ChefHat,
+    image: "/images/the-little-chefs.jpg",
+    imageAlt: "An adult and a child cooking together at a kitchen counter, both laughing",
     preview: {
       description:
         "Employees and children from a community kitchen program, cooking side by side rather than employees serving and children receiving. A day like this could end with everyone sitting down to eat the meal they made together — a small shift that changes the whole shape of the afternoon.",
@@ -234,6 +241,8 @@ export const experiences: Experience[] = [
     format: "festive-immersion",
     color: "teal",
     icon: WandSparkles,
+    image: "/images/wonder-day.jpg",
+    imageAlt: "A room full of children leaning forward in wide-eyed wonder, lit by a warm spotlight",
     preview: {
       description:
         "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way. This kind of day could be built around one performer holding a room's attention completely — no big production, just genuine astonishment — with employees seated among the kids, not standing at the back.",
@@ -253,6 +262,8 @@ export const experiences: Experience[] = [
     format: "volunteering",
     color: "gold",
     icon: TreePine,
+    image: "/images/green-relay.jpg",
+    imageAlt: "A line of young adults passing a sapling hand to hand across a field",
     preview: {
       description:
         "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task. A day like this could turn a typically heads-down activity into something teams do together — planting in bursts, cheering each other on, ending with everyone seeing the full result at once.",
@@ -272,6 +283,8 @@ export const experiences: Experience[] = [
     format: "volunteering",
     color: "coral",
     icon: BookHeart,
+    image: "/images/storytellers-circle.jpg",
+    imageAlt: "Children sitting in a circle listening to an adult tell a story from an open book",
     preview: {
       description:
         "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording. This could look like small pairings or groups, each choosing or shaping a story together, recorded simply enough that every child goes home with something to replay.",
@@ -291,6 +304,8 @@ export const experiences: Experience[] = [
     format: "showcase",
     color: "teal",
     icon: Store,
+    image: "/images/her-turn-to-shine.jpg",
+    imageAlt: "A woman artisan at her market stall, mid-conversation with a smiling customer",
     preview: {
       description:
         "A showcase and market day for local women artisans and entrepreneurs, with employees as first customers and cheerleaders rather than passive attendees. A day like this could put real stalls, real products, and real transactions at the center — employees buying, asking questions, giving the kind of attention a first customer gives.",
@@ -310,6 +325,8 @@ export const experiences: Experience[] = [
     format: "volunteering",
     color: "gold",
     icon: Accessibility,
+    image: "/images/sports-day-no-sidelines.jpg",
+    imageAlt: "Two teammates, one using a wheelchair, reaching for a basketball mid-play",
     preview: {
       description:
         "A joint sports day with a differently-abled community group, where everyone plays and nobody just watches. This could mean mixed teams from the start, formats adapted so everyone genuinely plays, and no separate activity running on the sidelines while the main event happens elsewhere.",
@@ -329,6 +346,8 @@ export const experiences: Experience[] = [
     format: "showcase",
     color: "coral",
     icon: HandHeart,
+    image: "/images/threads-of-home.jpg",
+    imageAlt: "Two pairs of hands working together on a loom with brightly colored thread",
     preview: {
       description:
         "A textile or craft workshop with a rural artisan collective, styled into a small showcase at the end of the day. A day like this could pair employees with artisans learning a real technique — not a simplified demo — with the pieces made that day on display at a closing showcase everyone walks through together.",
@@ -348,6 +367,8 @@ export const experiences: Experience[] = [
     format: "volunteering",
     color: "teal",
     icon: Waves,
+    image: "/images/guardians-of-the-coast.jpg",
+    imageAlt: "A group walking along a shoreline at golden hour carrying cleanup bags",
     preview: {
       description:
         "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore. This could mean mixed teams of employees and youth group members working sections together, a friendly count-and-compare at the end, and enough built into the day that the cleanup itself doesn't feel like the whole point.",
@@ -367,6 +388,8 @@ export const experiences: Experience[] = [
     format: "festive-immersion",
     color: "gold",
     icon: Shield,
+    image: "/images/heroes-in-uniform.jpg",
+    imageAlt: "An elderly veteran telling a story to an attentive group under warm string lights",
     preview: {
       description:
         "A felicitation and storytelling afternoon honoring armed forces veterans and their families. A day like this could center on veterans telling their own stories rather than being spoken about — employees as an attentive audience, a small ceremony of recognition, family members included as honored guests.",
