@@ -1,6 +1,8 @@
 import mysql from "mysql2/promise";
 import { drizzle } from "drizzle-orm/mysql2";
 import * as schema from "./schema";
+import { experiences } from "./schema";
+import seedExperiencesData from "./seed-experiences.json";
 
 if (!process.env.MYSQL_URL) {
   throw new Error("MYSQL_URL is not set. Add a MySQL database on Railway and link it to this service.");
@@ -49,5 +51,54 @@ export async function ensureSchema() {
     )
   `);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS experiences (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      slug VARCHAR(128) NOT NULL UNIQUE,
+      name VARCHAR(255) NOT NULL,
+      hook TEXT NOT NULL,
+      category VARCHAR(32) NOT NULL,
+      format VARCHAR(32) NOT NULL,
+      color VARCHAR(16) NOT NULL,
+      is_real BOOLEAN NOT NULL DEFAULT FALSE,
+      display_order INT NOT NULL DEFAULT 0,
+      icon_name VARCHAR(64),
+      image VARCHAR(500),
+      image_alt VARCHAR(500),
+      preview_description TEXT,
+      preview_possible_elements JSON,
+      hero_image VARCHAR(500),
+      hero_alt VARCHAR(500),
+      partner VARCHAR(255),
+      story_direction TEXT,
+      ceremony TEXT,
+      highlights JSON,
+      gallery JSON,
+      proof VARCHAR(255),
+      press_links JSON,
+      story_link VARCHAR(128),
+      image_placeholder BOOLEAN DEFAULT FALSE,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )
+  `);
+
+  await seedExperiencesIfEmpty();
+
   console.log("Database schema ready.");
+}
+
+/**
+ * Populates the experiences table from the bundled seed JSON, but only if
+ * the table is currently empty — this runs safely on every boot without
+ * ever overwriting real admin edits made after the first deploy.
+ */
+async function seedExperiencesIfEmpty() {
+  const existing = await db.select({ id: experiences.id }).from(experiences).limit(1);
+  if (existing.length > 0) return;
+
+  for (const item of seedExperiencesData) {
+    await db.insert(experiences).values(item as typeof experiences.$inferInsert);
+  }
+  console.log(`Seeded ${seedExperiencesData.length} experiences.`);
 }
