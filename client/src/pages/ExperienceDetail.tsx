@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, CircleCheck, Menu, MessageCircle, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, CircleCheck, CircleHelp, Menu, MessageCircle, X } from "lucide-react";
 import { toast } from "sonner";
 import { Link, useParams } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
-import { categories, experiences } from "@/data/experiences";
+import { categories, experiences, formats } from "@/data/experiences";
 import NotFound from "@/pages/NotFound";
 
 export default function ExperienceDetail() {
@@ -36,6 +36,7 @@ export default function ExperienceDetail() {
 
   const { detail } = experience;
   const category = categories.find((item) => item.id === experience.category);
+  const format = formats.find((item) => item.id === experience.format);
 
   return (
     <div className="experiences-page">
@@ -71,7 +72,7 @@ export default function ExperienceDetail() {
           <div className="hero-section__inner editorial-container">
             <div className="hero-copy">
               <Link href="/experiences" className="text-link experience-detail__back"><ArrowLeft size={15} strokeWidth={1.7} /> All experiences</Link>
-              {category ? <p className="eyebrow"><span className="eyebrow__dot" /> {category.label}</p> : null}
+              <p className="eyebrow"><span className="eyebrow__dot" /> {format ? format.label : ""}{category ? ` · ${category.label}` : ""}</p>
               <h1 className="hero-message"><span>{experience.name}</span></h1>
               <p className="hero-lede">{experience.hook}</p>
             </div>
@@ -83,6 +84,7 @@ export default function ExperienceDetail() {
                   <span>{detail.proof}</span>
                 </div>
               </div>
+              {detail.imagePlaceholder ? <p className="experience-detail__placeholder-note"><CircleHelp size={14} strokeWidth={1.6} /> Placeholder image — pending approved event photography.</p> : null}
             </div>
           </div>
           <div className="hero-section__edge" aria-hidden="true" />
@@ -92,8 +94,12 @@ export default function ExperienceDetail() {
           <div className="editorial-container story-narrative__inner">
             <p className="eyebrow"><span className="eyebrow__dot" /> Delivered with {detail.partner}</p>
             <div className="story-narrative__copy">
-              <h3>How it<br /><em>came together.</em></h3>
-              <p>{detail.overview}</p>
+              <h3>The story<br /><em>we set out to tell.</em></h3>
+              <p>{detail.storyDirection}</p>
+            </div>
+            <div className="experience-detail__ceremony">
+              <span className="experience-detail__ceremony-label">The ceremony</span>
+              <p>{detail.ceremony}</p>
             </div>
             <ul className="experience-detail__highlights">
               {detail.highlights.map((highlight) => (
@@ -124,6 +130,14 @@ export default function ExperienceDetail() {
             <blockquote>“{detail.proof}”</blockquote>
             <BuntingDivider light />
             <Link href={`/stories#${detail.storyLink}`} className="text-link text-link--light">Read the full story <ArrowRight size={15} strokeWidth={1.7} /></Link>
+            {detail.pressLinks && detail.pressLinks.length > 0 ? (
+              <div className="experience-detail__press">
+                <span className="experience-detail__press-label">As seen in</span>
+                {detail.pressLinks.map((press) => (
+                  <a key={press.url} href={press.url} target="_blank" rel="noreferrer" className="text-link text-link--light">{press.source}</a>
+                ))}
+              </div>
+            ) : null}
           </div>
         </section>
 
