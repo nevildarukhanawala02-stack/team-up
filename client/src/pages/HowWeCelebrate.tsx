@@ -164,7 +164,7 @@ export default function HowWeCelebrate() {
                 <label><span>Your name</span><input name="name" placeholder="How should we call you?" required /></label>
                 <label><span>Organization</span><input name="organization" placeholder="Where are you working from?" required /></label>
                 <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
-                <button type="submit" className="button button--gold">Send us an inquiry <ArrowRight size={17} /></button>
+                <button type="submit" className="button button--coral">Send us an inquiry <ArrowRight size={17} /></button>
                 <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
                 <p className="celebrate-inquiry__fineprint">Short form, low pressure. This prototype does not send submissions yet.</p>
               </form>
