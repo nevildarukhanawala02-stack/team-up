@@ -11,6 +11,8 @@ import About from "./pages/About";
 import OurStories from "./pages/OurStories";
 import HowWeCelebrate from "./pages/HowWeCelebrate";
 import Contact from "./pages/Contact";
+import AdminLogin from "./pages/AdminLogin";
+import Admin from "./pages/Admin";
 
 
 function Router() {
@@ -23,6 +25,8 @@ function Router() {
       <Route path={"/stories"} component={OurStories} />
       <Route path={"/how-we-celebrate"} component={HowWeCelebrate} />
       <Route path={"/contact"} component={Contact} />
+      <Route path={"/admin/login"} component={AdminLogin} />
+      <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
