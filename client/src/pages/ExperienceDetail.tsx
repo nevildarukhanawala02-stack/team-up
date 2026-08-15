@@ -35,7 +35,6 @@ export default function ExperienceDetail() {
 
   const category = categories.find((item) => item.id === experience.category);
   const format = formats.find((item) => item.id === experience.format);
-  const Icon = experience.icon;
 
   return (
     <div className="experiences-page">
@@ -153,8 +152,14 @@ export default function ExperienceDetail() {
                   <p className="hero-lede">{experience.hook}</p>
                   <p className="concept-hero__flag"><Compass size={14} strokeWidth={1.7} /> A starting point, not a fixed package — nothing here has happened yet.</p>
                 </div>
-                <div className={`concept-hero__icon concept-hero__icon--${experience.color}`}>
-                  {Icon ? <Icon size={64} strokeWidth={1.1} /> : null}
+                <div className="hero-visual concept-hero__visual">
+                  <div className="hero-visual__frame">
+                    {experience.image ? <img src={experience.image} alt={experience.imageAlt ?? experience.name} /> : null}
+                    <div className="hero-visual__wash" />
+                    <div className="hero-visual__caption">
+                      <span className="idea-card__concept-badge">Concept — illustrative, not documentary</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="hero-section__edge" aria-hidden="true" />
