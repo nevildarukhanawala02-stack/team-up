@@ -67,6 +67,20 @@ export interface ExperienceDetail {
   imagePlaceholder?: boolean;
 }
 
+/**
+ * For concept ideas only — never for real, delivered experiences (those use
+ * `ExperienceDetail`). Deliberately has no `proof`, no `gallery`, no
+ * `pressLinks` — nothing that could read as a verified fact about something
+ * that hasn't happened. Framework §8: concepts stay "undefined enough to
+ * invite co-creation," never dressed up as a fixed, delivered package.
+ */
+export interface ConceptPreview {
+  /** 2-4 sentences, conditional/future voice only ("could look like", never "was" or "did"). */
+  description: string;
+  /** 3-5 illustrative possibilities — framed as options, not commitments or facts. */
+  possibleElements: string[];
+}
+
 export interface Experience {
   slug: string;
   name: string;
@@ -76,6 +90,7 @@ export interface Experience {
   color: "gold" | "coral" | "teal";
   icon?: LucideIcon;
   detail?: ExperienceDetail;
+  preview?: ConceptPreview;
 }
 
 export const experiences: Experience[] = [
@@ -173,14 +188,194 @@ export const experiences: Experience[] = [
       imagePlaceholder: true,
     },
   },
-  { slug: "sunset-sessions", name: "Sunset Sessions", hook: "An afternoon with an elder care home, built around music and memory.", category: "community", format: "volunteering", color: "gold", icon: Music2 },
-  { slug: "the-little-chefs", name: "The Little Chefs", hook: "Employees and children from a community kitchen cook together, ending in a shared meal everyone made.", category: "education", format: "volunteering", color: "coral", icon: ChefHat },
-  { slug: "wonder-day", name: "Wonder Day", hook: "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way.", category: "education", format: "festive-immersion", color: "teal", icon: WandSparkles },
-  { slug: "green-relay", name: "Green Relay", hook: "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task.", category: "environment", format: "volunteering", color: "gold", icon: TreePine },
-  { slug: "storytellers-circle", name: "Storytellers' Circle", hook: "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording.", category: "education", format: "volunteering", color: "coral", icon: BookHeart },
-  { slug: "her-turn-to-shine", name: "Her Turn to Shine", hook: "A showcase and market day for local women artisans and entrepreneurs, employees as first customers and cheerleaders.", category: "womens-empowerment", format: "showcase", color: "teal", icon: Store },
-  { slug: "sports-day-no-sidelines", name: "Sports Day, No Sidelines", hook: "A joint sports day with a differently-abled community group — everyone plays, nobody just watches.", category: "health-inclusion", format: "volunteering", color: "gold", icon: Accessibility },
-  { slug: "threads-of-home", name: "Threads of Home", hook: "A textile or craft workshop with a rural artisan collective, styled into a small showcase at the end of the day.", category: "womens-empowerment", format: "showcase", color: "coral", icon: HandHeart },
-  { slug: "guardians-of-the-coast", name: "Guardians of the Coast", hook: "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore.", category: "environment", format: "volunteering", color: "teal", icon: Waves },
-  { slug: "heroes-in-uniform", name: "Heroes in Uniform", hook: "A felicitation and storytelling afternoon honoring armed forces veterans and their families.", category: "community", format: "festive-immersion", color: "gold", icon: Shield },
+  {
+    slug: "sunset-sessions",
+    name: "Sunset Sessions",
+    hook: "An afternoon with an elder care home, built around music and memory.",
+    category: "community",
+    format: "volunteering",
+    color: "gold",
+    icon: Music2,
+    preview: {
+      description:
+        "Picture an afternoon built entirely around music and memory — employees sitting with residents at an elder care home, swapping songs and stories at conversation pace rather than a schedule. A day like this could turn quietly into the most affecting one your team has, without ever needing to try hard to be moving.",
+      possibleElements: [
+        "A playlist built from residents' own memories",
+        "One-on-one pairings, not group activities",
+        "Live or recorded music as the throughline of the day",
+        "A quiet, unhurried pace — no forced agenda",
+      ],
+    },
+  },
+  {
+    slug: "the-little-chefs",
+    name: "The Little Chefs",
+    hook: "Employees and children from a community kitchen cook together, ending in a shared meal everyone made.",
+    category: "education",
+    format: "volunteering",
+    color: "coral",
+    icon: ChefHat,
+    preview: {
+      description:
+        "Employees and children from a community kitchen program, cooking side by side rather than employees serving and children receiving. A day like this could end with everyone sitting down to eat the meal they made together — a small shift that changes the whole shape of the afternoon.",
+      possibleElements: [
+        "Employees and kids cooking as equals, not servers and served",
+        "A shared meal at the end, made by everyone at the table",
+        "Kitchen roles mixed across ages",
+        "A keepsake recipe card or photo from the day",
+      ],
+    },
+  },
+  {
+    slug: "wonder-day",
+    name: "Wonder Day",
+    hook: "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way.",
+    category: "education",
+    format: "festive-immersion",
+    color: "teal",
+    icon: WandSparkles,
+    preview: {
+      description:
+        "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way. This kind of day could be built around one performer holding a room's attention completely — no big production, just genuine astonishment — with employees seated among the kids, not standing at the back.",
+      possibleElements: [
+        "One performer, one room, full attention",
+        "Employees seated among the kids, not observing from the side",
+        "Small enough to feel intimate, not staged",
+        "A simple trick every child learns themselves",
+      ],
+    },
+  },
+  {
+    slug: "green-relay",
+    name: "Green Relay",
+    hook: "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task.",
+    category: "environment",
+    format: "volunteering",
+    color: "gold",
+    icon: TreePine,
+    preview: {
+      description:
+        "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task. A day like this could turn a typically heads-down activity into something teams do together — planting in bursts, cheering each other on, ending with everyone seeing the full result at once.",
+      possibleElements: [
+        "Relay-style team structure instead of solo planting",
+        "A light, friendly energy without losing the purpose",
+        "A visible tally of what got planted",
+        "A closing moment where teams see the result together",
+      ],
+    },
+  },
+  {
+    slug: "storytellers-circle",
+    name: "Storytellers' Circle",
+    hook: "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording.",
+    category: "education",
+    format: "volunteering",
+    color: "coral",
+    icon: BookHeart,
+    preview: {
+      description:
+        "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording. This could look like small pairings or groups, each choosing or shaping a story together, recorded simply enough that every child goes home with something to replay.",
+      possibleElements: [
+        "Small pairings or groups, not one big read-aloud",
+        "Children help choose or shape the story, not just listen",
+        "A simple keepsake recording every child keeps",
+        "Room for the day to be quiet, not performative",
+      ],
+    },
+  },
+  {
+    slug: "her-turn-to-shine",
+    name: "Her Turn to Shine",
+    hook: "A showcase and market day for local women artisans and entrepreneurs, employees as first customers and cheerleaders.",
+    category: "womens-empowerment",
+    format: "showcase",
+    color: "teal",
+    icon: Store,
+    preview: {
+      description:
+        "A showcase and market day for local women artisans and entrepreneurs, with employees as first customers and cheerleaders rather than passive attendees. A day like this could put real stalls, real products, and real transactions at the center — employees buying, asking questions, giving the kind of attention a first customer gives.",
+      possibleElements: [
+        "Employees as first customers, not just visitors",
+        "Real products and real transactions, not a display-only exhibition",
+        "Artisans introducing their own work in their own words",
+        "A market energy, not a formal presentation",
+      ],
+    },
+  },
+  {
+    slug: "sports-day-no-sidelines",
+    name: "Sports Day, No Sidelines",
+    hook: "A joint sports day with a differently-abled community group — everyone plays, nobody just watches.",
+    category: "health-inclusion",
+    format: "volunteering",
+    color: "gold",
+    icon: Accessibility,
+    preview: {
+      description:
+        "A joint sports day with a differently-abled community group, where everyone plays and nobody just watches. This could mean mixed teams from the start, formats adapted so everyone genuinely plays, and no separate activity running on the sidelines while the main event happens elsewhere.",
+      possibleElements: [
+        "Mixed teams from the first whistle, not separate activities",
+        "Formats adapted so everyone genuinely plays",
+        "No sideline or spectator role for anyone",
+        "Games chosen with the community group, not for them",
+      ],
+    },
+  },
+  {
+    slug: "threads-of-home",
+    name: "Threads of Home",
+    hook: "A textile or craft workshop with a rural artisan collective, styled into a small showcase at the end of the day.",
+    category: "womens-empowerment",
+    format: "showcase",
+    color: "coral",
+    icon: HandHeart,
+    preview: {
+      description:
+        "A textile or craft workshop with a rural artisan collective, styled into a small showcase at the end of the day. A day like this could pair employees with artisans learning a real technique — not a simplified demo — with the pieces made that day on display at a closing showcase everyone walks through together.",
+      possibleElements: [
+        "A real technique taught, not a simplified demo",
+        "Employees as learners, artisans as the experts",
+        "Work-in-progress displayed at a closing showcase",
+        "Artisans presenting their own craft, in their own words",
+      ],
+    },
+  },
+  {
+    slug: "guardians-of-the-coast",
+    name: "Guardians of the Coast",
+    hook: "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore.",
+    category: "environment",
+    format: "volunteering",
+    color: "teal",
+    icon: Waves,
+    preview: {
+      description:
+        "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore. This could mean mixed teams of employees and youth group members working sections together, a friendly count-and-compare at the end, and enough built into the day that the cleanup itself doesn't feel like the whole point.",
+      possibleElements: [
+        "Mixed teams working sections together, not separate groups",
+        "A friendly tally or comparison at the end",
+        "Music or a shared meal built into the day",
+        "Framed as an adventure, not an obligation",
+      ],
+    },
+  },
+  {
+    slug: "heroes-in-uniform",
+    name: "Heroes in Uniform",
+    hook: "A felicitation and storytelling afternoon honoring armed forces veterans and their families.",
+    category: "community",
+    format: "festive-immersion",
+    color: "gold",
+    icon: Shield,
+    preview: {
+      description:
+        "A felicitation and storytelling afternoon honoring armed forces veterans and their families. A day like this could center on veterans telling their own stories rather than being spoken about — employees as an attentive audience, a small ceremony of recognition, family members included as honored guests.",
+      possibleElements: [
+        "Veterans telling their own stories, not being spoken about",
+        "A small, genuine ceremony of recognition",
+        "Family members included as honored guests",
+        "Employees as an attentive audience, not passive observers",
+      ],
+    },
+  },
 ];
