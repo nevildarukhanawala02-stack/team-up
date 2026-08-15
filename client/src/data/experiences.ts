@@ -139,8 +139,8 @@ export const experiences: Experience[] = [
     format: "volunteering",
     color: "teal",
     detail: {
-      heroImage: "/images/team-up-proof-art.jpg",
-      heroAlt: "Children creating paintings together in a bright common room",
+      heroImage: "/images/access-life-hero.jpg",
+      heroAlt: "A group of children in matching Little Rockstars t-shirts posing together with a parent",
       partner: "Access Life Assistance Foundation",
       storyDirection:
         "We decided, before the day began, that this wasn't going to be a competition with a winner — it was going to be about a room forgetting, just for a while, where it was. In partnership with Access Life Assistance Foundation, an Indian non-profit supporting over 2,050 underprivileged children with cancer and their families, we turned a hospital ward into an art studio for an afternoon.",
@@ -153,14 +153,17 @@ export const experiences: Experience[] = [
         "Part of Sooper Dooper Kids' One Purchased = One Donated pledge",
       ],
       gallery: [
-        { src: "/images/team-up-proof-art.jpg", alt: "Children creating paintings together in a bright common room", caption: "Artists first" },
+        { src: "/images/access-life-brushstroke.jpg", alt: "A child concentrating while drawing", caption: "The first brushstroke" },
+        { src: "/images/access-life-colour.jpg", alt: "A child drawing a colourful character", caption: "Colour in focus" },
+        { src: "/images/access-life-masterpiece.jpg", alt: "A group of children drawing together on the floor", caption: "A small masterpiece" },
+        { src: "/images/access-life-artists-first.jpg", alt: "A smiling child at a desk with crayons", caption: "Artists first" },
       ],
       proof: "Every one went home a winner",
       pressLinks: [
         { title: "Sooper Dooper Kids and Access Life Assistance Foundation unite to support children battling cancer", source: "Apparel Resources", url: "https://apparelresources.com/business-news/sustainability/sooper-dooper-kids-access-life-assistance-foundation-unite-support-children-battling-cancer/" },
+        { title: "Sooper Dooper Kids clothing brand partners with Access Life Assistance Foundation", source: "The CSR Journal", url: "https://thecsrjournal.in/csr-news-sooper-dooper-kids-clothing-brand-partners-access-life-assistance-foundation/" },
       ],
       storyLink: "colors-on-the-ward",
-      imagePlaceholder: true,
     },
   },
   {
