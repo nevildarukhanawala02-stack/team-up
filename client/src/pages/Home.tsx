@@ -21,10 +21,10 @@ const proofStories = [
   {
     number: "01",
     title: "The Beat That Traveled",
-    subtitle: "Dharavi Hip-Hop Kids",
+    subtitle: "The Dharavi Dream Project",
     text: "A group of young dancers from Dharavi got the stage — and the city — their talent always deserved. One video of the day crossed 500,000 views, entirely on its own.",
-    image: "/images/team-up-proof-dancers.jpg",
-    alt: "Young dancers performing outdoors in an urban Mumbai setting",
+    image: "/images/dharavi-dreams-hero.jpg",
+    alt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
     color: "coral",
     proof: "500,000 organic views",
   },
