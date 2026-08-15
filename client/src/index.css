@@ -106,7 +106,7 @@ img { display: block; max-width: 100%; }
 .editorial-container { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
 .section-paper { background: var(--paper); color: var(--ink); }
 .section-sand { background: var(--paper-deep); color: var(--ink); }
-.section-ink { background: var(--ink); color: var(--paper); }
+.section-ink { background: var(--teal); color: var(--paper); }
 .section-teal { background: var(--teal); color: var(--paper); }
 .section-space { padding-block: 128px; }
 
