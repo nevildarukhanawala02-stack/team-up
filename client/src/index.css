@@ -641,7 +641,8 @@ h1.hero-message em { max-width: 490px; }
   .contact-details__items { grid-template-columns: 1fr; gap: 24px; }
 }
 .celebrate-mobile-nav--open { max-height: 325px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
-.celebrate-hero { position: relative; min-height: 520px; padding: 176px 0 88px; }
+.celebrate-hero { position: relative; min-height: 520px; padding: 176px 0 88px; overflow: hidden; }
+.celebrate-hero__image { position: absolute; inset: 0 0 0 42%; background: linear-gradient(90deg, var(--paper) 0%, rgba(240,230,210,.96) 15%, rgba(240,230,210,.15) 60%, rgba(28,27,26,.12) 100%), url("/images/giving-tree-energy.jpg") center 38%/cover no-repeat; opacity: .88; }
 .celebrate-hero__inner { position: relative; z-index: 1; }
 .celebrate-hero h1 { margin: 0; font-family: "DM Serif Display", serif; font-size: clamp(66px, 8.4vw, 113px); font-weight: 400; letter-spacing: -.075em; line-height: .84; }
 .celebrate-hero h1 em { color: var(--gold); font-style: italic; }
@@ -718,6 +719,7 @@ h1.hero-message em { max-width: 490px; }
 }
 @media (max-width: 560px) {
   .celebrate-hero { min-height: 570px; padding-top: 122px; padding-bottom: 65px; }
+  .celebrate-hero__image { inset: 44% 0 0; background: linear-gradient(180deg, rgba(240,230,210,.24), rgba(28,27,26,.2)), url("/images/giving-tree-energy.jpg") center 38%/cover no-repeat; }
   .celebrate-hero h1 { font-size: 78px; }
   .celebrate-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .celebrate-meaning { padding: 89px 0 84px; }
