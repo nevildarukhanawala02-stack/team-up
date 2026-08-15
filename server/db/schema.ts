@@ -1,4 +1,48 @@
-import { mysqlTable, int, varchar, text, timestamp } from "drizzle-orm/mysql-core";
+import { mysqlTable, int, varchar, text, timestamp, boolean, json } from "drizzle-orm/mysql-core";
+
+/**
+ * The full experiences catalogue — real, delivered experiences and concept
+ * ideas, in one table. `isReal` decides which set of fields matter:
+ *  - isReal=true  -> heroImage/heroAlt/partner/storyDirection/ceremony/
+ *                    highlights/gallery/proof/pressLinks/storyLink are used
+ *  - isReal=false -> iconName/image/imageAlt/previewDescription/
+ *                    previewPossibleElements are used
+ * Both share slug/name/hook/category/format/color/displayOrder.
+ */
+export const experiences = mysqlTable("experiences", {
+  id: int("id").autoincrement().primaryKey(),
+  slug: varchar("slug", { length: 128 }).notNull().unique(),
+  name: varchar("name", { length: 255 }).notNull(),
+  hook: text("hook").notNull(),
+  category: varchar("category", { length: 32 }).notNull(),
+  format: varchar("format", { length: 32 }).notNull(),
+  color: varchar("color", { length: 16 }).notNull(),
+  isReal: boolean("is_real").notNull().default(false),
+  displayOrder: int("display_order").notNull().default(0),
+
+  // Concept-only fields
+  iconName: varchar("icon_name", { length: 64 }),
+  image: varchar("image", { length: 500 }),
+  imageAlt: varchar("image_alt", { length: 500 }),
+  previewDescription: text("preview_description"),
+  previewPossibleElements: json("preview_possible_elements").$type<string[]>(),
+
+  // Real/delivered-only fields
+  heroImage: varchar("hero_image", { length: 500 }),
+  heroAlt: varchar("hero_alt", { length: 500 }),
+  partner: varchar("partner", { length: 255 }),
+  storyDirection: text("story_direction"),
+  ceremony: text("ceremony"),
+  highlights: json("highlights").$type<string[]>(),
+  gallery: json("gallery").$type<{ src: string; alt: string; caption: string }[]>(),
+  proof: varchar("proof", { length: 255 }),
+  pressLinks: json("press_links").$type<{ title: string; source: string; url: string }[]>(),
+  storyLink: varchar("story_link", { length: 128 }),
+  imagePlaceholder: boolean("image_placeholder").default(false),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
 
 /**
  * A submission from any inquiry form on the site (Contact page, or any
