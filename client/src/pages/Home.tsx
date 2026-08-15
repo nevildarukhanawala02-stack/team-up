@@ -31,7 +31,7 @@ const proofStories = [
   {
     number: "02",
     title: "Colors on the Ward",
-    subtitle: "Cancer Ward Art Competition",
+    subtitle: "Access Life Assistance Foundation",
     text: "Kids on a hospital ward spent an afternoon as artists, not patients. Every single one went home a winner.",
     image: "/images/team-up-proof-art.jpg",
     alt: "Children creating paintings together in a bright common room",
