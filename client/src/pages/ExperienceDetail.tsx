@@ -3,18 +3,23 @@ import { ArrowLeft, ArrowRight, CircleCheck, CircleHelp, Compass, Menu, MessageC
 import { toast } from "sonner";
 import { Link, useParams } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
-import { categories, experiences, formats } from "@/data/experiences";
+import { categories, formats, fetchExperienceFromApi, type Experience } from "@/data/experiences";
 import { submitContactForm } from "@/lib/api";
 import NotFound from "@/pages/NotFound";
 
 export default function ExperienceDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const experience = experiences.find((item) => item.slug === slug);
+  const [experience, setExperience] = useState<Experience | null | undefined>(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setExperience(undefined);
+    if (!slug) return;
+    fetchExperienceFromApi(slug)
+      .then(setExperience)
+      .catch(() => setExperience(null));
   }, [slug]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -45,6 +50,10 @@ export default function ExperienceDetail() {
       description: "The lower-friction conversation path is ready in the design.",
     });
   };
+
+  if (experience === undefined) {
+    return <div className="idea-grid__loading" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>Loading…</div>;
+  }
 
   if (!experience || (!experience.detail && !experience.preview)) {
     return <NotFound />;
