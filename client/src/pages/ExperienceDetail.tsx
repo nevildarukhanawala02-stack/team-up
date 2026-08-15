@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, CircleCheck, CircleHelp, Menu, MessageCircle, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, CircleCheck, CircleHelp, Compass, Menu, MessageCircle, X } from "lucide-react";
 import { toast } from "sonner";
 import { Link, useParams } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
@@ -29,14 +29,13 @@ export default function ExperienceDetail() {
     });
   };
 
-  // Concept cards (no `detail`) don't have a page yet — fall back cleanly rather than 404 on real slugs mistyped.
-  if (!experience || !experience.detail) {
+  if (!experience || (!experience.detail && !experience.preview)) {
     return <NotFound />;
   }
 
-  const { detail } = experience;
   const category = categories.find((item) => item.id === experience.category);
   const format = formats.find((item) => item.id === experience.format);
+  const Icon = experience.icon;
 
   return (
     <div className="experiences-page">
@@ -68,78 +67,115 @@ export default function ExperienceDetail() {
       </header>
 
       <main>
-        <section className="hero-section section-paper">
-          <div className="hero-section__inner editorial-container">
-            <div className="hero-copy">
-              <Link href="/experiences" className="text-link experience-detail__back"><ArrowLeft size={15} strokeWidth={1.7} /> All experiences</Link>
-              <p className="eyebrow"><span className="eyebrow__dot" /> {format ? format.label : ""}{category ? ` · ${category.label}` : ""}</p>
-              <h1 className="hero-message"><span>{experience.name}</span></h1>
-              <p className="hero-lede">{experience.hook}</p>
-            </div>
-            <div className="hero-visual">
-              <div className="hero-visual__frame">
-                <img src={detail.heroImage} alt={detail.heroAlt} />
-                <div className="hero-visual__wash" />
-                <div className="hero-visual__caption">
-                  <span>{detail.proof}</span>
+        {experience.detail ? (
+          <>
+            <section className="hero-section section-paper">
+              <div className="hero-section__inner editorial-container">
+                <div className="hero-copy">
+                  <Link href="/experiences" className="text-link experience-detail__back"><ArrowLeft size={15} strokeWidth={1.7} /> All experiences</Link>
+                  <p className="eyebrow"><span className="eyebrow__dot" /> {format ? format.label : ""}{category ? ` · ${category.label}` : ""}</p>
+                  <h1 className="hero-message"><span>{experience.name}</span></h1>
+                  <p className="hero-lede">{experience.hook}</p>
+                </div>
+                <div className="hero-visual">
+                  <div className="hero-visual__frame">
+                    <img src={experience.detail.heroImage} alt={experience.detail.heroAlt} />
+                    <div className="hero-visual__wash" />
+                    <div className="hero-visual__caption">
+                      <span>{experience.detail.proof}</span>
+                    </div>
+                  </div>
+                  {experience.detail.imagePlaceholder ? <p className="experience-detail__placeholder-note"><CircleHelp size={14} strokeWidth={1.6} /> Placeholder image — pending approved event photography.</p> : null}
                 </div>
               </div>
-              {detail.imagePlaceholder ? <p className="experience-detail__placeholder-note"><CircleHelp size={14} strokeWidth={1.6} /> Placeholder image — pending approved event photography.</p> : null}
-            </div>
-          </div>
-          <div className="hero-section__edge" aria-hidden="true" />
-        </section>
+              <div className="hero-section__edge" aria-hidden="true" />
+            </section>
 
-        <section className="story-panel story-panel--narrative section-paper">
-          <div className="editorial-container story-narrative__inner">
-            <p className="eyebrow"><span className="eyebrow__dot" /> Delivered with {detail.partner}</p>
-            <div className="story-narrative__copy">
-              <h3>The story<br /><em>we set out to tell.</em></h3>
-              <p>{detail.storyDirection}</p>
-            </div>
-            <div className="experience-detail__ceremony">
-              <span className="experience-detail__ceremony-label">The ceremony</span>
-              <p>{detail.ceremony}</p>
-            </div>
-            <ul className="experience-detail__highlights">
-              {detail.highlights.map((highlight) => (
-                <li key={highlight}><CircleCheck size={16} strokeWidth={1.6} /> {highlight}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {detail.gallery.length > 0 ? (
-          <section className="story-panel story-panel--gallery section-sand">
-            <div className="editorial-container">
-              <div className={detail.gallery.length === 1 ? "experience-detail__gallery-single" : "story-gallery-grid"}>
-                {detail.gallery.map((item, index) => (
-                  <figure key={item.src} className={`story-gallery-frame story-gallery-frame--${index + 1}`}>
-                    <img src={item.src} alt={item.alt} />
-                    <figcaption><span>{String(index + 1).padStart(2, "0")}</span>{item.caption}</figcaption>
-                  </figure>
-                ))}
+            <section className="story-panel story-panel--narrative section-paper">
+              <div className="editorial-container story-narrative__inner">
+                <p className="eyebrow"><span className="eyebrow__dot" /> Delivered with {experience.detail.partner}</p>
+                <div className="story-narrative__copy">
+                  <h3>The story<br /><em>we set out to tell.</em></h3>
+                  <p>{experience.detail.storyDirection}</p>
+                </div>
+                <div className="experience-detail__ceremony">
+                  <span className="experience-detail__ceremony-label">The ceremony</span>
+                  <p>{experience.detail.ceremony}</p>
+                </div>
+                <ul className="experience-detail__highlights">
+                  {experience.detail.highlights.map((highlight) => (
+                    <li key={highlight}><CircleCheck size={16} strokeWidth={1.6} /> {highlight}</li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </section>
-        ) : null}
+            </section>
 
-        <section className="story-panel story-panel--moment section-teal">
-          <div className="editorial-container story-moment__inner">
-            <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> The proof</p>
-            <blockquote>“{detail.proof}”</blockquote>
-            <BuntingDivider light />
-            <Link href={`/stories#${detail.storyLink}`} className="text-link text-link--light">Read the full story <ArrowRight size={15} strokeWidth={1.7} /></Link>
-            {detail.pressLinks && detail.pressLinks.length > 0 ? (
-              <div className="experience-detail__press">
-                <span className="experience-detail__press-label">As seen in</span>
-                {detail.pressLinks.map((press) => (
-                  <a key={press.url} href={press.url} target="_blank" rel="noreferrer" className="text-link text-link--light">{press.source}</a>
-                ))}
-              </div>
+            {experience.detail.gallery.length > 0 ? (
+              <section className="story-panel story-panel--gallery section-sand">
+                <div className="editorial-container">
+                  <div className={experience.detail.gallery.length === 1 ? "experience-detail__gallery-single" : "story-gallery-grid"}>
+                    {experience.detail.gallery.map((item, index) => (
+                      <figure key={item.src} className={`story-gallery-frame story-gallery-frame--${index + 1}`}>
+                        <img src={item.src} alt={item.alt} />
+                        <figcaption><span>{String(index + 1).padStart(2, "0")}</span>{item.caption}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                </div>
+              </section>
             ) : null}
-          </div>
-        </section>
+
+            <section className="story-panel story-panel--moment section-teal">
+              <div className="editorial-container story-moment__inner">
+                <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> The proof</p>
+                <blockquote>“{experience.detail.proof}”</blockquote>
+                <BuntingDivider light />
+                <Link href={`/stories#${experience.detail.storyLink}`} className="text-link text-link--light">Read the full story <ArrowRight size={15} strokeWidth={1.7} /></Link>
+                {experience.detail.pressLinks && experience.detail.pressLinks.length > 0 ? (
+                  <div className="experience-detail__press">
+                    <span className="experience-detail__press-label">As seen in</span>
+                    {experience.detail.pressLinks.map((press) => (
+                      <a key={press.url} href={press.url} target="_blank" rel="noreferrer" className="text-link text-link--light">{press.source}</a>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            </section>
+          </>
+        ) : (
+          <>
+            <section className="hero-section section-paper concept-hero">
+              <div className="hero-section__inner editorial-container">
+                <div className="hero-copy">
+                  <Link href="/experiences" className="text-link experience-detail__back"><ArrowLeft size={15} strokeWidth={1.7} /> All experiences</Link>
+                  <p className="eyebrow"><span className="eyebrow__dot" /> {format ? format.label : ""}{category ? ` · ${category.label}` : ""}</p>
+                  <h1 className="hero-message"><span>{experience.name}</span></h1>
+                  <p className="hero-lede">{experience.hook}</p>
+                  <p className="concept-hero__flag"><Compass size={14} strokeWidth={1.7} /> A starting point, not a fixed package — nothing here has happened yet.</p>
+                </div>
+                <div className={`concept-hero__icon concept-hero__icon--${experience.color}`}>
+                  {Icon ? <Icon size={64} strokeWidth={1.1} /> : null}
+                </div>
+              </div>
+              <div className="hero-section__edge" aria-hidden="true" />
+            </section>
+
+            <section className="story-panel story-panel--narrative section-paper">
+              <div className="editorial-container story-narrative__inner">
+                <p className="eyebrow"><span className="eyebrow__dot" /> A possible shape for this day</p>
+                <div className="story-narrative__copy">
+                  <h3>What this<br /><em>could look like.</em></h3>
+                  <p>{experience.preview!.description}</p>
+                </div>
+                <ul className="experience-detail__highlights experience-detail__highlights--concept">
+                  {experience.preview!.possibleElements.map((element) => (
+                    <li key={element}><Compass size={16} strokeWidth={1.6} /> {element}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          </>
+        )}
 
         <section className="experience-cta section-ink" id="inquiry">
           <div className="editorial-container">
@@ -153,7 +189,7 @@ export default function ExperienceDetail() {
               <form className="experience-inquiry" onSubmit={handleSubmit}>
                 <label><span>Your name</span><input name="name" placeholder="How should we call you?" required /></label>
                 <label><span>Organization</span><input name="organization" placeholder="Where are you working from?" required /></label>
-                <label><span>Your starting point</span><textarea name="thought" rows={3} placeholder="One line about what you're thinking" required /></label>
+                <label><span>Your starting point</span><textarea name="thought" rows={3} defaultValue={`I'm interested in: ${experience.name}`} required /></label>
                 <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
                 <button type="submit" className="button button--coral">Send us an inquiry <ArrowRight size={17} /></button>
                 <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
