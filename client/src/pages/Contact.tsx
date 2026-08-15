@@ -8,20 +8,38 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Check, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { submitContactForm } from "@/lib/api";
 
 export default function Contact() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     document.title = "Contact Team Up — Start a conversation";
     return () => { document.title = "Team Up — Celebration, not charity."; };
   }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
-    toast("Thanks — we’ve got it.", { description: "We’ll be in touch soon. Connect this prototype form to the final inbox before launch." });
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setSubmitting(true);
+    const result = await submitContactForm({
+      name: String(data.get("name") || ""),
+      organization: String(data.get("organization") || ""),
+      email: String(data.get("email") || ""),
+      phone: String(data.get("phone") || ""),
+      message: String(data.get("thought") || ""),
+      source: "contact_page",
+    });
+    setSubmitting(false);
+    if (result.success) {
+      setSubmitted(true);
+      toast("Thanks — we’ve got it.", { description: "We’ll be in touch soon." });
+    } else {
+      toast("Something went wrong.", { description: result.error });
+    }
   };
 
   const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -86,7 +104,7 @@ export default function Contact() {
                 <label><span>Email</span><input type="email" name="email" placeholder="Where can we reach you?" required /></label>
                 <label><span>Phone <small>optional</small></span><input type="tel" name="phone" placeholder="If you’d prefer a call" /></label>
                 <label><span>What are you thinking?</span><textarea name="thought" rows={4} placeholder="A rough idea is more than enough" required /></label>
-                <button type="submit" className="button button--coral">Send inquiry <ArrowRight size={17} /></button>
+                <button type="submit" className="button button--coral" disabled={submitting}>{submitting ? "Sending…" : "Send inquiry"} <ArrowRight size={17} /></button>
               </form>
             )}
           </div>
