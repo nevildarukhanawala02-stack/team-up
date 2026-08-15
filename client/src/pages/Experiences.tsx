@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
-  CircleHelp,
   Menu,
   MessageCircle,
   Sparkles,
@@ -20,38 +19,6 @@ import { Link } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
 import { categories, experiences } from "@/data/experiences";
 
-const stories = [
-  {
-    number: "01",
-    title: "The Beat That Traveled",
-    label: "The Dharavi Dream Project",
-    image: "/images/dharavi-dreams-hero.jpg",
-    alt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
-    happened: "A group of young dancers from Dharavi took their moves out of their neighborhood and onto Mumbai’s biggest stages.",
-    celebrated: "We partnered with Rahi Theatre Collaboration and The Dharavi Dream Project on Dharavi Dreams — India’s first musical hip-hop theatre production, written and directed by Neha Singh, with thirteen teenage artists from Dharavi taking the stage in specially made Sooper Dooper Kids t-shirts.",
-    became: "One video of the day found its way to over 500,000 people, entirely on its own.",
-  },
-  {
-    number: "02",
-    title: "Colors on the Ward",
-    label: "Access Life Assistance Foundation",
-    image: "/images/team-up-proof-art.jpg",
-    alt: "Children creating paintings together in a bright common room",
-    happened: "For one afternoon, a hospital ward became an art studio, and every child in it became an artist first, a patient second.",
-    celebrated: "Every participant went home with a Sooper Dooper Kids t-shirt and a win. The story here wasn’t the competition — it was watching a room forget, for a while, where it was.",
-    became: "A room full of colour, focus, and a reason to leave smiling.",
-  },
-  {
-    number: "03",
-    title: "Christmas for Three Hundred",
-    label: "Juhu Christmas Event",
-    image: "/images/team-up-proof-christmas.jpg",
-    alt: "Children gathering around a modest Christmas celebration",
-    happened: "Three hundred children, a decorated tree, Santa, and an afternoon that felt like any other family’s Christmas — because it was one.",
-    celebrated: "The celebration wasn’t added on top of the day. It was the whole point of it.",
-    became: "A simple, full-hearted day people could carry home.",
-  },
-];
 
 function useReveal() {
   useEffect(() => {
@@ -136,49 +103,17 @@ export default function Experiences() {
             <h1 className="hero-message"><span>Experiences</span><span>that become</span><em>stories.</em></h1>
             <p>Every experience we build turns into something people carry with them — a story they tell in the office, a video they share with their family, a memory that outlasts the day itself.</p>
             <BuntingDivider />
-            <a href="#real-experiences" className="arrow-link">See the stories <ArrowDownRight size={18} /></a>
+            <a href="#ideas" className="arrow-link">See the experiences <ArrowDownRight size={18} /></a>
           </div>
           <span className="experiences-hero__chapter">02 <span>/</span> 06</span>
-        </section>
-
-        <section className="real-experiences section-paper section-space" id="real-experiences">
-          <div className="editorial-container">
-            <div className="experiences-section-heading" data-experience-reveal>
-              <p className="eyebrow"><span className="eyebrow__dot" /> Real experiences</p>
-              <h2>A few we’ve<br /><em>already lived.</em></h2>
-              <p>What happened, how it was celebrated, and what it became. Real stories first — everything else is a starting point.</p>
-            </div>
-
-            <div className="story-list">
-              {stories.map((story, index) => (
-                <article className={`experience-story experience-story--${index % 2 === 0 ? "image-left" : "image-right"}`} key={story.title} data-experience-reveal>
-                  <div className="experience-story__image-wrap">
-                    <img src={story.image} alt={story.alt} />
-                    <span className="experience-story__number">{story.number}</span>
-                  </div>
-                  <div className="experience-story__body">
-                    <p className="experience-story__label">{story.label}</p>
-                    <h3>{story.title}</h3>
-                    <div className="experience-story__beats">
-                      <div><span>What happened</span><p>{story.happened}</p></div>
-                      <div><span>How it was celebrated</span><p>{story.celebrated}</p></div>
-                      <div><span>What it became</span><p>{story.became}</p></div>
-                    </div>
-                    <span className="experience-story__rule" aria-hidden="true" />
-                  </div>
-                </article>
-              ))}
-            </div>
-            <p className="experiences-placeholder-note" data-experience-reveal><CircleHelp size={17} strokeWidth={1.5} /> Story images are placeholders for this prototype and should be replaced with approved event photography.</p>
-          </div>
         </section>
 
         <section className="idea-section section-sand section-space" id="ideas">
           <div className="editorial-container">
             <div className="experiences-section-heading experiences-section-heading--ideas" data-experience-reveal>
-              <p className="eyebrow"><span className="eyebrow__dot" /> Experience ideas</p>
-              <h2>Some ideas we’re<br /><em>already excited about.</em></h2>
-              <p>These aren’t packages, and they’re not fixed — they’re starting points. Tell us what excites you about one, and we’ll shape it around your team, your cause, and your budget.</p>
+              <p className="eyebrow"><span className="eyebrow__dot" /> Real work, and what's next</p>
+              <h2>A few we’ve lived,<br /><em>and what we’re excited about next.</em></h2>
+              <p>The photo cards below are real, delivered days — click through for the full story. Everything else is a starting point, not a fixed package. Tell us what excites you, and we’ll shape it around your team, your cause, and your budget.</p>
             </div>
             <div className="category-filter" role="tablist" aria-label="Filter experiences by category" data-experience-reveal>
               <button type="button" role="tab" aria-selected={activeCategory === "all"} className={`category-filter__pill ${activeCategory === "all" ? "is-active" : ""}`} onClick={() => setActiveCategory("all")}>All</button>
