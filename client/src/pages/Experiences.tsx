@@ -134,10 +134,20 @@ export default function Experiences() {
                     </Link>
                   );
                 }
-                const Icon = item.icon!;
+                if (item.image) {
+                  return (
+                    <Link href={`/experiences/${item.slug}`} key={item.slug} className={`idea-card idea-card--${item.color} idea-card--real`} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
+                      <img className="idea-card__photo" src={item.image} alt={item.imageAlt ?? item.name} />
+                      <div className="idea-card__top"><span className="idea-card__number">{String(index + 1).padStart(2, "0")}</span><span className="idea-card__concept-badge">Concept</span></div>
+                      <h3>{item.name}</h3>
+                      <p>{item.hook}</p>
+                      <span className="idea-card__arrow"><ArrowUpRightIcon /></span>
+                    </Link>
+                  );
+                }
                 return (
                   <Link href={`/experiences/${item.slug}`} key={item.slug} className={`idea-card idea-card--${item.color}`} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
-                    <div className="idea-card__top"><span className="idea-card__number">{String(index + 1).padStart(2, "0")}</span><Icon size={26} strokeWidth={1.4} /></div>
+                    <div className="idea-card__top"><span className="idea-card__number">{String(index + 1).padStart(2, "0")}</span></div>
                     <h3>{item.name}</h3>
                     <p>{item.hook}</p>
                     <span className="idea-card__arrow"><ArrowUpRightIcon /></span>
