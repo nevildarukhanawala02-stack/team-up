@@ -7,29 +7,18 @@
 
 import { useEffect, useState } from "react";
 import {
-  Accessibility,
   ArrowDownRight,
   ArrowRight,
-  BookHeart,
-  ChefHat,
   CircleHelp,
-  Flower2,
-  HandHeart,
-  Leaf,
   Menu,
   MessageCircle,
-  Music2,
-  Shield,
   Sparkles,
-  Store,
-  TreePine,
-  UsersRound,
-  WandSparkles,
-  Waves,
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { Link } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { categories, experiences } from "@/data/experiences";
 
 const stories = [
   {
@@ -39,17 +28,17 @@ const stories = [
     image: "/images/dharavi-dreams-hero.jpg",
     alt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
     happened: "A group of young dancers from Dharavi took their moves out of their neighborhood and onto Mumbai’s biggest stages.",
-    celebrated: "We didn’t just point a camera at the performance — we decided, before the day even began, that this was a story about talent finally getting room to breathe.",
+    celebrated: "We partnered with Rahi Theatre Collaboration and The Dharavi Dream Project on Dharavi Dreams — India’s first musical hip-hop theatre production, written and directed by Neha Singh, with thirteen teenage artists from Dharavi taking the stage in specially made Sooper Dooper Kids t-shirts.",
     became: "One video of the day found its way to over 500,000 people, entirely on its own.",
   },
   {
     number: "02",
     title: "Colors on the Ward",
-    label: "Cancer Ward Art Competition",
+    label: "Access Life Assistance Foundation",
     image: "/images/team-up-proof-art.jpg",
     alt: "Children creating paintings together in a bright common room",
     happened: "For one afternoon, a hospital ward became an art studio, and every child in it became an artist first, a patient second.",
-    celebrated: "Every participant went home with a Super Duper Kids t-shirt and a win. The story here wasn’t the competition — it was watching a room forget, for a while, where it was.",
+    celebrated: "Every participant went home with a Sooper Dooper Kids t-shirt and a win. The story here wasn’t the competition — it was watching a room forget, for a while, where it was.",
     became: "A room full of colour, focus, and a reason to leave smiling.",
   },
   {
@@ -62,19 +51,6 @@ const stories = [
     celebrated: "The celebration wasn’t added on top of the day. It was the whole point of it.",
     became: "A simple, full-hearted day people could carry home.",
   },
-];
-
-const ideas = [
-  { name: "Sunset Sessions", hook: "An afternoon with an elder care home, built around music and memory.", icon: Music2, color: "gold" },
-  { name: "The Little Chefs", hook: "Employees and children from a community kitchen cook together, ending in a shared meal everyone made.", icon: ChefHat, color: "coral" },
-  { name: "Wonder Day", hook: "A visiting magician, a room full of kids, and the simple idea that a little wonder goes a long way.", icon: WandSparkles, color: "teal" },
-  { name: "Green Relay", hook: "Tree planting, reimagined as a playful team relay instead of a quiet, solitary task.", icon: TreePine, color: "gold" },
-  { name: "Storytellers’ Circle", hook: "Employees read and tell stories to children in an education program, with the day turned into a keepsake recording.", icon: BookHeart, color: "coral" },
-  { name: "Her Turn to Shine", hook: "A showcase and market day for local women artisans and entrepreneurs, employees as first customers and cheerleaders.", icon: Store, color: "teal" },
-  { name: "Sports Day, No Sidelines", hook: "A joint sports day with a differently-abled community group — everyone plays, nobody just watches.", icon: Accessibility, color: "gold" },
-  { name: "Threads of Home", hook: "A textile or craft workshop with a rural or slum community, styled into a small showcase at the end of the day.", icon: HandHeart, color: "coral" },
-  { name: "Guardians of the Coast", hook: "A beach or riverside cleanup with a local youth group, framed as a shared adventure, not a chore.", icon: Waves, color: "teal" },
-  { name: "Heroes in Uniform", hook: "A felicitation and storytelling afternoon honoring armed forces veterans and their families.", icon: Shield, color: "gold" },
 ];
 
 function useReveal() {
@@ -105,6 +81,9 @@ function useReveal() {
 export default function Experiences() {
   useReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+
+  const visibleExperiences = activeCategory === "all" ? experiences : experiences.filter((item) => item.category === activeCategory);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -154,7 +133,7 @@ export default function Experiences() {
           <div className="experiences-hero__image" aria-hidden="true" />
           <div className="editorial-container experiences-hero__inner" data-experience-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Experiences</p>
-            <h1>Experiences that<br /><em>become stories.</em></h1>
+            <h1><span>Experiences</span><span>that become</span><em>stories.</em></h1>
             <p>Every experience we build turns into something people carry with them — a story they tell in the office, a video they share with their family, a memory that outlasts the day itself.</p>
             <BuntingDivider />
             <a href="#real-experiences" className="arrow-link">See the stories <ArrowDownRight size={18} /></a>
@@ -201,14 +180,31 @@ export default function Experiences() {
               <h2>Some ideas we’re<br /><em>already excited about.</em></h2>
               <p>These aren’t packages, and they’re not fixed — they’re starting points. Tell us what excites you about one, and we’ll shape it around your team, your cause, and your budget.</p>
             </div>
+            <div className="category-filter" role="tablist" aria-label="Filter experiences by category" data-experience-reveal>
+              <button type="button" role="tab" aria-selected={activeCategory === "all"} className={`category-filter__pill ${activeCategory === "all" ? "is-active" : ""}`} onClick={() => setActiveCategory("all")}>All</button>
+              {categories.map((category) => (
+                <button key={category.id} type="button" role="tab" aria-selected={activeCategory === category.id} className={`category-filter__pill ${activeCategory === category.id ? "is-active" : ""}`} onClick={() => setActiveCategory(category.id)}>{category.label}</button>
+              ))}
+            </div>
             <div className="idea-grid">
-              {ideas.map((idea, index) => {
-                const Icon = idea.icon;
+              {visibleExperiences.map((item, index) => {
+                if (item.detail) {
+                  return (
+                    <Link href={`/experiences/${item.slug}`} key={item.slug} className={`idea-card idea-card--${item.color} idea-card--real`} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
+                      <img className="idea-card__photo" src={item.detail.heroImage} alt={item.detail.heroAlt} />
+                      <div className="idea-card__top"><span className="idea-card__number">{String(index + 1).padStart(2, "0")}</span><span className="idea-card__real-badge">Delivered</span></div>
+                      <h3>{item.name}</h3>
+                      <p>{item.hook}</p>
+                      <span className="idea-card__arrow"><ArrowUpRightIcon /></span>
+                    </Link>
+                  );
+                }
+                const Icon = item.icon!;
                 return (
-                  <article className={`idea-card idea-card--${idea.color}`} key={idea.name} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
+                  <article className={`idea-card idea-card--${item.color}`} key={item.slug} data-experience-reveal style={{ animationDelay: `${(index % 5) * 45}ms` }}>
                     <div className="idea-card__top"><span className="idea-card__number">{String(index + 1).padStart(2, "0")}</span><Icon size={26} strokeWidth={1.4} /></div>
-                    <h3>{idea.name}</h3>
-                    <p>{idea.hook}</p>
+                    <h3>{item.name}</h3>
+                    <p>{item.hook}</p>
                     <span className="idea-card__arrow"><ArrowUpRightIcon /></span>
                   </article>
                 );
