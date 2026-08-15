@@ -4,11 +4,18 @@ import * as schema from "./schema";
 import { experiences } from "./schema";
 import seedExperiencesData from "./seed-experiences.json";
 
+// Never throw at import time — a missing/misconfigured MYSQL_URL should
+// degrade DB-backed routes gracefully (they already handle query errors),
+// not crash the whole process before the static site can even serve.
+// mysql2's createPool doesn't connect eagerly, so an unreachable/placeholder
+// URL here is safe; only an actual query attempt will fail, inside the
+// try/catch each route already has.
 if (!process.env.MYSQL_URL) {
-  throw new Error("MYSQL_URL is not set. Add a MySQL database on Railway and link it to this service.");
+  console.error("MYSQL_URL is not set — DB-backed routes will fail until it's added on Railway.");
 }
+const connectionString = process.env.MYSQL_URL || "mysql://unset:unset@localhost:3306/unset";
 
-const pool = mysql.createPool(process.env.MYSQL_URL);
+const pool = mysql.createPool(connectionString);
 
 export const db = drizzle(pool, { schema, mode: "default" });
 
