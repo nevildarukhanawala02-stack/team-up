@@ -13,6 +13,8 @@ import HowWeCelebrate from "./pages/HowWeCelebrate";
 import Contact from "./pages/Contact";
 import AdminLogin from "./pages/AdminLogin";
 import Admin from "./pages/Admin";
+import AdminExperiences from "./pages/AdminExperiences";
+import AdminExperienceForm from "./pages/AdminExperienceForm";
 
 
 function Router() {
@@ -26,6 +28,9 @@ function Router() {
       <Route path={"/how-we-celebrate"} component={HowWeCelebrate} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/admin/login"} component={AdminLogin} />
+      <Route path={"/admin/experiences/new"} component={AdminExperienceForm} />
+      <Route path={"/admin/experiences/:id"} component={AdminExperienceForm} />
+      <Route path={"/admin/experiences"} component={AdminExperiences} />
       <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
