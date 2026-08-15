@@ -132,8 +132,8 @@ img { display: block; max-width: 100%; }
 .hero-copy h1, .truth-section h2, .section-heading h2, .contact-copy h2 { margin: 0; font-family: "DM Serif Display", serif; font-weight: 400; letter-spacing: -0.055em; line-height: 0.93; }
 .hero-copy h1 { font-size: clamp(60px, 7.6vw, 108px); }
 .hero-copy h1.hero-message { display: flex; flex-direction: column; gap: 0.04em; max-width: 520px; font-size: clamp(39px, 4.4vw, 63px); line-height: 0.96; letter-spacing: -0.06em; }
-.hero-copy h1.hero-message span, .hero-copy h1.hero-message em { display: block; }
-.hero-copy h1.hero-message em { max-width: 490px; }
+h1.hero-message span, h1.hero-message em { display: block; }
+h1.hero-message em { max-width: 490px; }
 .hero-copy h1 em, .truth-section h2 em, .contact-copy h2 em { color: var(--coral); font-style: italic; }
 .hero-lede { max-width: 450px; margin: 35px 0 0; font-size: 16px; line-height: 1.75; color: #554e45; }
 .bunting-divider { width: min(310px, 100%); height: 26px; display: flex; align-items: center; gap: 9px; margin: 27px 0 30px; opacity: 0.92; }
