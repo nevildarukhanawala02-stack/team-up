@@ -133,7 +133,6 @@ export default function Home() {
         <section className="hero-section section-paper">
           <div className="hero-section__inner editorial-container">
             <div className="hero-copy" data-reveal>
-              <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / CSR experiences</p>
               <h1 className="hero-message"><span>We turn CSR employee</span><span>activities into</span><em>moments people remember.</em></h1>
               <p className="hero-lede">
                 The same cause, the same budget — shaped into a day your employees and communities will carry with them.
