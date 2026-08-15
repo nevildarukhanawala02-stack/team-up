@@ -1075,3 +1075,48 @@ h1.hero-message em { max-width: 490px; }
 .admin-leads-table__message { max-width: 320px; color: #5f574b; }
 .admin-leads-table__source { display: block; font-weight: 700; }
 .admin-leads-table__source-detail { display: block; margin-top: 2px; color: #756c5d; font-size: 12px; }
+.idea-grid__loading { padding: 60px 0; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .04em; text-align: center; }
+
+/* Admin experiences */
+.admin-experiences__toolbar { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+.admin-experiences__toolbar .button { width: auto; }
+.admin-experiences-list { border: 1px solid rgba(28,27,26,.14); }
+.admin-experiences-list__row { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 16px; padding: 14px 18px; border-top: 1px solid rgba(28,27,26,.1); }
+.admin-experiences-list__row:first-child { border-top: none; }
+.admin-experiences-list__badge-inline { position: static; }
+.admin-experiences-list__info { display: flex; flex-direction: column; gap: 3px; }
+.admin-experiences-list__info strong { color: var(--ink); font-size: 14px; }
+.admin-experiences-list__info span { color: #756c5d; font-size: 12px; font-family: "IBM Plex Mono", monospace; }
+.admin-experiences-list__actions { display: flex; align-items: center; gap: 18px; }
+.admin-experiences-list__delete { color: var(--coral); }
+
+/* Admin form */
+.admin-form__main { max-width: 760px; }
+.admin-form__back { margin-bottom: 14px; }
+.admin-form { display: flex; flex-direction: column; gap: 20px; }
+.admin-form__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.admin-form__grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+.admin-form__field { display: flex; flex-direction: column; gap: 7px; }
+.admin-form__field--narrow { max-width: 220px; }
+.admin-form__field span { color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.admin-form__field input[type="text"], .admin-form__field input[type="number"], .admin-form__field select, .admin-form__field textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid rgba(28,27,26,.18); background: var(--white-paper); font-size: 14px; color: var(--ink); outline: none; font-family: inherit;
+}
+.admin-form__field input:focus, .admin-form__field select:focus, .admin-form__field textarea:focus { border-color: var(--coral); }
+.admin-form__field textarea { resize: vertical; line-height: 1.55; }
+.admin-form__toggle { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--paper-deep); border: 1px solid rgba(28,27,26,.1); font-size: 13px; color: var(--ink); }
+.admin-form__toggle input { width: 16px; height: 16px; }
+.admin-form__section { margin-top: 8px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); font-family: "DM Serif Display", serif; font-size: 18px; color: var(--ink); }
+.admin-form__image-field { display: flex; gap: 10px; }
+.admin-form__image-field input { flex: 1; }
+.admin-form__upload-button { display: inline-flex; align-items: center; gap: 7px; padding: 10px 14px; background: var(--ink); color: var(--paper); font-size: 12px; font-weight: 700; letter-spacing: .04em; cursor: pointer; white-space: nowrap; }
+.admin-form__spin { animation: admin-spin 0.8s linear infinite; }
+@keyframes admin-spin { to { transform: rotate(360deg); } }
+.admin-form__image-preview { margin-top: 8px; max-width: 240px; max-height: 160px; object-fit: cover; border: 1px solid rgba(28,27,26,.14); }
+.admin-form__actions { display: flex; align-items: center; gap: 24px; padding-top: 8px; }
+.admin-form__actions .button { width: auto; }
+
+@media (max-width: 700px) {
+  .admin-form__grid, .admin-form__grid--3 { grid-template-columns: 1fr; }
+  .admin-experiences-list__row { grid-template-columns: 1fr; text-align: left; }
+}
