@@ -303,7 +303,7 @@ export default function Home() {
                   <span>Tell us a little</span>
                   <textarea name="message" rows={3} placeholder="What are you already planning?" required />
                 </label>
-                <button type="submit" className="button button--gold">Start a conversation <ArrowRight size={17} /></button>
+                <button type="submit" className="button button--coral">Start a conversation <ArrowRight size={17} /></button>
                 <p className="contact-form__fineprint">Prototype form — connect the preferred inbox before launch.</p>
               </form>
             </div>
