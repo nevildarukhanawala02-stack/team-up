@@ -167,34 +167,6 @@ export const experiences: Experience[] = [
     },
   },
   {
-    slug: "christmas-for-three-hundred",
-    name: "Christmas for Three Hundred",
-    hook: "Three hundred children, a decorated tree, and an afternoon that felt like family — because it was one.",
-    category: "community",
-    format: "festive-immersion",
-    color: "gold",
-    detail: {
-      heroImage: "/images/team-up-proof-christmas.jpg",
-      heroAlt: "Children gathering around a modest Christmas celebration",
-      partner: "A Juhu community partner NGO",
-      storyDirection:
-        "The celebration wasn't something we added on top of the day — it was the whole point of it. We decided this would be a full festive production, not a scaled-down gesture: Santa, a decorated tree, and the kind of Christmas afternoon every child deserves to have at least once.",
-      ceremony:
-        "Three hundred children who don't always get a Christmas like this one, got exactly that — Santa's arrival, the tree lighting, and Sooper Dooper Kids branded merch for everyone in the room, simple and full-hearted, nothing held back.",
-      highlights: [
-        "300 children at a Juhu community celebration",
-        "Full festive production — Santa, decorated tree, gifting",
-        "Sooper Dooper Kids branded merch for every child",
-      ],
-      gallery: [
-        { src: "/images/team-up-proof-christmas.jpg", alt: "Children gathering around a modest Christmas celebration", caption: "Nothing held back" },
-      ],
-      proof: "A full-hearted day for 300",
-      storyLink: "christmas-for-three-hundred",
-      imagePlaceholder: true,
-    },
-  },
-  {
     slug: "independence-day-childrens-festival",
     name: "Independence Day Children's Festival",
     hook: "A banquet hall, hundreds of kids, and a full-scale Independence Day celebration we showed up to be part of.",
