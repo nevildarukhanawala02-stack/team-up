@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { submitContactForm } from "@/lib/api";
 
 const proofStories = [
   {
@@ -80,12 +81,27 @@ function useReveal() {
 export default function Home() {
   useReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    toast("The conversation path is ready for your preferred email or form destination.", {
-      description: "This visual prototype does not send submissions yet.",
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setSubmitting(true);
+    const result = await submitContactForm({
+      name: String(data.get("name") || ""),
+      email: String(data.get("email") || ""),
+      message: String(data.get("message") || ""),
+      source: "contact_page",
+      sourceDetail: "Homepage inquiry",
     });
+    setSubmitting(false);
+    if (result.success) {
+      toast("Thanks — we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
+      form.reset();
+    } else {
+      toast("Something went wrong.", { description: result.error });
+    }
   };
 
   const closeMenu = () => setMobileOpen(false);
@@ -303,8 +319,8 @@ export default function Home() {
                   <span>Tell us a little</span>
                   <textarea name="message" rows={3} placeholder="What are you already planning?" required />
                 </label>
-                <button type="submit" className="button button--coral">Start a conversation <ArrowRight size={17} /></button>
-                <p className="contact-form__fineprint">Prototype form — connect the preferred inbox before launch.</p>
+                <button type="submit" className="button button--coral" disabled={submitting}>{submitting ? "Sending…" : "Start a conversation"} <ArrowRight size={17} /></button>
+                <p className="contact-form__fineprint">Short form, low pressure. We'll get back to you soon.</p>
               </form>
             </div>
           </div>
