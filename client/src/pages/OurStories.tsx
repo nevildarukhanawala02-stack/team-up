@@ -24,7 +24,7 @@ type Story = {
   galleryImages?: string[];
   videoSrc?: string;
   accent: "coral" | "gold" | "teal";
-  galleryStyle: "evidence" | "timeline" | "closeups";
+  galleryStyle: "evidence" | "timeline" | "closeups" | "festival";
 };
 
 const stories: Story[] = [
@@ -81,6 +81,26 @@ const stories: Story[] = [
     galleryCaptions: ["The tree goes up", "Santa arrives", "A room full of wonder", "Nothing held back"],
     accent: "gold",
     galleryStyle: "timeline",
+  },
+  {
+    id: "independence-day-childrens-festival",
+    number: "04",
+    title: "Independence Day Children's Festival",
+    scene: "A banquet hall, hundreds of kids, and a full-scale Independence Day celebration we showed up to be part of.",
+    image: "/images/giving-tree-hero.jpg",
+    alt: "A large hall full of children celebrating together under chandeliers",
+    story: "We joined Giving Tree Foundation and Way of Hope Charitable Trust's Independence Day Children's Festival, held in a Mumbai banquet hall complete with costumed mascots, music, and hundreds of children. We didn't organize the day — we showed up as participants, the same way we believe every brand should. Every child who came through the door left in a specially donated Sooper Dooper Kids t-shirt, one small, tangible piece of the celebration to carry home.",
+    moment: "Hundreds of children. One shared Independence Day.",
+    proof: "A banquet hall full of children, celebrating together",
+    galleryCaptions: ["A new friend arrives", "Independence Day energy", "One festival, matching colours", "Friends first"],
+    galleryImages: [
+      "/images/giving-tree-mascot.jpg",
+      "/images/giving-tree-energy.jpg",
+      "/images/giving-tree-festival.jpg",
+      "/images/giving-tree-friends.jpg",
+    ],
+    accent: "coral",
+    galleryStyle: "festival",
   },
 ];
 
@@ -217,7 +237,7 @@ function StorySequence({ story }: { story: Story }) {
       <section className={`story-panel story-panel--narrative story-panel--narrative-${story.galleryStyle} section-paper`} data-story-reveal>
         <div className="editorial-container story-narrative__inner">
           <p className="eyebrow"><span className="eyebrow__dot" /> The story</p>
-          <div className="story-narrative__copy"><h3>{story.galleryStyle === "timeline" ? <>A day that<br /><em>felt like family.</em></> : story.galleryStyle === "closeups" ? <>A room that<br /><em>forgot itself.</em></> : <>What happened<br /><em>beneath the day.</em></>}</h3><p>{story.story}</p></div>
+          <div className="story-narrative__copy"><h3>{story.galleryStyle === "timeline" ? <>A day that<br /><em>felt like family.</em></> : story.galleryStyle === "closeups" ? <>A room that<br /><em>forgot itself.</em></> : story.galleryStyle === "festival" ? <>A festival<br /><em>that welcomed everyone.</em></> : <>What happened<br /><em>beneath the day.</em></>}</h3><p>{story.story}</p></div>
           <div className="story-narrative__signature"><span className="story-narrative__line" /><span>{story.proof}</span></div>
           {story.galleryStyle === "timeline" ? <div className="story-timeline"><span>Tree</span><span>Santa</span><span>300 children</span><span>One full afternoon</span></div> : null}
         </div>
@@ -225,11 +245,11 @@ function StorySequence({ story }: { story: Story }) {
 
       <section className="story-panel story-panel--gallery section-sand" data-story-reveal>
         <div className="editorial-container">
-          <div className="story-gallery__heading"><p className="eyebrow"><span className="eyebrow__dot" /> The gallery</p><p>{story.galleryStyle === "evidence" ? "The stage, the crowd, and the moment the beat left the room." : story.galleryStyle === "closeups" ? "Brushes, hands, paper, and the small concentration of making something new." : "The tree, the guests, and the details that made an ordinary afternoon feel complete."}</p></div>
+          <div className="story-gallery__heading"><p className="eyebrow"><span className="eyebrow__dot" /> The gallery</p><p>{story.galleryStyle === "evidence" ? "The stage, the crowd, and the moment the beat left the room." : story.galleryStyle === "closeups" ? "Brushes, hands, paper, and the small concentration of making something new." : story.galleryStyle === "festival" ? "Mascots, music, and a hall full of colour." : "The tree, the guests, and the details that made an ordinary afternoon feel complete."}</p></div>
           <div className={`story-gallery-grid story-gallery-grid--${story.galleryStyle}`}>
             {story.galleryCaptions.map((caption, index) => <figure key={caption} className={`story-gallery-frame story-gallery-frame--${index + 1}`}><img src={story.galleryImages?.[index] ?? story.image} alt={`${story.alt} — ${caption}`} /><figcaption><span>{String(index + 1).padStart(2, "0")}</span>{caption}</figcaption></figure>)}
           </div>
-          <p className="story-gallery__note"><Camera size={15} strokeWidth={1.5} /> Gallery frames await the approved event image set.</p>
+          {!story.galleryImages ? <p className="story-gallery__note"><Camera size={15} strokeWidth={1.5} /> Gallery frames await the approved event image set.</p> : null}
         </div>
       </section>
 
