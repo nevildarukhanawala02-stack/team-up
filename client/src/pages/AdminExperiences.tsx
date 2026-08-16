@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
-import { LogOut, Plus, Trash2, Pencil, Users, Sparkles } from "lucide-react";
+import { LogOut, Plus, Trash2, Pencil, Users, Sparkles, TrendingUp } from "lucide-react";
 import { adminLogout, checkAdminSession, fetchAdminExperiences, deleteExperience } from "@/lib/api";
 import type { ExperienceRow } from "@/data/experiences";
 
@@ -60,6 +60,7 @@ export default function AdminExperiences() {
         </div>
         <div className="admin-page__header-actions">
           <Link href="/admin" className="text-link"><Users size={15} strokeWidth={1.7} /> Leads</Link>
+          <Link href="/admin/analytics" className="text-link"><TrendingUp size={15} strokeWidth={1.7} /> Analytics</Link>
           <button type="button" className="text-link" onClick={handleLogout}><LogOut size={15} strokeWidth={1.7} /> Sign out</button>
         </div>
       </header>
