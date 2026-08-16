@@ -12,18 +12,18 @@ import { submitContactForm } from "@/lib/api";
 
 const trustees: { initials: string; name: string; bio: string; color: string; photo?: string; photoAlt?: string }[] = [
   {
+    initials: "AK",
+    name: "Arvind Kukreti",
+    bio: "Arvind co-founded Ginger Domain, a Mumbai-based digital agency that has spent close to two decades building websites, ecommerce platforms, and digital marketing for businesses across India and beyond. That hands-on understanding of how stories travel online is what shapes how Team Up shows up on screen.",
+    color: "teal",
+  },
+  {
     initials: "ND",
     name: "Nevil Darukhanawala",
     photo: "/images/nevil-darukhanawala.jpg",
     photoAlt: "Nevil Darukhanawala, Trustee, Team Up",
     bio: "Nevil brings over two decades of entrepreneurial experience across web technology and business systems, most recently as founder of StartupAIAdvantage, building AI-driven automation systems that help startups and manufacturing and logistics businesses run smarter. That same systems-thinking — building things that scale without losing their heart — is what shaped how Team Up operates behind the scenes.",
     color: "gold",
-  },
-  {
-    initials: "AK",
-    name: "Arvind Kukreti",
-    bio: "Arvind co-founded Ginger Domain, a Mumbai-based digital agency that has spent close to two decades building websites, ecommerce platforms, and digital marketing for businesses across India and beyond. That hands-on understanding of how stories travel online is what shapes how Team Up shows up on screen.",
-    color: "teal",
   },
 ];
 
