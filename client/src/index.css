@@ -1077,6 +1077,46 @@ h1.hero-message em { max-width: 490px; }
 .admin-leads-table__source-detail { display: block; margin-top: 2px; color: #756c5d; font-size: 12px; }
 .idea-grid__loading { padding: 60px 0; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .04em; text-align: center; }
 
+/* Admin analytics */
+.admin-analytics__toolbar { display: flex; justify-content: flex-end; margin-bottom: 28px; }
+.admin-analytics__range-toggle { display: inline-flex; border: 1px solid rgba(28,27,26,.18); }
+.admin-analytics__range-toggle button { padding: 9px 16px; border: 0; background: transparent; color: #5f574b; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background 180ms var(--ease-out), color 180ms var(--ease-out); }
+.admin-analytics__range-toggle button + button { border-left: 1px solid rgba(28,27,26,.18); }
+.admin-analytics__range-toggle button.is-active { background: var(--ink); color: var(--gold); }
+.admin-analytics__metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; }
+.admin-analytics__metric-card { padding: 20px 22px; background: var(--white-paper); border: 1px solid rgba(28,27,26,.12); }
+.admin-analytics__metric-card span { display: block; margin-bottom: 10px; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.admin-analytics__metric-card strong { font-family: "DM Serif Display", serif; font-size: 34px; font-weight: 400; color: var(--ink); }
+.admin-analytics__row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; align-items: start; }
+.admin-analytics__panel { padding: 24px 26px 28px; background: var(--white-paper); border: 1px solid rgba(28,27,26,.12); }
+.admin-analytics__panel h2 { display: flex; align-items: center; gap: 9px; margin: 0 0 22px; font-family: "DM Serif Display", serif; font-size: 20px; font-weight: 400; color: var(--ink); }
+.admin-analytics__funnel { display: flex; flex-direction: column; gap: 18px; }
+.admin-analytics__funnel-row { display: grid; grid-template-columns: 130px 1fr 56px; align-items: center; gap: 14px; }
+.admin-analytics__funnel-label { color: #5f574b; font-size: 13px; }
+.admin-analytics__funnel-track { height: 10px; background: rgba(28,27,26,.08); }
+.admin-analytics__funnel-bar { height: 100%; background: var(--coral); transition: width 400ms var(--ease-out); }
+.admin-analytics__funnel-value { text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink); }
+.admin-analytics__leaderboard { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; counter-reset: leaderboard; }
+.admin-analytics__leaderboard li { display: grid; grid-template-columns: 1fr 90px 40px; align-items: center; gap: 12px; }
+.admin-analytics__leaderboard-name { overflow: hidden; color: var(--ink); font-size: 13px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.admin-analytics__leaderboard-track { height: 8px; background: rgba(28,27,26,.08); }
+.admin-analytics__leaderboard-bar { height: 100%; background: var(--teal); transition: width 400ms var(--ease-out); }
+.admin-analytics__leaderboard-value { text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: #5f574b; }
+
+@media (max-width: 900px) {
+  .admin-analytics__metrics { grid-template-columns: repeat(2, 1fr); }
+  .admin-analytics__row { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .admin-analytics__metrics { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .admin-analytics__metric-card { padding: 16px 18px; }
+  .admin-analytics__metric-card strong { font-size: 28px; }
+  .admin-analytics__funnel-row { grid-template-columns: 1fr; gap: 6px; }
+  .admin-analytics__funnel-value { text-align: left; }
+  .admin-analytics__leaderboard li { grid-template-columns: 1fr; gap: 6px; }
+  .admin-analytics__leaderboard-value { text-align: left; }
+}
+
 /* Admin experiences */
 .admin-experiences__toolbar { display: flex; justify-content: flex-end; margin-bottom: 24px; }
 .admin-experiences__toolbar .button { width: auto; }
