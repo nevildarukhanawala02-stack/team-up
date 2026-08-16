@@ -288,7 +288,7 @@ h1.hero-message em { max-width: 490px; }
 .contact-form { padding: 28px; background: rgba(240, 230, 210, 0.075); border: 1px solid rgba(240, 230, 210, 0.22); }
 .contact-form label { display: block; margin-bottom: 22px; }
 .contact-form label > span { display: block; margin-bottom: 8px; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
-.contact-form input, .contact-form textarea { width: 100%; resize: vertical; padding: 12px 0; border: 0; border-bottom: 1px solid rgba(240, 230, 210, 0.35); border-radius: 0; outline: none; background: transparent; color: var(--paper); font-size: 14px; line-height: 1.5; transition: border-color 180ms var(--ease-out); }
+.contact-form input, .contact-form textarea { width: 100%; resize: vertical; padding: 12px 0; border: 0; border-bottom: 1px solid rgba(240, 230, 210, 0.35); border-radius: 0; outline: none; background: transparent; color: var(--paper); font-size: 16px; line-height: 1.5; transition: border-color 180ms var(--ease-out); }
 .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(240, 230, 210, 0.45); }
 .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); }
 .contact-form .button { width: 100%; margin-top: 10px; }
@@ -417,7 +417,7 @@ h1.hero-message em { max-width: 490px; }
 .experience-inquiry { padding: 28px; background: rgba(240,230,210,.075); border: 1px solid rgba(240,230,210,.22); }
 .experience-inquiry label { display: block; margin-bottom: 20px; }
 .experience-inquiry label span { display: block; margin-bottom: 8px; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-.experience-inquiry input, .experience-inquiry textarea { width: 100%; resize: vertical; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 14px; line-height: 1.5; }
+.experience-inquiry input, .experience-inquiry textarea { width: 100%; resize: vertical; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 16px; line-height: 1.5; }
 .experience-inquiry input::placeholder, .experience-inquiry textarea::placeholder { color: rgba(240,230,210,.45); }
 .experience-inquiry input:focus, .experience-inquiry textarea:focus { border-color: var(--gold); }
 .experience-inquiry .button { width: 100%; margin-top: 8px; }
@@ -523,7 +523,7 @@ h1.hero-message em { max-width: 490px; }
 .about-inquiry { padding: 28px; background: rgba(240,230,210,.075); border: 1px solid rgba(240,230,210,.22); }
 .about-inquiry label { display: block; margin-bottom: 20px; }
 .about-inquiry label span { display: block; margin-bottom: 8px; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-.about-inquiry input { width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 14px; }
+.about-inquiry input { width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 16px; }
 .about-inquiry input::placeholder { color: rgba(240,230,210,.45); }
 .about-inquiry input:focus { border-color: var(--gold); }
 .about-inquiry .button { width: 100%; margin-top: 8px; }
@@ -574,7 +574,7 @@ h1.hero-message em { max-width: 490px; }
 .contact-page-form label { display: block; margin-bottom: 24px; }
 .contact-page-form label > span { display: block; margin-bottom: 8px; color: var(--ink); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .contact-page-form label small { color: #847b6d; font-size: 9px; font-weight: 400; letter-spacing: .05em; text-transform: none; }
-.contact-page-form input, .contact-page-form textarea { width: 100%; resize: vertical; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(28,27,26,.25); outline: 0; background: transparent; color: var(--ink); font-size: 14px; line-height: 1.5; }
+.contact-page-form input, .contact-page-form textarea { width: 100%; resize: vertical; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(28,27,26,.25); outline: 0; background: transparent; color: var(--ink); font-size: 16px; line-height: 1.5; }
 .contact-page-form input::placeholder, .contact-page-form textarea::placeholder { color: #a19682; }
 .contact-page-form input:focus, .contact-page-form textarea:focus { border-color: var(--gold); }
 .contact-page-form .button { width: 100%; margin-top: 1px; }
@@ -699,7 +699,7 @@ h1.hero-message em { max-width: 490px; }
 .celebrate-inquiry { padding: 28px; background: rgba(240,230,210,.075); border: 1px solid rgba(240,230,210,.22); }
 .celebrate-inquiry label { display: block; margin-bottom: 20px; }
 .celebrate-inquiry label span { display: block; margin-bottom: 8px; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-.celebrate-inquiry input { width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 14px; }
+.celebrate-inquiry input { width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 16px; }
 .celebrate-inquiry input::placeholder { color: rgba(240,230,210,.45); }
 .celebrate-inquiry input:focus { border-color: var(--gold); }
 .celebrate-inquiry .button { width: 100%; margin-top: 8px; }
@@ -829,7 +829,7 @@ h1.hero-message em { max-width: 490px; }
 .stories-inquiry { padding: 28px; background: rgba(240,230,210,.075); border: 1px solid rgba(240,230,210,.22); }
 .stories-inquiry label { display: block; margin-bottom: 20px; }
 .stories-inquiry label span { display: block; margin-bottom: 8px; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-.stories-inquiry input { width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 14px; }
+.stories-inquiry input { width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid rgba(240,230,210,.35); outline: 0; background: transparent; color: var(--paper); font-size: 16px; }
 .stories-inquiry input::placeholder { color: rgba(240,230,210,.45); }
 .stories-inquiry input:focus { border-color: var(--gold); }
 .stories-inquiry .button { width: 100%; margin-top: 8px; }
@@ -1055,7 +1055,7 @@ h1.hero-message em { max-width: 490px; }
 .admin-login-card form { display: flex; flex-direction: column; gap: 18px; }
 .admin-login-card label { display: block; }
 .admin-login-card label span { display: block; margin-bottom: 7px; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.admin-login-card input { width: 100%; padding: 11px 12px; border: 1px solid rgba(28,27,26,.18); background: var(--paper); font-size: 14px; color: var(--ink); outline: none; }
+.admin-login-card input { width: 100%; padding: 11px 12px; border: 1px solid rgba(28,27,26,.18); background: var(--paper); font-size: 16px; color: var(--ink); outline: none; }
 .admin-login-card input:focus { border-color: var(--coral); }
 .admin-login-card__error { margin: 0; padding: 10px 12px; background: rgba(232,93,76,.1); border-left: 3px solid var(--coral); color: #8a3427; font-size: 13px; }
 .admin-login-card .button { width: 100%; margin-top: 4px; }
@@ -1100,7 +1100,7 @@ h1.hero-message em { max-width: 490px; }
 .admin-form__field--narrow { max-width: 220px; }
 .admin-form__field span { color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .admin-form__field input[type="text"], .admin-form__field input[type="number"], .admin-form__field select, .admin-form__field textarea {
-  width: 100%; padding: 10px 12px; border: 1px solid rgba(28,27,26,.18); background: var(--white-paper); font-size: 14px; color: var(--ink); outline: none; font-family: inherit;
+  width: 100%; padding: 10px 12px; border: 1px solid rgba(28,27,26,.18); background: var(--white-paper); font-size: 16px; color: var(--ink); outline: none; font-family: inherit;
 }
 .admin-form__field input:focus, .admin-form__field select:focus, .admin-form__field textarea:focus { border-color: var(--coral); }
 .admin-form__field textarea { resize: vertical; line-height: 1.55; }
