@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import RouteTracker from "./components/RouteTracker";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Experiences from "./pages/Experiences";
@@ -15,27 +16,32 @@ import AdminLogin from "./pages/AdminLogin";
 import Admin from "./pages/Admin";
 import AdminExperiences from "./pages/AdminExperiences";
 import AdminExperienceForm from "./pages/AdminExperienceForm";
+import AdminAnalytics from "./pages/AdminAnalytics";
 
 
 function Router() {
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/experiences"} component={Experiences} />
-      <Route path={"/experiences/:slug"} component={ExperienceDetail} />
-      <Route path={"/about"} component={About} />
-      <Route path={"/stories"} component={OurStories} />
-      <Route path={"/how-we-celebrate"} component={HowWeCelebrate} />
-      <Route path={"/contact"} component={Contact} />
-      <Route path={"/admin/login"} component={AdminLogin} />
-      <Route path={"/admin/experiences/new"} component={AdminExperienceForm} />
-      <Route path={"/admin/experiences/:id"} component={AdminExperienceForm} />
-      <Route path={"/admin/experiences"} component={AdminExperiences} />
-      <Route path={"/admin"} component={Admin} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <RouteTracker />
+      <Switch>
+        <Route path={"/"} component={Home} />
+        <Route path={"/experiences"} component={Experiences} />
+        <Route path={"/experiences/:slug"} component={ExperienceDetail} />
+        <Route path={"/about"} component={About} />
+        <Route path={"/stories"} component={OurStories} />
+        <Route path={"/how-we-celebrate"} component={HowWeCelebrate} />
+        <Route path={"/contact"} component={Contact} />
+        <Route path={"/admin/login"} component={AdminLogin} />
+        <Route path={"/admin/experiences/new"} component={AdminExperienceForm} />
+        <Route path={"/admin/experiences/:id"} component={AdminExperienceForm} />
+        <Route path={"/admin/experiences"} component={AdminExperiences} />
+        <Route path={"/admin/analytics"} component={AdminAnalytics} />
+        <Route path={"/admin"} component={Admin} />
+        <Route path={"/404"} component={NotFound} />
+        {/* Final fallback route */}
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 
