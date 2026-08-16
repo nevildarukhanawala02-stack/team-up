@@ -139,6 +139,32 @@ export async function deleteExperience(id: number): Promise<{ success: boolean; 
   }
 }
 
+// --- Analytics admin ---
+
+export interface AnalyticsData {
+  range: "week" | "month";
+  metrics: {
+    visits: number;
+    pageViews: number;
+    pagesPerVisit: number;
+    experienceViews: number;
+    conversions: number;
+    conversionRate: number;
+  };
+  funnel: { label: string; value: number }[];
+  leaderboard: { slug: string; name: string; views: number }[];
+}
+
+export async function fetchAnalytics(range: "week" | "month"): Promise<AnalyticsData | { error: string }> {
+  try {
+    const res = await fetch(`/api/admin/analytics?range=${range}`);
+    if (!res.ok) return { error: "Not authenticated or something went wrong." };
+    return await res.json();
+  } catch {
+    return { error: "Couldn't reach the server." };
+  }
+}
+
 export async function uploadImage(file: File): Promise<{ success: boolean; url?: string; error?: string }> {
   try {
     const formData = new FormData();
