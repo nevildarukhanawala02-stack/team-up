@@ -90,22 +90,28 @@ export async function ensureSchema() {
     )
   `);
 
-  await seedExperiencesIfEmpty();
+  await syncMissingExperiences();
 
   console.log("Database schema ready.");
 }
 
 /**
- * Populates the experiences table from the bundled seed JSON, but only if
- * the table is currently empty — this runs safely on every boot without
- * ever overwriting real admin edits made after the first deploy.
+ * Populates the experiences table from the bundled seed JSON, inserting only
+ * slugs that don't already exist in the DB. This runs safely on every boot:
+ * it never touches or overwrites rows that already exist (including real
+ * admin edits made after launch), so it's safe even on a table that was
+ * seeded long ago and has since had new entries added to the JSON file
+ * (e.g. new concept experiences) that never made it into production.
  */
-async function seedExperiencesIfEmpty() {
-  const existing = await db.select({ id: experiences.id }).from(experiences).limit(1);
-  if (existing.length > 0) return;
+async function syncMissingExperiences() {
+  const existing = await db.select({ slug: experiences.slug }).from(experiences);
+  const existingSlugs = new Set(existing.map((row) => row.slug));
 
-  for (const item of seedExperiencesData) {
+  const missing = seedExperiencesData.filter((item) => !existingSlugs.has(item.slug));
+  if (missing.length === 0) return;
+
+  for (const item of missing) {
     await db.insert(experiences).values(item as typeof experiences.$inferInsert);
   }
-  console.log(`Seeded ${seedExperiencesData.length} experiences.`);
+  console.log(`Synced ${missing.length} missing experience(s): ${missing.map((i) => i.slug).join(", ")}`);
 }
