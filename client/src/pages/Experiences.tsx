@@ -21,9 +21,17 @@ import { categories, fetchExperiencesFromApi, type Experience } from "@/data/exp
 import { submitContactForm } from "@/lib/api";
 
 
-function useReveal() {
+function useReveal(deps: React.DependencyList) {
   useEffect(() => {
-    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-experience-reveal]"));
+    // Only scan for items not yet revealed — cards from async-loaded data
+    // (e.g. experiences fetched from the API) don't exist in the DOM on
+    // initial mount, so this must re-run once they actually render, not
+    // just once when the page first loads.
+    const items = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-experience-reveal]:not(.is-visible)"),
+    );
+    if (items.length === 0) return;
+
     if (!("IntersectionObserver" in window)) {
       items.forEach((item) => item.classList.add("is-visible"));
       return;
@@ -43,11 +51,11 @@ function useReveal() {
 
     items.forEach((item) => observer.observe(item));
     return () => observer.disconnect();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 }
 
 export default function Experiences() {
-  useReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -60,6 +68,10 @@ export default function Experiences() {
       .catch(() => setExperiences([]))
       .finally(() => setLoadingExperiences(false));
   }, []);
+
+  // Re-scan for newly-mounted reveal targets once loading finishes and
+  // whenever the visible set of cards changes (category filter switches).
+  useReveal([loadingExperiences, activeCategory, experiences.length]);
 
   const visibleExperiences = activeCategory === "all" ? experiences : experiences.filter((item) => item.category === activeCategory);
 
