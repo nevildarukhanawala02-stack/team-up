@@ -153,7 +153,7 @@ export default function Home() {
               <h1 className="hero-seo-tag">Mumbai’s Collaborative NGO</h1>
               <h2 className="hero-message"><span>Turning</span><span>Ideas into</span><em>Impact</em></h2>
               <p className="hero-lede">
-                Together We Rise. Together We Change. We bring together businesses, communities, and individuals to create lasting change across education, empowerment, and social development.
+                Every idea starts somewhere — a cause, a celebration, a story worth telling. We shape it into a day that means something, and leave behind something that lasts.
               </p>
               <BuntingDivider />
               <div className="hero-actions">
