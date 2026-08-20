@@ -222,6 +222,7 @@ export default function Experiences() {
             <p className="eyebrow"><span className="eyebrow__dot" /> How the story gets told</p>
             <h2>That’s what makes it a<br /><em>Team Up experience.</em></h2>
             <p>Before anything happens, we decide together what story the day is actually telling. That story — not just a shot list — is what gets handed to everyone on the ground, from the performers to the camera crew. Everyone shows up already knowing what they’re there to capture and create.</p>
+            <p>Then we build in a real ceremony — a spotlight moment, done properly, not an afterthought. But the day itself still isn’t the finish line. We ask, before it happens, what should still be true after it ends — and we build toward that too.</p>
             <BuntingDivider />
           </div>
         </section>
