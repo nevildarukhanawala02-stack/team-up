@@ -19,6 +19,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   Accessibility,
   BookHeart,
+  Bus,
   ChefHat,
   HandHeart,
   Music2,
@@ -53,6 +54,7 @@ export const formats: { id: EngagementFormat; label: string; description: string
 export const iconOptions: Record<string, LucideIcon> = {
   Accessibility,
   BookHeart,
+  Bus,
   ChefHat,
   HandHeart,
   Music2,
