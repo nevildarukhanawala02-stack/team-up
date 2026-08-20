@@ -9,6 +9,7 @@ import {
   ArrowDownRight,
   ArrowRight,
   Camera,
+  Heart,
   Menu,
   MoveUpRight,
   Sparkles,
@@ -33,7 +34,7 @@ const proofStories = [
     number: "02",
     title: "Colors on the Ward",
     subtitle: "Access Life Assistance Foundation",
-    text: "Kids on a hospital ward spent an afternoon as artists, not patients. Every single one went home a winner.",
+    text: "Kids on a hospital ward spent an afternoon as artists, not patients — every single one went home a winner. A few of their actual drawings are still on our site, not just photos of the day.",
     image: "/images/access-life-hero.jpg",
     alt: "A group of children in matching Little Rockstars t-shirts posing together with a parent",
     color: "teal",
@@ -43,7 +44,7 @@ const proofStories = [
     number: "03",
     title: "Independence Day Children's Festival",
     subtitle: "Giving Tree Foundation",
-    text: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of.",
+    text: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of — on a date that doesn't usually feel like theirs, made theirs for an afternoon.",
     image: "/images/giving-tree-hero.jpg",
     alt: "A large hall full of children celebrating together under chandeliers",
     color: "gold",
@@ -278,6 +279,12 @@ export default function Home() {
                 <span className="approach-card__icon approach-card__icon--teal"><span className="approach-card__spark" /></span>
                 <h3>Sometimes, add a little magic.</h3>
                 <p>A surprise, a flourish, something worth talking about afterward — when it fits.</p>
+              </article>
+              <article className="approach-card" data-reveal style={{ animationDelay: "210ms" }}>
+                <span className="approach-card__index">04</span>
+                <span className="approach-card__icon approach-card__icon--ink"><Heart size={20} strokeWidth={1.5} /></span>
+                <h3>Leave something behind.</h3>
+                <p>The day ends. What matters is what's still true after it does — a little more visibility, a little more dignity, something that outlasts the afternoon itself.</p>
               </article>
             </div>
           </div>
