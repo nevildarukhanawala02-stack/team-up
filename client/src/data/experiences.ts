@@ -71,6 +71,8 @@ export interface ExperienceDetail {
   storyDirection: string;
   /** Framework §5A #2 — the specific ritual or spotlight moment that made the day feel significant. */
   ceremony: string;
+  /** Framework §5A #3 — what's still true after the day ends. Only a real, verified outcome; never a fabricated stat. */
+  impact: string;
   highlights: string[];
   gallery: { src: string; alt: string; caption: string }[];
   proof: string;
@@ -132,6 +134,7 @@ export interface ExperienceRow {
   partner: string | null;
   storyDirection: string | null;
   ceremony: string | null;
+  impact: string | null;
   highlights: string[] | null;
   gallery: { src: string; alt: string; caption: string }[] | null;
   proof: string | null;
@@ -160,6 +163,7 @@ export function rowToExperience(row: ExperienceRow): Experience {
         partner: row.partner || "",
         storyDirection: row.storyDirection || "",
         ceremony: row.ceremony || "",
+        impact: row.impact || "",
         highlights: row.highlights || [],
         gallery: row.gallery || [],
         proof: row.proof || "",
