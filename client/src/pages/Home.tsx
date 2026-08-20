@@ -150,9 +150,10 @@ export default function Home() {
         <section className="hero-section section-paper">
           <div className="hero-section__inner editorial-container">
             <div className="hero-copy" data-reveal>
-              <h1 className="hero-message"><span>We turn CSR employee</span><span>activities into</span><em>moments people remember.</em></h1>
+              <h1 className="hero-seo-tag">Mumbai’s Collaborative NGO</h1>
+              <h2 className="hero-message"><span>Turning</span><span>Ideas into</span><em>Impact</em></h2>
               <p className="hero-lede">
-                The same cause, the same budget — shaped into a day your employees and communities will carry with them.
+                Together We Rise. Together We Change. We bring together businesses, communities, and individuals to create lasting change across education, empowerment, and social development.
               </p>
               <BuntingDivider />
               <div className="hero-actions">
