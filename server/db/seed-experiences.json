@@ -362,5 +362,23 @@
       "Family members included as honored guests",
       "Employees as an attentive audience, not passive observers"
     ]
+  },
+  {
+    "slug": "mumbai-joyride",
+    "name": "Mumbai Joyride",
+    "hook": "A sponsored bus, a community group, and a city that becomes the stage for a day — could be a performance, could just be a trip somewhere they wouldn't otherwise go.",
+    "category": "community",
+    "format": "flagship-journey",
+    "color": "coral",
+    "isReal": false,
+    "displayOrder": 14,
+    "iconName": "Bus",
+    "previewDescription": "The biggest format we'd build: a sponsored bus takes a community group somewhere across the city for a day that's genuinely theirs — not just a ride, an occasion. It could be young performers taking their act to public spaces they've never played, or it could be an old-age home group on a simple day trip somewhere they wouldn't otherwise get to go. The shape changes with who's on the bus and what they're already doing well.",
+    "previewPossibleElements": [
+      "A sponsor brand's bus or vehicle as the visible, branded centerpiece of the day",
+      "Multiple stops across Mumbai, each with its own small moment",
+      "A group performing, celebrating, or simply experiencing a city they don't usually get to see this way",
+      "Employees riding along as participants, not organizers watching from the side"
+    ]
   }
 ]
