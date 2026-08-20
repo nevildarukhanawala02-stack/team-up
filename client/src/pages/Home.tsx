@@ -160,7 +160,6 @@ export default function Home() {
                 <a href="#proof" className="button button--ink">See what we’ve built <ArrowDownRight size={17} /></a>
                 <a href="#contact" className="text-link">Start a conversation <ArrowRight size={17} /></a>
               </div>
-              <p className="hero-footnote">Celebration, not charity <span>·</span> same cause <span>·</span> same budget.</p>
             </div>
 
             <div className="hero-visual" data-reveal style={{ animationDelay: "110ms" }}>
