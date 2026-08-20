@@ -136,6 +136,14 @@ export default function ExperienceDetail() {
                   <p>{experience.detail.ceremony}</p>
                 </div>
               </div>
+              {experience.detail.impact ? (
+                <div className="editorial-container">
+                  <div className="experience-detail__impact">
+                    <span className="experience-detail__impact-label">What outlasted the day</span>
+                    <p>{experience.detail.impact}</p>
+                  </div>
+                </div>
+              ) : null}
               <div className="editorial-container">
                 <ul className="experience-detail__highlights">
                   {experience.detail.highlights.map((highlight) => (
