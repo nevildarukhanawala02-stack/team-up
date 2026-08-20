@@ -248,6 +248,16 @@ export default function Home() {
               <Camera size={18} strokeWidth={1.5} />
               <span>Placeholder visuals for this prototype — real event photography should replace them before launch.</span>
             </div>
+
+            <div className="concept-teaser" data-reveal>
+              <p className="concept-teaser__eyebrow">And one look at what could come next</p>
+              <img
+                src="/images/concept-little-chefs.webp"
+                alt="Illustrated concept artwork for The Little Chefs: an employee and a child cooking together at a communal kitchen counter, with a Concept badge and the headline Everyone cooks, everyone eats."
+                className="concept-teaser__image"
+              />
+              <p className="concept-teaser__caption">Illustrative concept — never a fixed package. <a href="/experiences">See all the ideas we're building toward →</a></p>
+            </div>
           </div>
         </section>
 
