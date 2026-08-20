@@ -1,5 +1,6 @@
 import mysql from "mysql2/promise";
 import { drizzle } from "drizzle-orm/mysql2";
+import { eq } from "drizzle-orm";
 import * as schema from "./schema";
 import { experiences } from "./schema";
 import seedExperiencesData from "./seed-experiences.json";
@@ -79,6 +80,7 @@ export async function ensureSchema() {
       partner VARCHAR(255),
       story_direction TEXT,
       ceremony TEXT,
+      impact TEXT,
       highlights JSON,
       gallery JSON,
       proof VARCHAR(255),
@@ -90,9 +92,51 @@ export async function ensureSchema() {
     )
   `);
 
+  await addColumnIfMissing("experiences", "impact", "TEXT AFTER ceremony");
   await syncMissingExperiences();
+  await backfillMissingFields();
 
   console.log("Database schema ready.");
+}
+
+/**
+ * Adds a column to an existing table if it isn't already there. Needed
+ * because CREATE TABLE IF NOT EXISTS is a no-op on a table that already
+ * exists in production — new columns added to the schema after first
+ * deploy (like `impact`) never actually reach the live table without this.
+ * MySQL's ADD COLUMN IF NOT EXISTS support varies by version, so this
+ * catches the "duplicate column" error instead of relying on that syntax.
+ */
+async function addColumnIfMissing(table: string, column: string, definition: string) {
+  try {
+    await pool.query(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+    console.log(`Added column ${table}.${column}.`);
+  } catch (err: any) {
+    if (err?.code !== "ER_DUP_FIELDNAME") throw err;
+  }
+}
+
+/**
+ * Backfills fields that are empty on already-existing rows but present in
+ * the seed JSON — e.g. `impact`, added after the 3 real experiences were
+ * already live. Only fills NULL/empty values; never overwrites a value
+ * that's already set (including real admin edits), so it's safe on every
+ * boot and idempotent once every row has the field populated.
+ */
+async function backfillMissingFields() {
+  const existing = await db.select({ slug: experiences.slug, impact: experiences.impact }).from(experiences);
+  const bySlug = new Map(existing.map((row) => [row.slug, row]));
+
+  let backfilled = 0;
+  for (const item of seedExperiencesData as Array<Record<string, unknown>>) {
+    const row = bySlug.get(item.slug as string);
+    if (!row) continue; // handled by syncMissingExperiences instead
+    if (!row.impact && item.impact) {
+      await db.update(experiences).set({ impact: item.impact as string }).where(eq(experiences.slug, item.slug as string));
+      backfilled++;
+    }
+  }
+  if (backfilled > 0) console.log(`Backfilled 'impact' on ${backfilled} existing row(s).`);
 }
 
 /**
