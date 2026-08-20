@@ -132,7 +132,7 @@ export default function About() {
         <section className="about-origin section-ink" id="why-we-exist" data-about-reveal>
           <div className="editorial-container about-origin__inner">
             <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> Why we exist</p>
-            <p className="about-origin__copy">Team Up started with three real afternoons — a hospital ward turned art studio, young dancers from Dharavi who found a bigger stage, a Christmas that felt like family for 300 kids. We didn’t set out with a theory. We noticed, after the fact, that celebration works better than charity — and built an organization around doing it properly, every time.</p>
+            <p className="about-origin__copy">Team Up started with three real afternoons — a hospital ward turned art studio, young dancers from Dharavi who found a bigger stage, an Independence Day festival that felt like family for 300 kids. We didn’t set out with a theory. We noticed, after the fact, that a good celebration does more than fill a day — it leaves something behind it. So we built an organization around doing both properly, every time: the celebration, and whatever should still be true once it ends.</p>
             <a className="about-origin__link" href="/experiences">See the full stories <ArrowRight size={17} /></a>
             <BuntingDivider light />
           </div>
@@ -162,7 +162,7 @@ export default function About() {
                 </article>
               ))}
             </div>
-            <p className="trustee-closing" data-about-reveal>Two different paths, one shared instinct: that celebration is a more powerful force for good than charity ever was.</p>
+            <p className="trustee-closing" data-about-reveal>Two different paths, one shared instinct: that a celebration means more when it leaves something behind it.</p>
             <p className="about-draft-note" data-about-reveal>Trustee biographies are a first draft for review and direct verification before publication.</p>
           </div>
         </section>
