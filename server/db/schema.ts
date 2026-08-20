@@ -3,8 +3,11 @@ import { mysqlTable, int, varchar, text, timestamp, boolean, json } from "drizzl
 /**
  * The full experiences catalogue — real, delivered experiences and concept
  * ideas, in one table. `isReal` decides which set of fields matter:
- *  - isReal=true  -> heroImage/heroAlt/partner/storyDirection/ceremony/
- *                    highlights/gallery/proof/pressLinks/storyLink are used
+ *  - isReal=true  -> heroImage/heroAlt/partner/storyDirection/ceremony/impact/
+ *                    highlights/gallery/proof/pressLinks/storyLink are used.
+ *                    storyDirection+ceremony = the Celebration half (§5A);
+ *                    impact = what's still true after the day ends — never
+ *                    a fabricated stat, only a real, verified outcome.
  *  - isReal=false -> iconName/image/imageAlt/previewDescription/
  *                    previewPossibleElements are used
  * Both share slug/name/hook/category/format/color/displayOrder.
@@ -33,6 +36,7 @@ export const experiences = mysqlTable("experiences", {
   partner: varchar("partner", { length: 255 }),
   storyDirection: text("story_direction"),
   ceremony: text("ceremony"),
+  impact: text("impact"),
   highlights: json("highlights").$type<string[]>(),
   gallery: json("gallery").$type<{ src: string; alt: string; caption: string }[]>(),
   proof: varchar("proof", { length: 255 }),
