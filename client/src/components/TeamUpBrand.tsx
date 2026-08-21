@@ -3,7 +3,9 @@
  * then keep the paper/ink palette and restrained bunting around it rather than redrawing the mark.
  */
 
-const TEAMUP_FOUNDATION_LOGO = "/images/teamup-foundation-logo-transparent-local.png";
+// TRIAL: new logo pending trustee approval (Arvind + others).
+// To revert, just point this back at "/images/teamup-foundation-logo-transparent-local.png".
+const TEAMUP_FOUNDATION_LOGO = "/images/teamup-foundation-logo-new-trial.png";
 
 export function TeamUpLogo({ compact = false }: { compact?: boolean }) {
   return (
