@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
-  Camera,
   Heart,
   Menu,
   MoveUpRight,
@@ -244,10 +243,6 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="proof-footnote" data-reveal>
-              <Camera size={18} strokeWidth={1.5} />
-              <span>Placeholder visuals for this prototype — real event photography should replace them before launch.</span>
-            </div>
           </div>
         </section>
 
