@@ -113,6 +113,7 @@ img { display: block; max-width: 100%; }
 .site-header { position: absolute; inset: 0 0 auto; z-index: 30; color: var(--ink); }
 .site-header__inner { width: min(1280px, calc(100% - 64px)); height: 96px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; }
 .brand-link { display: inline-flex; align-items: center; }
+.site-header__inner .brand-link { align-self: flex-start; }
 .teamup-logo { display: inline-flex; align-items: center; width: 136px; }
 .teamup-logo__source { display: block; width: 100%; height: auto; object-fit: contain; }
 .teamup-logo--compact { width: 300px; }
