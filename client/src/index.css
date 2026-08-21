@@ -116,7 +116,7 @@ img { display: block; max-width: 100%; }
 .site-header__inner .brand-link { align-self: flex-start; }
 .teamup-logo { display: inline-flex; align-items: center; width: 136px; }
 .teamup-logo__source { display: block; width: 100%; height: auto; object-fit: contain; }
-.teamup-logo--compact { width: 300px; }
+.teamup-logo--compact { width: 220px; }
 .desktop-nav { display: flex; align-items: center; gap: 34px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .desktop-nav > a:not(.nav-cta) { transition: color 180ms var(--ease-out); }
 .desktop-nav > a:not(.nav-cta):hover { color: var(--coral); }
@@ -1010,7 +1010,7 @@ img { display: block; max-width: 100%; }
 @media (max-width: 560px) {
   .editorial-container, .site-header__inner { width: calc(100% - 36px); }
   .site-header__inner { height: 78px; }
-  .teamup-logo--compact { width: 220px; }
+  .teamup-logo--compact { width: 160px; }
   .hero-section { min-height: 0; padding-top: 122px; padding-bottom: 78px; }
   .hero-copy .hero-message { font-size: clamp(37px, 9.7vw, 51px); max-width: 360px; }
   .hero-lede { margin-top: 28px; font-size: 14px; line-height: 1.7; }
