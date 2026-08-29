@@ -1269,3 +1269,21 @@ img { display: block; max-width: 100%; }
 .volunteer-interests .category-filter__pill { border-color: rgba(240,230,210,.35); color: rgba(240,230,210,.85); font-size: 10px; padding: 7px 14px; }
 .volunteer-interests .category-filter__pill:hover { border-color: var(--paper); color: var(--paper); }
 .volunteer-interests .category-filter__pill.is-active { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+/* --- Blog hero: compressed vs. the Experiences hero it's based on --- */
+/* People landing on /blog want to see article cards quickly, not a long
+   editorial brand moment, unlike Experiences, which is a slower page by
+   design. Compound selector (.blog-hero.experiences-hero) so this reliably
+   wins over the base .experiences-hero rules regardless of source order. */
+.blog-hero.experiences-hero { min-height: 0; padding: 132px 0 44px; }
+.blog-hero.experiences-hero h1 { font-size: clamp(38px, 4.6vw, 58px); line-height: .98; }
+.blog-hero .experiences-hero__inner > p:not(.eyebrow) { margin-top: 16px; font-size: 15px; max-width: 560px; }
+.blog-hero .experiences-hero__inner .bunting-divider { margin-top: 14px; }
+
+@media (max-width: 900px) {
+  .blog-hero.experiences-hero { padding-top: 116px; padding-bottom: 36px; }
+}
+@media (max-width: 620px) {
+  .blog-hero.experiences-hero { padding-top: 104px; padding-bottom: 28px; }
+  .blog-hero.experiences-hero h1 { font-size: 36px; }
+}
