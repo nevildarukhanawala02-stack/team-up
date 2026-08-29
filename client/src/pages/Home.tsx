@@ -317,7 +317,7 @@ export default function Home() {
               <div className="blog-grid">
                 {blogPosts.map((post, index) => (
                   <a href={`/blog/${post.slug}`} key={post.slug} className="blog-card" data-reveal style={{ animationDelay: `${index * 70}ms` }}>
-                    {post.coverImage ? <img className="blog-card__photo" src={post.coverImage} alt={post.coverImageAlt || post.title} /> : <div className="blog-card__photo blog-card__photo--placeholder" />}
+                    {post.coverImage ? <img className="blog-card__photo" src={post.coverImage} alt={post.coverImageAlt || post.title} /> : null}
                     <div className="blog-card__body">
                       <div className="blog-card__meta">
                         {post.category ? <span className="blog-card__category">{post.category}</span> : null}

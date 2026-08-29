@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 import { drizzle } from "drizzle-orm/mysql2";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import * as schema from "./schema";
 import { experiences, blogPosts } from "./schema";
 import seedExperiencesData from "./seed-experiences.json";
@@ -129,6 +129,7 @@ export async function ensureSchema() {
   await addColumnIfMissing("experiences", "story_videos", "JSON AFTER story_gallery_style");
   await syncMissingExperiences();
   await syncMissingBlogPosts();
+  await repairPlaceholderBlogCovers();
   await backfillMissingFields();
 
   console.log("Database schema ready.");
@@ -237,4 +238,27 @@ async function syncMissingBlogPosts() {
     });
   }
   console.log(`Synced ${missing.length} missing blog post(s): ${missing.map((i) => i.slug).join(", ")}`);
+}
+
+/**
+ * One-time repair for the 8 CSR pillar posts seeded before the header-card
+ * design was reconsidered (a plain color-block image that looked fine as a
+ * small thumbnail but read as a meaningless block on the full-width post
+ * page). Clears coverImage/coverImageAlt ONLY when the row's current value
+ * still exactly matches the placeholder path we originally set, so a post
+ * where someone has since uploaded a real cover image via /admin/blog is
+ * never touched. Safe to leave in permanently; once every matching row has
+ * been cleared, later runs simply find nothing left to repair.
+ */
+async function repairPlaceholderBlogCovers() {
+  let repaired = 0;
+  for (const item of seedBlogPostsData as Array<Record<string, unknown>>) {
+    const placeholderPath = `/images/blog/${item.slug}.png`;
+    const result = await db
+      .update(blogPosts)
+      .set({ coverImage: null, coverImageAlt: null })
+      .where(and(eq(blogPosts.slug, item.slug as string), eq(blogPosts.coverImage, placeholderPath)));
+    if ((result as any)[0]?.affectedRows > 0) repaired++;
+  }
+  if (repaired > 0) console.log(`Repaired ${repaired} placeholder blog cover image(s).`);
 }

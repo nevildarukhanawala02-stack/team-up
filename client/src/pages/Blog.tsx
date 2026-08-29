@@ -84,8 +84,7 @@ export default function Blog() {
       </header>
 
       <main>
-        <section className="experiences-hero section-paper">
-          <div className="experiences-hero__image" aria-hidden="true" />
+        <section className="experiences-hero blog-hero section-paper">
           <div className="editorial-container experiences-hero__inner" data-blog-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Blog</p>
             <h1 className="hero-message"><span>Notes on</span><span>celebration</span><em>and impact.</em></h1>
@@ -113,7 +112,7 @@ export default function Blog() {
               <div className="blog-grid">
                 {visiblePosts.map((post, index) => (
                   <Link href={`/blog/${post.slug}`} key={post.slug} className="blog-card" data-blog-reveal style={{ animationDelay: `${(index % 6) * 45}ms` }}>
-                    {post.coverImage ? <img className="blog-card__photo" src={post.coverImage} alt={post.coverImageAlt || post.title} /> : <div className="blog-card__photo blog-card__photo--placeholder" />}
+                    {post.coverImage ? <img className="blog-card__photo" src={post.coverImage} alt={post.coverImageAlt || post.title} /> : null}
                     <div className="blog-card__body">
                       <div className="blog-card__meta">
                         {post.category ? <span className="blog-card__category">{post.category}</span> : null}
