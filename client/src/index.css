@@ -1092,6 +1092,11 @@ img { display: block; max-width: 100%; }
 .admin-leads-table__contact { display: flex; align-items: center; gap: 6px; white-space: nowrap; color: #5f574b; }
 .admin-leads-table__contact + .admin-leads-table__contact { margin-top: 4px; }
 .admin-leads-table__message { max-width: 320px; color: #5f574b; }
+.admin-leads-table__metadata { margin: 8px 0 0; padding: 8px 10px; background: var(--paper-deep); border-radius: 4px; font-size: 11px; }
+.admin-leads-table__metadata div { display: flex; gap: 6px; padding: 2px 0; }
+.admin-leads-table__metadata dt { margin: 0; color: #756c5d; text-transform: capitalize; }
+.admin-leads-table__metadata dt::after { content: ":"; }
+.admin-leads-table__metadata dd { margin: 0; color: var(--ink); font-weight: 600; }
 .admin-leads-table__source { display: block; font-weight: 700; }
 .admin-leads-table__source-detail { display: block; margin-top: 2px; color: #756c5d; font-size: 12px; }
 .idea-grid__loading { padding: 60px 0; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .04em; text-align: center; }
@@ -1181,6 +1186,64 @@ img { display: block; max-width: 100%; }
   .admin-experiences-list__row { grid-template-columns: 1fr; text-align: left; }
 }
 
+/* --- Blog list --- */
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 60px; }
+.blog-card { display: block; overflow: hidden; text-decoration: none; color: inherit; background: var(--paper); border: 1px solid rgba(28,27,26,.14); transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out); }
+.blog-card:hover { transform: translateY(-6px); box-shadow: 7px 7px 0 rgba(28,27,26,.06); }
+.blog-card__photo { display: block; width: 100%; height: 200px; object-fit: cover; }
+.blog-card__photo--placeholder { background: linear-gradient(135deg, var(--paper-deep), var(--white-paper)); }
+.blog-card__body { padding: 22px 24px 26px; }
+.blog-card__meta { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.blog-card__category { display: inline-flex; padding: 4px 10px; border-radius: 999px; background: var(--paper-deep); color: var(--teal); font-family: "IBM Plex Mono", monospace; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.blog-card__readtime { color: #918a7c; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em; }
+.blog-card h3 { margin: 0 0 10px; font-family: "DM Serif Display", serif; font-size: 24px; font-weight: 400; letter-spacing: -.03em; line-height: 1.14; }
+.blog-card p { margin: 0 0 14px; color: #756c5d; font-size: 13px; line-height: 1.65; }
+.blog-card__date { display: block; color: #918a7c; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em; }
+
+/* --- Blog post detail --- */
+.blog-post__inner { max-width: 760px; padding-block: 176px 100px; }
+.blog-post__meta { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.blog-post h1 { margin: 0; font-family: "DM Serif Display", serif; font-size: clamp(38px, 5vw, 58px); font-weight: 400; letter-spacing: -.05em; line-height: 1.02; }
+.blog-post__author { margin: 16px 0 0; color: #756c5d; font-size: 13px; font-family: "IBM Plex Mono", monospace; letter-spacing: .03em; }
+.blog-post .bunting-divider { margin: 30px 0 40px; }
+.blog-post__cover { display: block; width: 100%; max-height: 480px; object-fit: cover; margin-bottom: 44px; border: 1px solid rgba(28,27,26,.1); }
+.blog-post__content { font-size: 17px; line-height: 1.85; color: #37342c; }
+.blog-post__content p { margin: 0 0 24px; }
+.blog-post__content h2 { margin: 46px 0 18px; font-family: "DM Serif Display", serif; font-size: 32px; font-weight: 400; letter-spacing: -.03em; }
+.blog-post__content h3 { margin: 36px 0 14px; font-family: "DM Serif Display", serif; font-size: 24px; font-weight: 400; letter-spacing: -.02em; }
+.blog-post__content ul, .blog-post__content ol { margin: 0 0 24px; padding-left: 26px; }
+.blog-post__content li { margin-bottom: 8px; }
+.blog-post__content blockquote { margin: 0 0 24px; padding: 4px 0 4px 22px; border-left: 3px solid var(--coral); color: #5f574b; font-style: italic; }
+.blog-post__content a { color: var(--coral); text-decoration: underline; text-underline-offset: 3px; }
+.blog-post__content img { display: block; max-width: 100%; height: auto; margin: 34px 0; border: 1px solid rgba(28,27,26,.1); }
+.blog-post__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 44px; padding-top: 28px; border-top: 1px solid rgba(28,27,26,.12); }
+.blog-post__tag { padding: 5px 12px; border-radius: 999px; background: var(--paper-deep); color: #5f574b; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em; }
+
+/* --- Homepage blog section --- */
+.home-blog__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+
+/* --- Rich text editor (admin) --- */
+.rich-editor { border: 1px solid rgba(28,27,26,.18); background: var(--paper); }
+.rich-editor__toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 8px 10px; border-bottom: 1px solid rgba(28,27,26,.12); background: var(--paper-deep); }
+.rich-editor__toolbar button, .rich-editor__image-button { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: var(--ink); cursor: pointer; transition: background 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+.rich-editor__toolbar button:hover, .rich-editor__image-button:hover { background: rgba(28,27,26,.06); }
+.rich-editor__toolbar button.is-active { background: var(--ink); color: var(--paper); }
+.rich-editor__divider { width: 1px; height: 22px; margin: 0 4px; background: rgba(28,27,26,.15); }
+.rich-editor__content { min-height: 320px; padding: 20px 22px; font-size: 15px; line-height: 1.75; color: var(--ink); outline: none; }
+.rich-editor__content p.is-editor-empty:first-child::before { content: attr(data-placeholder); float: left; height: 0; color: #a39c8c; pointer-events: none; }
+.rich-editor__content h2 { margin: 30px 0 12px; font-family: "DM Serif Display", serif; font-size: 26px; font-weight: 400; }
+.rich-editor__content h3 { margin: 24px 0 10px; font-family: "DM Serif Display", serif; font-size: 20px; font-weight: 400; }
+.rich-editor__content p { margin: 0 0 16px; }
+.rich-editor__content ul, .rich-editor__content ol { margin: 0 0 16px; padding-left: 24px; }
+.rich-editor__content blockquote { margin: 0 0 16px; padding-left: 18px; border-left: 3px solid var(--coral); color: #5f574b; font-style: italic; }
+.rich-editor__content img { max-width: 100%; height: auto; margin: 16px 0; }
+.rich-editor__content a { color: var(--coral); text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .blog-grid, .home-blog__grid { grid-template-columns: 1fr; }
+  .blog-post__inner { padding-block: 150px 70px; }
+}
+
 /* --- Blog: list grid + cards --- */
 .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
 .blog-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--paper); border: 1px solid rgba(28,27,26,.14); overflow: hidden; transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out); }
@@ -1241,3 +1304,11 @@ img { display: block; max-width: 100%; }
 .rich-editor__content blockquote { margin: 0 0 16px; padding-left: 16px; border-left: 3px solid var(--coral); color: #5f574b; font-style: italic; }
 .rich-editor__content img { max-width: 100%; margin: 8px 0; }
 .rich-editor__content p.is-editor-empty:first-child::before { content: attr(data-placeholder); float: left; color: #a49b8a; pointer-events: none; height: 0; }
+
+/* --- Partner page: volunteer interest pills --- */
+.volunteer-interests-field { margin: 0 0 20px; padding: 0; border: 0; }
+.volunteer-interests-field legend { margin-bottom: 8px; padding: 0; color: var(--paper); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.volunteer-interests { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.volunteer-interests .category-filter__pill { border-color: rgba(240,230,210,.35); color: rgba(240,230,210,.85); font-size: 10px; padding: 7px 14px; }
+.volunteer-interests .category-filter__pill:hover { border-color: var(--paper); color: var(--paper); }
+.volunteer-interests .category-filter__pill.is-active { background: var(--gold); border-color: var(--gold); color: var(--ink); }

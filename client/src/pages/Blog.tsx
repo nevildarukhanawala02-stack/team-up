@@ -65,6 +65,7 @@ export default function Blog() {
             <a href="/stories">Our stories</a>
             <a href="/blog" className="nav-current">Blog</a>
             <a href="/how-we-celebrate">How we celebrate</a>
+            <a href="/partner">Partner with us</a>
             <a href="/contact" className="nav-cta">Contact us <ArrowRight size={15} strokeWidth={1.7} /></a>
           </nav>
           <button className="mobile-menu-button" type="button" aria-expanded={mobileOpen} aria-controls="blog-mobile-navigation" onClick={() => setMobileOpen((open) => !open)}>
@@ -77,6 +78,7 @@ export default function Blog() {
           <a href="/stories" onClick={() => setMobileOpen(false)}>Our stories</a>
           <a href="/blog" onClick={() => setMobileOpen(false)}>Blog</a>
           <a href="/how-we-celebrate" onClick={() => setMobileOpen(false)}>How we celebrate</a>
+          <a href="/partner" onClick={() => setMobileOpen(false)}>Partner with us</a>
           <a href="/contact" onClick={() => setMobileOpen(false)}>Contact us <ArrowRight size={16} /></a>
         </nav>
       </header>

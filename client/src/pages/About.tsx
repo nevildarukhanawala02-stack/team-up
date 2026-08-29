@@ -99,6 +99,8 @@ export default function About() {
             <a href="/about" className="nav-current">About us</a>
             <a href="/stories">Our stories</a>
             <a href="/how-we-celebrate">How we celebrate</a>
+            <a href="/blog">Blog</a>
+            <a href="/partner">Partner with us</a>
             <a href="/contact" className="nav-cta">Contact us <ArrowRight size={15} strokeWidth={1.7} /></a>
           </nav>
           <button className="mobile-menu-button" type="button" aria-expanded={mobileOpen} aria-controls="about-mobile-navigation" onClick={() => setMobileOpen((open) => !open)}>
@@ -111,6 +113,8 @@ export default function About() {
           <a href="/about" onClick={() => setMobileOpen(false)}>About us</a>
           <a href="/stories" onClick={() => setMobileOpen(false)}>Our stories</a>
           <a href="/how-we-celebrate" onClick={() => setMobileOpen(false)}>How we celebrate</a>
+          <a href="/blog" onClick={() => setMobileOpen(false)}>Blog <ArrowRight size={16} /></a>
+          <a href="/partner" onClick={() => setMobileOpen(false)}>Partner with us <ArrowRight size={16} /></a>
           <a href="/contact" onClick={() => setMobileOpen(false)}>Contact us <ArrowRight size={16} /></a>
           <a href="#inquiry" onClick={() => setMobileOpen(false)}>Start a conversation <ArrowRight size={16} /></a>
         </nav>

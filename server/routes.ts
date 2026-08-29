@@ -37,7 +37,7 @@ export function registerRoutes(app: Express) {
   // --- Contact / inquiry form submissions (public) ---
 
   app.post("/api/contact", async (req: Request, res: Response) => {
-    const { name, organization, email, phone, message, source, sourceDetail } = req.body as {
+    const { name, organization, email, phone, message, source, sourceDetail, metadata } = req.body as {
       name?: string;
       organization?: string;
       email?: string;
@@ -45,6 +45,7 @@ export function registerRoutes(app: Express) {
       message?: string;
       source?: string;
       sourceDetail?: string;
+      metadata?: Record<string, string>;
     };
 
     if (!name || !source) {
@@ -60,6 +61,7 @@ export function registerRoutes(app: Express) {
         message: message || null,
         source,
         sourceDetail: sourceDetail || null,
+        metadata: metadata && Object.keys(metadata).length > 0 ? metadata : null,
       });
       res.json({ success: true });
     } catch (err) {

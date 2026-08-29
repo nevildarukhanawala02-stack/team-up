@@ -97,8 +97,12 @@ export const contactSubmissions = mysqlTable("contact_submissions", {
   email: varchar("email", { length: 255 }),
   phone: varchar("phone", { length: 64 }),
   message: text("message"),
-  source: varchar("source", { length: 64 }).notNull(), // 'contact_page' | 'experience_inquiry'
+  source: varchar("source", { length: 64 }).notNull(), // 'contact_page' | 'experience_inquiry' | 'volunteer_signup' | 'donate_inquiry' | 'partner_inquiry'
   sourceDetail: varchar("source_detail", { length: 255 }), // e.g. the experience name, for experience_inquiry
+  // Structured, form-specific extras that don't apply to every source (e.g.
+  // a volunteer's skills/availability/city). Kept generic rather than adding
+  // volunteer-only columns to a table shared by every form on the site.
+  metadata: json("metadata").$type<Record<string, string>>(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

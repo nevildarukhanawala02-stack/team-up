@@ -14,6 +14,7 @@ import OurStories from "./pages/OurStories";
 import HowWeCelebrate from "./pages/HowWeCelebrate";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Partner from "./pages/Partner";
 import Contact from "./pages/Contact";
 
 // Admin-only pages are lazy-loaded: none of their dependencies (the TipTap
@@ -42,6 +43,7 @@ function Router() {
           <Route path={"/how-we-celebrate"} component={HowWeCelebrate} />
           <Route path={"/blog"} component={Blog} />
           <Route path={"/blog/:slug"} component={BlogPost} />
+          <Route path={"/partner"} component={Partner} />
           <Route path={"/contact"} component={Contact} />
           <Route path={"/admin/login"} component={AdminLogin} />
           <Route path={"/admin/experiences/new"} component={AdminExperienceForm} />

@@ -37,6 +37,7 @@ export async function ensureSchema() {
       message TEXT,
       source VARCHAR(64) NOT NULL,
       source_detail VARCHAR(255),
+      metadata JSON,
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
   `);
@@ -119,6 +120,7 @@ export async function ensureSchema() {
   `);
 
   await addColumnIfMissing("experiences", "impact", "TEXT AFTER ceremony");
+  await addColumnIfMissing("contact_submissions", "metadata", "JSON AFTER source_detail");
   await addColumnIfMissing("experiences", "story_scene", "TEXT AFTER story_link");
   await addColumnIfMissing("experiences", "story_narrative", "TEXT AFTER story_scene");
   await addColumnIfMissing("experiences", "story_moment", "TEXT AFTER story_narrative");

@@ -130,6 +130,7 @@ export default function Home() {
             <a href="/stories">Our stories</a>
             <a href="/blog">Blog</a>
             <a href="/how-we-celebrate">How we celebrate</a>
+            <a href="/partner">Partner with us</a>
             <a href="/contact" className="nav-cta">
               Contact us <MoveUpRight size={15} strokeWidth={1.7} />
             </a>
@@ -153,6 +154,7 @@ export default function Home() {
           <a href="/stories" onClick={closeMenu}>Our stories <ArrowRight size={16} /></a>
           <a href="/blog" onClick={closeMenu}>Blog <ArrowRight size={16} /></a>
           <a href="/how-we-celebrate" onClick={closeMenu}>How we celebrate <ArrowRight size={16} /></a>
+          <a href="/partner" onClick={closeMenu}>Partner with us <ArrowRight size={16} /></a>
           <a href="/contact" onClick={closeMenu}>Contact us <ArrowRight size={16} /></a>
         </nav>
       </header>

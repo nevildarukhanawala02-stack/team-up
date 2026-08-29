@@ -7,8 +7,9 @@ export interface ContactSubmission {
   email?: string;
   phone?: string;
   message?: string;
-  source: "contact_page" | "experience_inquiry";
+  source: "contact_page" | "experience_inquiry" | "volunteer_signup" | "donate_inquiry" | "partner_inquiry";
   sourceDetail?: string;
+  metadata?: Record<string, string>;
 }
 
 export async function submitContactForm(data: ContactSubmission): Promise<{ success: boolean; error?: string }> {
@@ -68,6 +69,7 @@ export interface Lead {
   message: string | null;
   source: string;
   sourceDetail: string | null;
+  metadata: Record<string, string> | null;
   createdAt: string;
 }
 
