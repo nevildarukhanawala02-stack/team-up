@@ -2,8 +2,9 @@ import mysql from "mysql2/promise";
 import { drizzle } from "drizzle-orm/mysql2";
 import { eq } from "drizzle-orm";
 import * as schema from "./schema";
-import { experiences } from "./schema";
+import { experiences, blogPosts } from "./schema";
 import seedExperiencesData from "./seed-experiences.json";
+import seedBlogPostsData from "./seed-blog-posts.json";
 
 // Never throw at import time, a missing/misconfigured MYSQL_URL should
 // degrade DB-backed routes gracefully (they already handle query errors),
@@ -127,6 +128,7 @@ export async function ensureSchema() {
   await addColumnIfMissing("experiences", "story_gallery_style", "VARCHAR(32) AFTER story_moment");
   await addColumnIfMissing("experiences", "story_videos", "JSON AFTER story_gallery_style");
   await syncMissingExperiences();
+  await syncMissingBlogPosts();
   await backfillMissingFields();
 
   console.log("Database schema ready.");
@@ -210,4 +212,29 @@ async function syncMissingExperiences() {
     await db.insert(experiences).values(item as typeof experiences.$inferInsert);
   }
   console.log(`Synced ${missing.length} missing experience(s): ${missing.map((i) => i.slug).join(", ")}`);
+}
+
+/**
+ * Same pattern as syncMissingExperiences: inserts only slugs that don't
+ * already exist, never touches or overwrites rows already in the table
+ * (including posts edited via /admin/blog after launch). Safe to add more
+ * entries to seed-blog-posts.json later and redeploy, only the new ones
+ * get inserted.
+ */
+async function syncMissingBlogPosts() {
+  const existing = await db.select({ slug: blogPosts.slug }).from(blogPosts);
+  const existingSlugs = new Set(existing.map((row) => row.slug));
+
+  const missing = (seedBlogPostsData as Array<Record<string, unknown>>).filter(
+    (item) => !existingSlugs.has(item.slug as string),
+  );
+  if (missing.length === 0) return;
+
+  for (const item of missing) {
+    await db.insert(blogPosts).values({
+      ...(item as typeof blogPosts.$inferInsert),
+      publishedAt: item.publishedAt ? new Date(item.publishedAt as string) : null,
+    });
+  }
+  console.log(`Synced ${missing.length} missing blog post(s): ${missing.map((i) => i.slug).join(", ")}`);
 }
