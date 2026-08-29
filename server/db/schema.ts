@@ -61,6 +61,31 @@ export const experiences = mysqlTable("experiences", {
 });
 
 /**
+ * Blog posts. Rich content is authored as HTML from the TipTap editor in
+ * /admin/blog. `status` gates public visibility — only 'published' rows with
+ * a past/present `publishedAt` are ever returned from the public /api/blog
+ * endpoints; drafts stay admin-only so a post can be written over time
+ * without appearing on the site early.
+ */
+export const blogPosts = mysqlTable("blog_posts", {
+  id: int("id").autoincrement().primaryKey(),
+  slug: varchar("slug", { length: 200 }).notNull().unique(),
+  title: varchar("title", { length: 300 }).notNull(),
+  excerpt: text("excerpt"),
+  coverImage: varchar("cover_image", { length: 500 }),
+  coverImageAlt: varchar("cover_image_alt", { length: 500 }),
+  content: text("content").notNull(), // rich HTML from the TipTap editor
+  category: varchar("category", { length: 64 }),
+  tags: json("tags").$type<string[]>(),
+  author: varchar("author", { length: 120 }),
+  status: varchar("status", { length: 16 }).notNull().default("draft"), // 'draft' | 'published'
+  publishedAt: timestamp("published_at"),
+  readTimeMinutes: int("read_time_minutes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
+/**
  * A submission from any inquiry form on the site (Contact page, or any
  * per-experience "Send us an inquiry" form). One table, `source` tells you
  * which form it came from.

@@ -97,6 +97,27 @@ export async function ensureSchema() {
     )
   `);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS blog_posts (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      slug VARCHAR(200) NOT NULL UNIQUE,
+      title VARCHAR(300) NOT NULL,
+      excerpt TEXT,
+      cover_image VARCHAR(500),
+      cover_image_alt VARCHAR(500),
+      content TEXT NOT NULL,
+      category VARCHAR(64),
+      tags JSON,
+      author VARCHAR(120),
+      status VARCHAR(16) NOT NULL DEFAULT 'draft',
+      published_at TIMESTAMP NULL,
+      read_time_minutes INT,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      INDEX blog_posts_status_published_at_idx (status, published_at)
+    )
+  `);
+
   await addColumnIfMissing("experiences", "impact", "TEXT AFTER ceremony");
   await addColumnIfMissing("experiences", "story_scene", "TEXT AFTER story_link");
   await addColumnIfMissing("experiences", "story_narrative", "TEXT AFTER story_scene");

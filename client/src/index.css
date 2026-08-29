@@ -152,6 +152,8 @@ img { display: block; max-width: 100%; }
 .button--ink:hover { background: var(--teal); box-shadow: 3px 3px 0 var(--gold); transform: translate(2px, 2px); }
 .button--coral { background: var(--coral); color: var(--paper); }
 .button--coral:hover { background: var(--gold); color: var(--ink); }
+.button--ghost { background: transparent; color: var(--ink); border-color: rgba(28,27,26,.3); }
+.button--ghost:hover { border-color: var(--ink); background: rgba(28,27,26,.05); }
 .text-link, .arrow-link { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
 .text-link { border-bottom: 1px solid var(--ink); padding-bottom: 6px; transition: color 180ms var(--ease-out), border-color 180ms var(--ease-out); }
 .text-link:hover, .arrow-link:hover { color: var(--coral); border-color: var(--coral); }
@@ -1178,3 +1180,64 @@ img { display: block; max-width: 100%; }
   .admin-form__grid, .admin-form__grid--3 { grid-template-columns: 1fr; }
   .admin-experiences-list__row { grid-template-columns: 1fr; text-align: left; }
 }
+
+/* --- Blog: list grid + cards --- */
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
+.blog-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--paper); border: 1px solid rgba(28,27,26,.14); overflow: hidden; transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out); }
+.blog-card:hover { transform: translateY(-6px); box-shadow: 7px 7px 0 rgba(28,27,26,.06); }
+.blog-card__photo { width: 100%; height: 210px; object-fit: cover; display: block; }
+.blog-card__photo--placeholder { background: linear-gradient(135deg, var(--paper-deep), var(--white-paper)); }
+.blog-card__body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; }
+.blog-card__meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.blog-card__category { display: inline-flex; padding: 4px 10px; border-radius: 999px; background: var(--ink); color: var(--gold); font-family: "IBM Plex Mono", monospace; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.blog-card__readtime { color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em; white-space: nowrap; }
+.blog-card h3 { margin: 0; font-family: "DM Serif Display", serif; font-size: 24px; font-weight: 400; letter-spacing: -.03em; line-height: 1.15; }
+.blog-card p { margin: 0; color: #756c5d; font-size: 13px; line-height: 1.65; }
+.blog-card__date { margin-top: auto; padding-top: 6px; color: #948a78; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em; }
+
+/* --- Blog: post detail --- */
+.blog-post { padding: 176px 0 100px; }
+.blog-post__inner { max-width: 760px; margin: 0 auto; }
+.blog-post__meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+.blog-post h1 { margin: 0 0 10px; font-family: "DM Serif Display", serif; font-size: clamp(38px, 5vw, 58px); font-weight: 400; letter-spacing: -.045em; line-height: 1.05; }
+.blog-post__author { margin: 0 0 20px; color: #756c5d; font-size: 13px; }
+.blog-post .bunting-divider { margin: 26px 0 34px; }
+.blog-post__cover { width: 100%; height: auto; max-height: 480px; object-fit: cover; margin-bottom: 40px; }
+.blog-post__content { font-size: 17px; line-height: 1.8; color: var(--ink); }
+.blog-post__content p { margin: 0 0 22px; }
+.blog-post__content h2 { margin: 44px 0 18px; font-family: "DM Serif Display", serif; font-size: 32px; font-weight: 400; letter-spacing: -.03em; line-height: 1.15; }
+.blog-post__content h3 { margin: 36px 0 14px; font-family: "DM Serif Display", serif; font-size: 24px; font-weight: 400; letter-spacing: -.02em; }
+.blog-post__content ul, .blog-post__content ol { margin: 0 0 22px; padding-left: 24px; }
+.blog-post__content li { margin-bottom: 8px; }
+.blog-post__content blockquote { margin: 0 0 22px; padding: 4px 0 4px 22px; border-left: 3px solid var(--coral); color: #5f574b; font-style: italic; }
+.blog-post__content a { color: var(--coral); text-decoration: underline; }
+.blog-post__content img { max-width: 100%; height: auto; margin: 8px 0 26px; }
+.blog-post__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(28,27,26,.12); }
+.blog-post__tag { padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(28,27,26,.18); font-family: "IBM Plex Mono", monospace; font-size: 10px; color: #5f574b; }
+
+@media (max-width: 900px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-post { padding: 140px 0 70px; }
+}
+
+/* --- Rich text editor (admin blog form) --- */
+.rich-editor { border: 1px solid rgba(28,27,26,.18); background: var(--paper); }
+.rich-editor__toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; padding: 8px 10px; border-bottom: 1px solid rgba(28,27,26,.14); background: var(--paper-deep); }
+.rich-editor__toolbar button { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid transparent; background: transparent; color: var(--ink); cursor: pointer; border-radius: 4px; }
+.rich-editor__toolbar button:hover { background: rgba(28,27,26,.08); }
+.rich-editor__toolbar button.is-active { background: var(--ink); color: var(--paper); }
+.rich-editor__image-button { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 4px; color: var(--ink); cursor: pointer; }
+.rich-editor__image-button:hover { background: rgba(28,27,26,.08); }
+.rich-editor__divider { width: 1px; height: 20px; margin: 0 4px; background: rgba(28,27,26,.16); }
+.rich-editor__content { min-height: 320px; padding: 18px 20px; font-size: 15px; line-height: 1.7; }
+.rich-editor__content:focus { outline: none; }
+.rich-editor__content p { margin: 0 0 16px; }
+.rich-editor__content h2 { margin: 28px 0 12px; font-family: "DM Serif Display", serif; font-size: 24px; }
+.rich-editor__content h3 { margin: 22px 0 10px; font-family: "DM Serif Display", serif; font-size: 19px; }
+.rich-editor__content ul, .rich-editor__content ol { margin: 0 0 16px; padding-left: 22px; }
+.rich-editor__content blockquote { margin: 0 0 16px; padding-left: 16px; border-left: 3px solid var(--coral); color: #5f574b; font-style: italic; }
+.rich-editor__content img { max-width: 100%; margin: 8px 0; }
+.rich-editor__content p.is-editor-empty:first-child::before { content: attr(data-placeholder); float: left; color: #a49b8a; pointer-events: none; height: 0; }

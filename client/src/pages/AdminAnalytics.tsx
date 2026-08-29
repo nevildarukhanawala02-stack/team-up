@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
-import { LogOut, Sparkles, Users, TrendingUp } from "lucide-react";
+import { LogOut, Sparkles, Users, TrendingUp, Newspaper } from "lucide-react";
 import { adminLogout, checkAdminSession, fetchAnalytics, type AnalyticsData } from "@/lib/api";
 
 export default function AdminAnalytics() {
@@ -55,6 +55,7 @@ export default function AdminAnalytics() {
         <div className="admin-page__header-actions">
           <Link href="/admin" className="text-link"><Users size={15} strokeWidth={1.7} /> Leads</Link>
           <Link href="/admin/experiences" className="text-link"><Sparkles size={15} strokeWidth={1.7} /> Experiences</Link>
+          <Link href="/admin/blog" className="text-link"><Newspaper size={15} strokeWidth={1.7} /> Blog</Link>
           <button type="button" className="text-link" onClick={handleLogout}><LogOut size={15} strokeWidth={1.7} /> Sign out</button>
         </div>
       </header>

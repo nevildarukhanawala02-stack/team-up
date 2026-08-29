@@ -1,8 +1,8 @@
 import type { Express, Request, Response } from "express";
-import { desc, eq, asc, and, gte, sql } from "drizzle-orm";
+import { desc, eq, asc, and, gte, lte, sql } from "drizzle-orm";
 import multer from "multer";
 import { db } from "./db/client";
-import { contactSubmissions, experiences, analyticsEvents } from "./db/schema";
+import { contactSubmissions, experiences, analyticsEvents, blogPosts } from "./db/schema";
 import { createAdminSession, verifyAdminSession, getSessionCookieOptions, requireAdmin, COOKIE_NAME } from "./auth";
 import { uploadToCloudinary } from "./cloudinary";
 
@@ -256,6 +256,107 @@ export function registerRoutes(app: Express) {
       res.json({ success: true });
     } catch (err) {
       console.error("Failed to delete experience:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  // --- Blog (public read of published posts, admin write of all posts) ---
+
+  app.get("/api/blog", async (req: Request, res: Response) => {
+    try {
+      const now = new Date();
+      const category = typeof req.query.category === "string" ? req.query.category : undefined;
+      const limit = req.query.limit ? Math.min(Number(req.query.limit) || 20, 50) : 50;
+
+      const conditions = [eq(blogPosts.status, "published"), lte(blogPosts.publishedAt, now)];
+      if (category) conditions.push(eq(blogPosts.category, category));
+
+      const rows = await db
+        .select()
+        .from(blogPosts)
+        .where(and(...conditions))
+        .orderBy(desc(blogPosts.publishedAt))
+        .limit(limit);
+      res.json({ posts: rows });
+    } catch (err) {
+      console.error("Failed to fetch blog posts:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.get("/api/blog/:slug", async (req: Request, res: Response) => {
+    try {
+      const now = new Date();
+      const rows = await db
+        .select()
+        .from(blogPosts)
+        .where(and(eq(blogPosts.slug, req.params.slug), eq(blogPosts.status, "published"), lte(blogPosts.publishedAt, now)))
+        .limit(1);
+      if (rows.length === 0) return res.status(404).json({ error: "Not found." });
+      res.json({ post: rows[0] });
+    } catch (err) {
+      console.error("Failed to fetch blog post:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.get("/api/admin/blog", requireAdmin, async (_req: Request, res: Response) => {
+    try {
+      const rows = await db.select().from(blogPosts).orderBy(desc(blogPosts.createdAt));
+      res.json({ posts: rows });
+    } catch (err) {
+      console.error("Failed to fetch blog posts:", err);
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.post("/api/admin/blog", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const body = req.body as typeof blogPosts.$inferInsert;
+      if (!body.slug || !body.title || !body.content) {
+        return res.status(400).json({ error: "Slug, title, and content are required." });
+      }
+      // Publishing for the first time with no publishedAt set -> stamp it now,
+      // so switching a draft to "Published" without picking a date still works.
+      if (body.status === "published" && !body.publishedAt) {
+        body.publishedAt = new Date();
+      }
+      const result = await db.insert(blogPosts).values(body);
+      res.json({ success: true, id: result[0].insertId });
+    } catch (err: any) {
+      console.error("Failed to create blog post:", err);
+      if (err?.code === "ER_DUP_ENTRY") {
+        return res.status(409).json({ error: "A post with that slug already exists." });
+      }
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.put("/api/admin/blog/:id", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const body = req.body as Partial<typeof blogPosts.$inferInsert>;
+      if (body.status === "published" && !body.publishedAt) {
+        body.publishedAt = new Date();
+      }
+      await db.update(blogPosts).set(body).where(eq(blogPosts.id, id));
+      res.json({ success: true });
+    } catch (err: any) {
+      console.error("Failed to update blog post:", err);
+      if (err?.code === "ER_DUP_ENTRY") {
+        return res.status(409).json({ error: "A post with that slug already exists." });
+      }
+      res.status(500).json({ error: "Something went wrong." });
+    }
+  });
+
+  app.delete("/api/admin/blog/:id", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      await db.delete(blogPosts).where(eq(blogPosts.id, id));
+      res.json({ success: true });
+    } catch (err) {
+      console.error("Failed to delete blog post:", err);
       res.status(500).json({ error: "Something went wrong." });
     }
   });

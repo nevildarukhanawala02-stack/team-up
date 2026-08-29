@@ -17,6 +17,7 @@ import {
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
 import { submitContactForm } from "@/lib/api";
+import { fetchBlogPosts, estimateReadTime, type BlogPostRow } from "@/data/blog";
 
 const proofStories = [
   {
@@ -53,9 +54,9 @@ const proofStories = [
 
 const causeTags = ["Education", "Environment", "Health", "Women’s empowerment", "Whatever your cause"];
 
-function useReveal() {
+function useReveal(deps: React.DependencyList = []) {
   useEffect(() => {
-    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-visible)"));
     if (!("IntersectionObserver" in window)) {
       items.forEach((item) => item.classList.add("is-visible"));
       return;
@@ -75,13 +76,22 @@ function useReveal() {
 
     items.forEach((item) => observer.observe(item));
     return () => observer.disconnect();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 }
 
 export default function Home() {
-  useReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [blogPosts, setBlogPosts] = useState<BlogPostRow[]>([]);
+
+  useEffect(() => {
+    fetchBlogPosts({ limit: 3 })
+      .then(setBlogPosts)
+      .catch(() => setBlogPosts([]));
+  }, []);
+
+  useReveal([blogPosts.length]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -118,6 +128,7 @@ export default function Home() {
             <a href="/experiences">Experiences</a>
             <a href="/about">About us</a>
             <a href="/stories">Our stories</a>
+            <a href="/blog">Blog</a>
             <a href="/how-we-celebrate">How we celebrate</a>
             <a href="/contact" className="nav-cta">
               Contact us <MoveUpRight size={15} strokeWidth={1.7} />
@@ -140,6 +151,7 @@ export default function Home() {
           <a href="/experiences" onClick={closeMenu}>Experiences <ArrowRight size={16} /></a>
           <a href="/about" onClick={closeMenu}>About us <ArrowRight size={16} /></a>
           <a href="/stories" onClick={closeMenu}>Our stories <ArrowRight size={16} /></a>
+          <a href="/blog" onClick={closeMenu}>Blog <ArrowRight size={16} /></a>
           <a href="/how-we-celebrate" onClick={closeMenu}>How we celebrate <ArrowRight size={16} /></a>
           <a href="/contact" onClick={closeMenu}>Contact us <ArrowRight size={16} /></a>
         </nav>
@@ -288,6 +300,40 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {blogPosts.length > 0 ? (
+          <section className="blog-teaser-section section-sand section-space" id="blog">
+            <div className="editorial-container">
+              <div className="section-heading section-heading--split" data-reveal>
+                <div>
+                  <p className="eyebrow"><span className="eyebrow__dot" /> From the blog</p>
+                  <h2>Notes from inside the work.</h2>
+                </div>
+                <p className="section-heading__aside">Thinking on CSR, employee experience, and what makes a day worth remembering.</p>
+              </div>
+
+              <div className="blog-grid">
+                {blogPosts.map((post, index) => (
+                  <a href={`/blog/${post.slug}`} key={post.slug} className="blog-card" data-reveal style={{ animationDelay: `${index * 70}ms` }}>
+                    {post.coverImage ? <img className="blog-card__photo" src={post.coverImage} alt={post.coverImageAlt || post.title} /> : <div className="blog-card__photo blog-card__photo--placeholder" />}
+                    <div className="blog-card__body">
+                      <div className="blog-card__meta">
+                        {post.category ? <span className="blog-card__category">{post.category}</span> : null}
+                        <span className="blog-card__readtime">{post.readTimeMinutes || estimateReadTime(post.content)} min read</span>
+                      </div>
+                      <h3>{post.title}</h3>
+                      {post.excerpt ? <p>{post.excerpt}</p> : null}
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              <div className="concept-teaser" data-reveal>
+                <a href="/blog" className="button button--ink">Read all posts <ArrowRight size={17} /></a>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="cause-section section-teal" data-reveal>
           <div className="cause-section__inner">

@@ -1,4 +1,5 @@
 import type { ExperienceRow } from "@/data/experiences";
+import type { BlogPostRow } from "@/data/blog";
 
 export interface ContactSubmission {
   name: string;
@@ -129,6 +130,65 @@ export async function updateExperience(id: number, data: Partial<ExperienceRow>)
 export async function deleteExperience(id: number): Promise<{ success: boolean; error?: string }> {
   try {
     const res = await fetch(`/api/admin/experiences/${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      return { success: false, error: body.error || "Something went wrong." };
+    }
+    return { success: true };
+  } catch {
+    return { success: false, error: "Couldn't reach the server." };
+  }
+}
+
+// --- Blog admin ---
+
+export async function fetchAdminBlogPosts(): Promise<{ posts: BlogPostRow[] } | { error: string }> {
+  try {
+    const res = await fetch("/api/admin/blog");
+    if (!res.ok) return { error: "Not authenticated or something went wrong." };
+    return await res.json();
+  } catch {
+    return { error: "Couldn't reach the server." };
+  }
+}
+
+export async function createBlogPost(data: Partial<BlogPostRow>): Promise<{ success: boolean; id?: number; error?: string }> {
+  try {
+    const res = await fetch("/api/admin/blog", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      return { success: false, error: body.error || "Something went wrong." };
+    }
+    return await res.json();
+  } catch {
+    return { success: false, error: "Couldn't reach the server." };
+  }
+}
+
+export async function updateBlogPost(id: number, data: Partial<BlogPostRow>): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`/api/admin/blog/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      return { success: false, error: body.error || "Something went wrong." };
+    }
+    return { success: true };
+  } catch {
+    return { success: false, error: "Couldn't reach the server." };
+  }
+}
+
+export async function deleteBlogPost(id: number): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch(`/api/admin/blog/${id}`, { method: "DELETE" });
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
       return { success: false, error: body.error || "Something went wrong." };
