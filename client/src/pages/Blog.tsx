@@ -89,7 +89,7 @@ export default function Blog() {
         <section className="experiences-hero blog-hero section-paper">
           <div className="editorial-container experiences-hero__inner" data-blog-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Blog</p>
-            <h1 className="hero-message"><span>Notes on</span><span>celebration</span><em>and impact.</em></h1>
+            <h1 className="hero-message"><span>Notes on </span><span>celebration </span><em>and impact.</em></h1>
             <p>Thinking from inside the work: what we're learning about CSR, employee experience, and building days that mean something to the people at the center of them.</p>
             <BuntingDivider />
           </div>
