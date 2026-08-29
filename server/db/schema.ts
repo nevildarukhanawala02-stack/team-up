@@ -76,6 +76,15 @@ export const blogPosts = mysqlTable("blog_posts", {
   coverImageAlt: varchar("cover_image_alt", { length: 500 }),
   content: text("content").notNull(), // rich HTML from the TipTap editor
   category: varchar("category", { length: 64 }),
+  /**
+   * Which layer of the topic-cluster pyramid this post is (per the Blog
+   * Content Framework): 'pillar_guide' is the comprehensive anchor for its
+   * category, 'faq_hub' is the lean standalone-answers page, everything
+   * else is a 'cluster_article'. Drives how /blog groups and orders posts,
+   * a pillar guide should surface above the cluster articles under it
+   * regardless of publish date, since it's the anchor, not just older.
+   */
+  postType: varchar("post_type", { length: 20 }).notNull().default("cluster_article"),
   tags: json("tags").$type<string[]>(),
   author: varchar("author", { length: 120 }),
   status: varchar("status", { length: 16 }).notNull().default("draft"), // 'draft' | 'published'

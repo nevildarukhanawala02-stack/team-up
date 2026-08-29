@@ -26,6 +26,7 @@ export interface BlogPostRow {
   coverImageAlt: string | null;
   content: string;
   category: string | null;
+  postType: string; // 'pillar_guide' | 'cluster_article' | 'faq_hub'
   tags: string[] | null;
   author: string | null;
   status: string; // 'draft' | 'published'

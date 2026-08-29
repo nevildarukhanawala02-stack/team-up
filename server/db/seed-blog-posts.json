@@ -16,7 +16,8 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-04T09:00:00",
-    "readTimeMinutes": 14
+    "readTimeMinutes": 14,
+    "postType": "pillar_guide"
   },
   {
     "slug": "csr-cluster-01-applicability",
@@ -34,7 +35,8 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-07T09:00:00",
-    "readTimeMinutes": 6
+    "readTimeMinutes": 6,
+    "postType": "cluster_article"
   },
   {
     "slug": "csr-cluster-02-calculation",
@@ -52,7 +54,8 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-11T09:00:00",
-    "readTimeMinutes": 6
+    "readTimeMinutes": 6,
+    "postType": "cluster_article"
   },
   {
     "slug": "csr-cluster-03-partner",
@@ -70,7 +73,8 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-14T09:00:00",
-    "readTimeMinutes": 6
+    "readTimeMinutes": 6,
+    "postType": "cluster_article"
   },
   {
     "slug": "csr-cluster-04-unspent",
@@ -88,7 +92,8 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-18T09:00:00",
-    "readTimeMinutes": 6
+    "readTimeMinutes": 6,
+    "postType": "cluster_article"
   },
   {
     "slug": "csr-cluster-05-reporting",
@@ -106,7 +111,8 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-21T09:00:00",
-    "readTimeMinutes": 6
+    "readTimeMinutes": 6,
+    "postType": "cluster_article"
   },
   {
     "slug": "csr-cluster-06-engagement",
@@ -124,7 +130,8 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-25T09:00:00",
-    "readTimeMinutes": 5
+    "readTimeMinutes": 5,
+    "postType": "cluster_article"
   },
   {
     "slug": "csr-faq-hub",
@@ -142,6 +149,7 @@
     "author": "Team Up Foundation",
     "status": "published",
     "publishedAt": "2026-08-27T09:00:00",
-    "readTimeMinutes": 8
+    "readTimeMinutes": 8,
+    "postType": "faq_hub"
   }
 ]

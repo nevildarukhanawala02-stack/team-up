@@ -13,6 +13,7 @@ type FormState = {
   coverImageAlt: string;
   content: string;
   category: string;
+  postType: "pillar_guide" | "cluster_article" | "faq_hub";
   tagsText: string;
   author: string;
   status: "draft" | "published";
@@ -27,6 +28,7 @@ const emptyForm: FormState = {
   coverImageAlt: "",
   content: "",
   category: blogCategories[0],
+  postType: "cluster_article",
   tagsText: "",
   author: "Team Up Foundation",
   status: "draft",
@@ -42,6 +44,7 @@ function rowToForm(row: BlogPostRow): FormState {
     coverImageAlt: row.coverImageAlt || "",
     content: row.content,
     category: row.category || blogCategories[0],
+    postType: (row.postType as "pillar_guide" | "cluster_article" | "faq_hub") || "cluster_article",
     tagsText: (row.tags || []).join(", "),
     author: row.author || "Team Up Foundation",
     status: row.status === "published" ? "published" : "draft",
@@ -66,6 +69,7 @@ function formToPayload(form: FormState): Partial<BlogPostRow> {
     coverImageAlt: form.coverImageAlt.trim() || null,
     content: form.content,
     category: form.category || null,
+    postType: form.postType,
     tags: form.tagsText.split(",").map((s) => s.trim()).filter(Boolean),
     author: form.author.trim() || null,
     status: form.status,
@@ -209,11 +213,19 @@ export default function AdminBlogForm() {
           <CoverImageField value={form.coverImage} onChange={(v) => update("coverImage", v)} />
           <label className="admin-form__field"><span>Cover image alt text</span><input type="text" value={form.coverImageAlt} onChange={(e) => update("coverImageAlt", e.target.value)} /></label>
 
-          <div className="admin-form__grid admin-form__grid--3">
+          <div className="admin-form__grid admin-form__grid--4">
             <label className="admin-form__field">
               <span>Category</span>
               <select value={form.category} onChange={(e) => update("category", e.target.value)}>
                 {blogCategories.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </label>
+            <label className="admin-form__field">
+              <span>Post type</span>
+              <select value={form.postType} onChange={(e) => update("postType", e.target.value as typeof form.postType)}>
+                <option value="pillar_guide">Pillar guide</option>
+                <option value="cluster_article">Cluster article</option>
+                <option value="faq_hub">FAQ hub</option>
               </select>
             </label>
             <label className="admin-form__field">

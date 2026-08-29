@@ -109,6 +109,7 @@ export async function ensureSchema() {
       cover_image_alt VARCHAR(500),
       content TEXT NOT NULL,
       category VARCHAR(64),
+      post_type VARCHAR(20) NOT NULL DEFAULT 'cluster_article',
       tags JSON,
       author VARCHAR(120),
       status VARCHAR(16) NOT NULL DEFAULT 'draft',
@@ -121,6 +122,7 @@ export async function ensureSchema() {
   `);
 
   await addColumnIfMissing("experiences", "impact", "TEXT AFTER ceremony");
+  await addColumnIfMissing("blog_posts", "post_type", "VARCHAR(20) NOT NULL DEFAULT 'cluster_article' AFTER category");
   await addColumnIfMissing("contact_submissions", "metadata", "JSON AFTER source_detail");
   await addColumnIfMissing("experiences", "story_scene", "TEXT AFTER story_link");
   await addColumnIfMissing("experiences", "story_narrative", "TEXT AFTER story_scene");
@@ -130,6 +132,7 @@ export async function ensureSchema() {
   await syncMissingExperiences();
   await syncMissingBlogPosts();
   await repairPlaceholderBlogCovers();
+  await repairBlogPostTypes();
   await backfillMissingFields();
 
   console.log("Database schema ready.");
@@ -261,4 +264,26 @@ async function repairPlaceholderBlogCovers() {
     if ((result as any)[0]?.affectedRows > 0) repaired++;
   }
   if (repaired > 0) console.log(`Repaired ${repaired} placeholder blog cover image(s).`);
+}
+
+/**
+ * Same safe-repair pattern as repairPlaceholderBlogCovers: the post_type
+ * column didn't exist when the CSR pillar posts were first seeded, so they
+ * all defaulted to 'cluster_article'. This corrects the pillar guide and
+ * FAQ hub specifically, but only while a row is still sitting at the
+ * default value, so a postType someone's deliberately set via /admin/blog
+ * (including setting it BACK to cluster_article on purpose) is never
+ * overwritten.
+ */
+async function repairBlogPostTypes() {
+  let repaired = 0;
+  for (const item of seedBlogPostsData as Array<Record<string, unknown>>) {
+    if (item.postType === "cluster_article") continue; // already the default, nothing to repair
+    const result = await db
+      .update(blogPosts)
+      .set({ postType: item.postType as string })
+      .where(and(eq(blogPosts.slug, item.slug as string), eq(blogPosts.postType, "cluster_article")));
+    if ((result as any)[0]?.affectedRows > 0) repaired++;
+  }
+  if (repaired > 0) console.log(`Repaired ${repaired} blog post type(s).`);
 }

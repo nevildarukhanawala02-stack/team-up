@@ -53,6 +53,8 @@ export default function Blog() {
 
   const categoriesPresent = Array.from(new Set(posts.map((p) => p.category).filter(Boolean))) as string[];
   const visiblePosts = activeCategory === "all" ? posts : posts.filter((p) => p.category === activeCategory);
+  const pillarGuides = visiblePosts.filter((p) => p.postType === "pillar_guide");
+  const otherPosts = visiblePosts.filter((p) => p.postType !== "pillar_guide");
 
   return (
     <div className="blog-page">
@@ -95,6 +97,27 @@ export default function Blog() {
 
         <section className="idea-section section-sand section-space">
           <div className="editorial-container">
+            {pillarGuides.length > 0 ? (
+              <div className="blog-pillar-guides" data-blog-reveal>
+                <p className="blog-pillar-guides__label">Start here</p>
+                <div className="blog-pillar-guides__grid">
+                  {pillarGuides.map((post) => (
+                    <Link href={`/blog/${post.slug}`} key={post.slug} className="blog-pillar-card">
+                      {post.coverImage ? <img className="blog-pillar-card__photo" src={post.coverImage} alt={post.coverImageAlt || post.title} /> : null}
+                      <div className="blog-pillar-card__body">
+                        <div className="blog-card__meta">
+                          {post.category ? <span className="blog-card__category">{post.category}</span> : null}
+                          <span className="blog-card__readtime">Pillar guide · {post.readTimeMinutes || estimateReadTime(post.content)} min read</span>
+                        </div>
+                        <h3>{post.title}</h3>
+                        {post.excerpt ? <p>{post.excerpt}</p> : null}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
             {categoriesPresent.length > 0 ? (
               <div className="category-filter" role="tablist" aria-label="Filter posts by category" data-blog-reveal>
                 <button type="button" role="tab" aria-selected={activeCategory === "all"} className={`category-filter__pill ${activeCategory === "all" ? "is-active" : ""}`} onClick={() => setActiveCategory("all")}>All</button>
@@ -106,11 +129,11 @@ export default function Blog() {
 
             {loading ? (
               <p className="idea-grid__loading">Loading posts…</p>
-            ) : visiblePosts.length === 0 ? (
+            ) : otherPosts.length === 0 && pillarGuides.length === 0 ? (
               <p className="idea-grid__loading">No posts yet, check back soon.</p>
-            ) : (
+            ) : otherPosts.length > 0 ? (
               <div className="blog-grid">
-                {visiblePosts.map((post, index) => (
+                {otherPosts.map((post, index) => (
                   <Link href={`/blog/${post.slug}`} key={post.slug} className="blog-card" data-blog-reveal style={{ animationDelay: `${(index % 6) * 45}ms` }}>
                     {post.coverImage ? <img className="blog-card__photo" src={post.coverImage} alt={post.coverImageAlt || post.title} /> : null}
                     <div className="blog-card__body">
@@ -125,7 +148,7 @@ export default function Blog() {
                   </Link>
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
         </section>
       </main>
