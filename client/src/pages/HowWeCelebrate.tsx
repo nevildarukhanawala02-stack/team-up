@@ -63,7 +63,7 @@ export default function HowWeCelebrate() {
     });
     setSubmitting(false);
     if (result.success) {
-      toast("Thanks — we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
+      toast("Thanks, we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
       form.reset();
     } else {
       toast("Something went wrong.", { description: result.error });
@@ -111,7 +111,7 @@ export default function HowWeCelebrate() {
           <div className="editorial-container celebrate-hero__inner" data-celebrate-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / How we celebrate</p>
             <h1>How we<br /><em>celebrate.</em></h1>
-            <p>Not confetti for the sake of it. Not a production for its own sake. Just moments worth remembering — thought through properly, and told well.</p>
+            <p>Not confetti for the sake of it. Not a production for its own sake. Just moments worth remembering, thought through properly, and told well.</p>
             <BuntingDivider />
             <a href="#meaning" className="arrow-link">What it means here <ArrowDownRight size={18} /></a>
           </div>
@@ -122,7 +122,7 @@ export default function HowWeCelebrate() {
           <div className="editorial-container celebrate-meaning__inner">
             <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> What celebration means here</p>
             <h2>Celebration doesn’t<br />always look like <em>a party.</em></h2>
-            <p>Sometimes it’s loud — a performance, a crowd, a reason to cheer. Sometimes it’s quiet — an afternoon at an elder care home, an old memory surfacing, a moment nobody quite expected. Both are celebrations, as far as we’re concerned. What makes something a celebration isn’t how big it looks. It’s whether it becomes something worth telling — to your team, to your family, to yourself later, remembering it.</p>
+            <p>Sometimes it’s loud: a performance, a crowd, a reason to cheer. Sometimes it’s quiet: an afternoon at an elder care home, an old memory surfacing, a moment nobody quite expected. Both are celebrations, as far as we’re concerned. What makes something a celebration isn’t how big it looks. It’s whether it becomes something worth telling, to your team, to your family, to yourself later, remembering it.</p>
             <BuntingDivider light />
           </div>
         </section>
@@ -135,7 +135,7 @@ export default function HowWeCelebrate() {
             </div>
             <div className="celebrate-story__layout">
               <div className="celebrate-story__copy" data-celebrate-reveal>
-                <p>Before anything happens, we sit down with you and decide what this day is actually about. That story — not just a list of activities — is what gets handed to everyone involved: the team on the ground, whoever’s capturing it, everyone. So the day has a shape to it, not just a sequence of tasks ticked off.</p>
+                <p>Before anything happens, we sit down with you and decide what this day is actually about. That story, not just a list of activities, is what gets handed to everyone involved: the team on the ground, whoever’s capturing it, everyone. So the day has a shape to it, not just a sequence of tasks ticked off.</p>
                 <a className="arrow-link" href="/experiences">See the experiences we’ve shaped <ArrowRight size={18} /></a>
               </div>
               <figure className="celebrate-story__image" data-celebrate-reveal>

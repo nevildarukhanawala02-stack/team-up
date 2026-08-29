@@ -41,8 +41,8 @@ export default function Contact() {
   useReveal();
 
   useEffect(() => {
-    document.title = "Contact Team Up — Start a conversation";
-    return () => { document.title = "Team Up — Celebration, not charity."; };
+    document.title = "Contact Team Up: Start a conversation";
+    return () => { document.title = "Team Up: Celebration, not charity."; };
   }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -61,7 +61,7 @@ export default function Contact() {
     setSubmitting(false);
     if (result.success) {
       setSubmitted(true);
-      toast("Thanks — we’ve got it.", { description: "We’ll be in touch soon." });
+      toast("Thanks, we’ve got it.", { description: "We’ll be in touch soon." });
     } else {
       toast("Something went wrong.", { description: result.error });
     }
@@ -106,7 +106,7 @@ export default function Contact() {
           <div className="editorial-container contact-page-intro__inner">
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Contact us</p>
             <h1>Let’s create<br /><em>something worth remembering.</em></h1>
-            <p>Whatever you’re already planning, or whatever’s still just an idea — tell us a little, and we’ll take it from there.</p>
+            <p>Whatever you’re already planning, or whatever’s still just an idea, tell us a little, and we’ll take it from there.</p>
             <BuntingDivider />
           </div>
         </section>
@@ -122,7 +122,7 @@ export default function Contact() {
               <div className="contact-success" role="status">
                 <span className="contact-success__icon"><Check size={22} /></span>
                 <p className="eyebrow"><span className="eyebrow__dot" /> Message received</p>
-                <h3>Thanks — we’ve got it.</h3>
+                <h3>Thanks, we’ve got it.</h3>
                 <p>We’ll be in touch soon. This prototype confirmation is ready to connect to your final inbox.</p>
                 <button type="button" className="text-button" onClick={() => setSubmitted(false)}>Send another note <ArrowRight size={16} /></button>
               </div>

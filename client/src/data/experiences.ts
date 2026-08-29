@@ -1,17 +1,17 @@
 /**
- * Team Up experience catalogue — the "Team Up format" content framework.
+ * Team Up experience catalogue, the "Team Up format" content framework.
  *
  * The taxonomy (categories, formats, and the field shapes below) lives in
  * code since it's structural, not day-to-day content. The actual experience
- * entries live in the database now and are managed from /admin/experiences —
+ * entries live in the database now and are managed from /admin/experiences,
  * `fetchExperiencesFromApi()` / `rowToExperience()` below fetch and reshape
  * them into the same shape the site's pages already render.
  *
  * The `detail` shape mirrors the Master Framework's Celebration Formula
- * (§5A): every real experience must show Story Direction and Ceremony —
+ * (§5A): every real experience must show Story Direction and Ceremony,
  * the two things Team Up always provides, regardless of budget. Flavor and
  * Star Power are optional and situational, so they're not structured
- * fields — only mention them inside `storyDirection`/`ceremony` prose if
+ * fields, only mention them inside `storyDirection`/`ceremony` prose if
  * genuinely present, never as a headline.
  */
 
@@ -40,14 +40,14 @@ export const categories: { id: ExperienceCategory; label: string }[] = [
   { id: "community", label: "Community" },
 ];
 
-/** Master Framework §5, Layer 2 — the four Engagement Formats. Primary filter. */
+/** Master Framework §5, Layer 2: the four Engagement Formats. Primary filter. */
 export type EngagementFormat = "volunteering" | "showcase" | "festive-immersion" | "flagship-journey";
 
 export const formats: { id: EngagementFormat; label: string; description: string }[] = [
   { id: "volunteering", label: "Hands-On Volunteering", description: "Employees actively participate alongside the community." },
   { id: "showcase", label: "Showcase & Spectacle", description: "The community performs; employees and the public are the audience." },
   { id: "festive-immersion", label: "Festive Immersion", description: "Employees join an existing celebration, adding the fun and gifting layer." },
-  { id: "flagship-journey", label: "Flagship Journey", description: "The biggest format — multi-location, multi-brand, high production." },
+  { id: "flagship-journey", label: "Flagship Journey", description: "The biggest format: multi-location, multi-brand, high production." },
 ];
 
 /** Icons available for concept cards, keyed by name (matches what the admin form lets you pick). */
@@ -69,24 +69,24 @@ export interface ExperienceDetail {
   heroImage: string;
   heroAlt: string;
   partner: string;
-  /** Framework §5A #1 — what story this day was decided to tell, before it happened. The real value-add. */
+  /** Framework §5A #1: what story this day was decided to tell, before it happened. The real value-add. */
   storyDirection: string;
-  /** Framework §5A #2 — the specific ritual or spotlight moment that made the day feel significant. */
+  /** Framework §5A #2: the specific ritual or spotlight moment that made the day feel significant. */
   ceremony: string;
-  /** Framework §5A #3 — what's still true after the day ends. Only a real, verified outcome; never a fabricated stat. */
+  /** Framework §5A #3: what's still true after the day ends. Only a real, verified outcome; never a fabricated stat. */
   impact: string;
   highlights: string[];
   gallery: { src: string; alt: string; caption: string }[];
   proof: string;
-  /** Optional — real, citable press coverage only. Understated "as seen in" credit, never a headline claim. */
+  /** Optional, real, citable press coverage only. Understated "as seen in" credit, never a headline claim. */
   pressLinks?: { title: string; source: string; url: string }[];
   /** Anchor id of the matching entry on the /stories page, for a "read the full story" cross-link. */
   storyLink: string;
-  /** Set true only while a real event is still waiting on approved photography — keeps the placeholder honest. */
+  /** Set true only while a real event is still waiting on approved photography, keeps the placeholder honest. */
   imagePlaceholder?: boolean;
   /**
    * Magazine-format fields for the long-form /stories page. Only present
-   * when this story has been written up for that treatment — a real
+   * when this story has been written up for that treatment, a real
    * experience with no `storyNarrative` simply doesn't appear on /stories
    * yet, so this stays optional rather than defaulting to empty strings.
    */
@@ -100,16 +100,16 @@ export interface ExperienceDetail {
 }
 
 /**
- * For concept ideas only — never for real, delivered experiences (those use
+ * For concept ideas only, never for real, delivered experiences (those use
  * `ExperienceDetail`). Deliberately has no `proof`, no `gallery`, no
- * `pressLinks` — nothing that could read as a verified fact about something
+ * `pressLinks`, nothing that could read as a verified fact about something
  * that hasn't happened. Framework §8: concepts stay "undefined enough to
  * invite co-creation," never dressed up as a fixed, delivered package.
  */
 export interface ConceptPreview {
   /** 2-4 sentences, conditional/future voice only ("could look like", never "was" or "did"). */
   description: string;
-  /** 3-5 illustrative possibilities — framed as options, not commitments or facts. */
+  /** 3-5 illustrative possibilities, framed as options, not commitments or facts. */
   possibleElements: string[];
 }
 
@@ -121,14 +121,14 @@ export interface Experience {
   format: EngagementFormat;
   color: "gold" | "coral" | "teal";
   icon?: LucideIcon;
-  /** Illustrative mood image for concept cards — never claims to document a real event (no "Delivered" badge shows for these). */
+  /** Illustrative mood image for concept cards, never claims to document a real event (no "Delivered" badge shows for these). */
   image?: string;
   imageAlt?: string;
   detail?: ExperienceDetail;
   preview?: ConceptPreview;
 }
 
-/** Raw shape returned by /api/experiences — flat, matches the database row. */
+/** Raw shape returned by /api/experiences, flat, matches the database row. */
 export interface ExperienceRow {
   id: number;
   slug: string;

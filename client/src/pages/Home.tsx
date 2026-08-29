@@ -24,7 +24,7 @@ const proofStories = [
     number: "01",
     title: "The Beat That Traveled",
     subtitle: "The Dharavi Dream Project",
-    text: "A group of young dancers from Dharavi got the stage — and the city — their talent always deserved. One video of the day crossed 500,000 views, entirely on its own.",
+    text: "A group of young dancers from Dharavi got the stage their talent always deserved, and the city noticed. One video of the day crossed 500,000 views, entirely on its own.",
     image: "/images/dharavi-dreams-hero.jpg",
     alt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
     color: "coral",
@@ -34,7 +34,7 @@ const proofStories = [
     number: "02",
     title: "Colors on the Ward",
     subtitle: "Access Life Assistance Foundation",
-    text: "Kids on a hospital ward spent an afternoon as artists, not patients — every single one went home a winner. A few of their actual drawings are still on our site, not just photos of the day.",
+    text: "Kids on a hospital ward spent an afternoon as artists, not patients. Every single one went home a winner. A few of their actual drawings are still on our site, not just photos of the day.",
     image: "/images/access-life-hero.jpg",
     alt: "A group of children in matching Little Rockstars t-shirts posing together with a parent",
     color: "teal",
@@ -44,7 +44,7 @@ const proofStories = [
     number: "03",
     title: "Independence Day Children's Festival",
     subtitle: "Giving Tree Foundation",
-    text: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of — on a date that doesn't usually feel like theirs, made theirs for an afternoon.",
+    text: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of. A date that doesn't usually feel like theirs, made theirs for an afternoon.",
     image: "/images/giving-tree-hero.jpg",
     alt: "A large hall full of children celebrating together under chandeliers",
     color: "gold",
@@ -107,7 +107,7 @@ export default function Home() {
     });
     setSubmitting(false);
     if (result.success) {
-      toast("Thanks — we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
+      toast("Thanks, we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
       form.reset();
     } else {
       toast("Something went wrong.", { description: result.error });
@@ -166,7 +166,7 @@ export default function Home() {
               <h1 className="hero-seo-tag">Mumbai’s Collaborative NGO</h1>
               <h2 className="hero-message"><span>Turning</span><span>Ideas into</span><em>Impact</em></h2>
               <p className="hero-lede">
-                Every idea starts somewhere — a cause, a celebration, a story worth telling. We shape it into a day that means something, and leave behind something that lasts.
+                Every idea starts somewhere: a cause, a celebration, a story worth telling. We shape it into a day that means something, and leave behind something that lasts.
               </p>
               <BuntingDivider />
               <div className="hero-actions">
@@ -216,7 +216,7 @@ export default function Home() {
             <div className="mission-layout">
               <div className="mission-copy" data-reveal>
                 <p>
-                  Every CSR mandate comes with a cause and a “do something with our employees” requirement — education, environment, health, women’s empowerment, whatever your team is already committed to.
+                  Every CSR mandate comes with a cause and a “do something with our employees” requirement: education, environment, health, women’s empowerment, whatever your team is already committed to.
                 </p>
                 <p>
                   We partner with your CSR team to design and deliver that activity as something genuinely memorable: co-created with you, handled end-to-end, wrapped in a little bit of celebration. What you get is a day your employees actually remember.
@@ -279,25 +279,25 @@ export default function Home() {
                 <span className="approach-card__index">01</span>
                 <span className="approach-card__icon approach-card__icon--gold"><span className="approach-card__flag" /></span>
                 <h3>Start with the story.</h3>
-                <p>Before anything happens, we decide what the day is really about — with you. Then we make sure everyone involved, from the crew to the camera, is telling that same story.</p>
+                <p>Before anything happens, we decide what the day is really about, with you. Then we make sure everyone involved, from the crew to the camera, is telling that same story.</p>
               </article>
               <article className="approach-card" data-reveal style={{ animationDelay: "70ms" }}>
                 <span className="approach-card__index">02</span>
                 <span className="approach-card__icon approach-card__icon--coral"><Sparkles size={22} strokeWidth={1.5} /></span>
                 <h3>Make the moment matter.</h3>
-                <p>A little ceremony, a spotlight, a reason to pause and notice what’s happening — because the people at the centre of the day deserve to feel that.</p>
+                <p>A little ceremony, a spotlight, a reason to pause and notice what’s happening, because the people at the centre of the day deserve to feel that.</p>
               </article>
               <article className="approach-card" data-reveal style={{ animationDelay: "140ms" }}>
                 <span className="approach-card__index">03</span>
                 <span className="approach-card__icon approach-card__icon--teal"><span className="approach-card__spark" /></span>
                 <h3>Sometimes, add a little magic.</h3>
-                <p>A surprise, a flourish, something worth talking about afterward — when it fits.</p>
+                <p>A surprise, a flourish, something worth talking about afterward, when it fits.</p>
               </article>
               <article className="approach-card" data-reveal style={{ animationDelay: "210ms" }}>
                 <span className="approach-card__index">04</span>
                 <span className="approach-card__icon approach-card__icon--ink"><Heart size={20} strokeWidth={1.5} /></span>
                 <h3>Leave something behind.</h3>
-                <p>The day ends. What matters is what's still true after it does — a little more visibility, a little more dignity, something that outlasts the afternoon itself.</p>
+                <p>The day ends. What matters is what's still true after it does: a little more visibility, a little more dignity, something that outlasts the afternoon itself.</p>
               </article>
             </div>
           </div>
@@ -339,7 +339,7 @@ export default function Home() {
 
         <section className="cause-section section-teal" data-reveal>
           <div className="cause-section__inner">
-            <p className="cause-section__lead">Whatever your team is already working toward — <em>we bring the celebration to it.</em></p>
+            <p className="cause-section__lead">Whatever your team is already working toward, <em>we bring the celebration to it.</em></p>
             <div className="cause-marquee" aria-label="Team Up works across causes">
               <div className="cause-marquee__track">
                 {[...causeTags, ...causeTags].map((cause, index) => (
@@ -358,7 +358,7 @@ export default function Home() {
                 <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> Your next occasion</p>
                 <h2>Let’s create something<br /><em>worth remembering.</em></h2>
                 <p>Tell us what you’re already planning, and we’ll bring the celebration. Or tell us your budget and your cause, and we’ll bring you the idea.</p>
-                <p className="contact-copy__note">A first conversation is just that — a conversation.</p>
+                <p className="contact-copy__note">A first conversation is just that: a conversation.</p>
               </div>
               <form className="contact-form" onSubmit={handleSubmit} data-reveal style={{ animationDelay: "100ms" }}>
                 <label>

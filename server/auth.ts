@@ -42,7 +42,7 @@ export function getSessionCookieOptions() {
 
 export { COOKIE_NAME };
 
-/** Express middleware — blocks the request unless a valid admin session cookie is present. */
+/** Express middleware, blocks the request unless a valid admin session cookie is present. */
 export async function requireAdmin(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies?.[COOKIE_NAME];
   if (!token) {

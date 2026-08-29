@@ -331,14 +331,14 @@ export default function AdminExperienceForm() {
               <label className="admin-form__field"><span>Story Direction (what story this day was decided to tell)</span><textarea rows={4} value={form.storyDirection} onChange={(e) => update("storyDirection", e.target.value)} /></label>
               <label className="admin-form__field"><span>Ceremony (the spotlight moment that made it feel significant)</span><textarea rows={3} value={form.ceremony} onChange={(e) => update("ceremony", e.target.value)} /></label>
               <label className="admin-form__field"><span>Highlights (one per line)</span><textarea rows={4} value={form.highlightsText} onChange={(e) => update("highlightsText", e.target.value)} /></label>
-              <label className="admin-form__field"><span>Gallery — one per line: image URL | alt text | caption</span><textarea rows={4} value={form.galleryText} onChange={(e) => update("galleryText", e.target.value)} placeholder="/images/example.jpg | A description | Short caption" /></label>
+              <label className="admin-form__field"><span>Gallery, one per line: image URL | alt text | caption</span><textarea rows={4} value={form.galleryText} onChange={(e) => update("galleryText", e.target.value)} placeholder="/images/example.jpg | A description | Short caption" /></label>
               <label className="admin-form__field"><span>Proof stat (the headline number/quote)</span><input type="text" value={form.proof} onChange={(e) => update("proof", e.target.value)} /></label>
-              <label className="admin-form__field"><span>Press links — one per line: title | source | url (optional)</span><textarea rows={3} value={form.pressLinksText} onChange={(e) => update("pressLinksText", e.target.value)} /></label>
+              <label className="admin-form__field"><span>Press links, one per line: title | source | url (optional)</span><textarea rows={3} value={form.pressLinksText} onChange={(e) => update("pressLinksText", e.target.value)} /></label>
               <label className="admin-form__field"><span>Story link (anchor id on the Stories page)</span><input type="text" value={form.storyLink} onChange={(e) => update("storyLink", e.target.value)} placeholder="defaults to slug" /></label>
               <label className="admin-form__toggle"><input type="checkbox" checked={form.imagePlaceholder} onChange={(e) => update("imagePlaceholder", e.target.checked)} /><span>Photos are still placeholders, flag as pending real event photography</span></label>
 
               <div className="admin-form__section">Stories page (long-form magazine treatment)</div>
-              <p className="admin-form__hint">Leave "Narrative" blank to keep this story off the /stories page for now — it stays on /experiences either way.</p>
+              <p className="admin-form__hint">Leave "Narrative" blank to keep this story off the /stories page for now, it stays on /experiences either way.</p>
               <label className="admin-form__field"><span>Scene (one line under the banner image)</span><textarea rows={2} value={form.storyScene} onChange={(e) => update("storyScene", e.target.value)} /></label>
               <label className="admin-form__field"><span>Narrative (the full long-form story paragraph)</span><textarea rows={5} value={form.storyNarrative} onChange={(e) => update("storyNarrative", e.target.value)} /></label>
               <label className="admin-form__field"><span>Moment (short pull-quote for the closing panel)</span><input type="text" value={form.storyMoment} onChange={(e) => update("storyMoment", e.target.value)} /></label>
@@ -350,7 +350,7 @@ export default function AdminExperienceForm() {
                   <option value="festival">Festival</option>
                 </select>
               </label>
-              <label className="admin-form__field"><span>Videos — one per line: video URL | label (optional)</span><textarea rows={3} value={form.storyVideosText} onChange={(e) => update("storyVideosText", e.target.value)} placeholder="/videos/example.mp4 | Where it started" /></label>
+              <label className="admin-form__field"><span>Videos, one per line: video URL | label (optional)</span><textarea rows={3} value={form.storyVideosText} onChange={(e) => update("storyVideosText", e.target.value)} placeholder="/videos/example.mp4 | Where it started" /></label>
             </>
           ) : (
             <>
@@ -363,7 +363,7 @@ export default function AdminExperienceForm() {
               </label>
               <ImageUploadField label="Illustrative photo" value={form.image} onChange={(v) => update("image", v)} />
               <label className="admin-form__field"><span>Photo alt text</span><input type="text" value={form.imageAlt} onChange={(e) => update("imageAlt", e.target.value)} /></label>
-              <label className="admin-form__field"><span>Description (conditional voice — "could look like", never "was")</span><textarea rows={4} value={form.previewDescription} onChange={(e) => update("previewDescription", e.target.value)} /></label>
+              <label className="admin-form__field"><span>Description (conditional voice, "could look like", never "was")</span><textarea rows={4} value={form.previewDescription} onChange={(e) => update("previewDescription", e.target.value)} /></label>
               <label className="admin-form__field"><span>Possible elements (one per line)</span><textarea rows={4} value={form.previewPossibleElementsText} onChange={(e) => update("previewPossibleElementsText", e.target.value)} /></label>
             </>
           )}

@@ -22,7 +22,7 @@ const trustees: { initials: string; name: string; bio: string; color: string; ph
     name: "Nevil Darukhanawala",
     photo: "/images/nevil-darukhanawala.jpg",
     photoAlt: "Nevil Darukhanawala, Trustee, Team Up",
-    bio: "Nevil brings over two decades of entrepreneurial experience across web technology and business systems, most recently as founder of StartupAIAdvantage, building AI-driven automation systems that help startups and manufacturing and logistics businesses run smarter. That same systems-thinking — building things that scale without losing their heart — is what shaped how Team Up operates behind the scenes.",
+    bio: "Nevil brings over two decades of entrepreneurial experience across web technology and business systems, most recently as founder of StartupAIAdvantage, building AI-driven automation systems that help startups and manufacturing and logistics businesses run smarter. That same systems-thinking, building things that scale without losing their heart, is what shaped how Team Up operates behind the scenes.",
     color: "gold",
   },
 ];
@@ -69,7 +69,7 @@ export default function About() {
     });
     setSubmitting(false);
     if (result.success) {
-      toast("Thanks — we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
+      toast("Thanks, we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
       form.reset();
     } else {
       toast("Something went wrong.", { description: result.error });
@@ -126,7 +126,7 @@ export default function About() {
           <div className="editorial-container about-hero__inner" data-about-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / About us</p>
             <h1>About<br /><em>Team Up.</em></h1>
-            <p>Two trustees, one shared belief: that doing good doesn’t have to look ordinary — impact can be exactly as memorable as it is meaningful.</p>
+            <p>Two trustees, one shared belief: that doing good doesn’t have to look ordinary. Impact can be exactly as memorable as it is meaningful.</p>
             <BuntingDivider />
             <a href="#why-we-exist" className="arrow-link">Why we exist <ArrowDownRight size={18} /></a>
           </div>
@@ -136,7 +136,7 @@ export default function About() {
         <section className="about-origin section-ink" id="why-we-exist" data-about-reveal>
           <div className="editorial-container about-origin__inner">
             <p className="eyebrow eyebrow--light"><span className="eyebrow__dot" /> Why we exist</p>
-            <p className="about-origin__copy">Team Up started with three real afternoons — a hospital ward turned art studio, young dancers from Dharavi who found a bigger stage, an Independence Day festival that felt like family for 300 kids. We didn’t set out with a theory. We noticed, after the fact, that a good celebration does more than fill a day — it leaves something behind it. So we built an organization around doing both properly, every time: the celebration, and whatever should still be true once it ends.</p>
+            <p className="about-origin__copy">Team Up started with three real afternoons: a hospital ward turned art studio, young dancers from Dharavi who found a bigger stage, an Independence Day festival that felt like family for 300 kids. We didn’t set out with a theory. We noticed, after the fact, that a good celebration does more than fill a day. It leaves something behind it. So we built an organization around doing both properly, every time: the celebration, and whatever should still be true once it ends.</p>
             <a className="about-origin__link" href="/experiences">See the full stories <ArrowRight size={17} /></a>
             <BuntingDivider light />
           </div>
@@ -177,7 +177,7 @@ export default function About() {
               <div className="credentials-copy">
                 <p className="eyebrow"><span className="eyebrow__dot" /> Trust & credentials</p>
                 <h2>Quietly<br /><em>reassuring.</em></h2>
-                <p>We’re a fully registered NGO, holding provisional 12A and 80G certification — which means your contribution or partnership is on solid legal footing from day one.</p>
+                <p>We’re a fully registered NGO, holding provisional 12A and 80G certification, which means your contribution or partnership is on solid legal footing from day one.</p>
               </div>
               <div className="credentials-downloads">
                 <button type="button" className="certificate-link" onClick={() => handleCertificate("Registration certificate")}><span className="certificate-link__icon"><Download size={17} /></span><span><b>Download our registration certificate</b><small>PDF placeholder</small></span><ArrowRight size={17} /></button>
@@ -186,7 +186,7 @@ export default function About() {
             </div>
             <div className="completion-certificate" data-about-reveal>
               <FileCheck2 size={28} strokeWidth={1.25} />
-              <div><p className="completion-certificate__label">After every event</p><p>you get a completion certificate — the standard documentation your team needs for CSR reporting, sitting alongside the real story and content from the day.</p></div>
+              <div><p className="completion-certificate__label">After every event</p><p>you get a completion certificate, the standard documentation your team needs for CSR reporting, sitting alongside the real story and content from the day.</p></div>
             </div>
           </div>
         </section>

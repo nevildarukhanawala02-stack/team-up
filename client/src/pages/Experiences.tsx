@@ -23,7 +23,7 @@ import { submitContactForm } from "@/lib/api";
 
 function useReveal(deps: React.DependencyList) {
   useEffect(() => {
-    // Only scan for items not yet revealed — cards from async-loaded data
+    // Only scan for items not yet revealed, cards from async-loaded data
     // (e.g. experiences fetched from the API) don't exist in the DOM on
     // initial mount, so this must re-run once they actually render, not
     // just once when the page first loads.
@@ -90,7 +90,7 @@ export default function Experiences() {
     });
     setSubmitting(false);
     if (result.success) {
-      toast("Thanks — we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
+      toast("Thanks, we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
       form.reset();
     } else {
       toast("Something went wrong.", { description: result.error });
@@ -143,7 +143,7 @@ export default function Experiences() {
           <div className="editorial-container experiences-hero__inner" data-experience-reveal>
             <p className="eyebrow"><span className="eyebrow__dot" /> Team Up / Experiences</p>
             <h1 className="hero-message"><span>Experiences</span><span>that become</span><em>stories.</em></h1>
-            <p>Every experience we build turns into something people carry with them — a story they tell in the office, a video they share with their family, a memory that outlasts the day itself.</p>
+            <p>Every experience we build turns into something people carry with them: a story they tell in the office, a video they share with their family, a memory that outlasts the day itself.</p>
             <BuntingDivider />
             <a href="#ideas" className="arrow-link">See the experiences <ArrowDownRight size={18} /></a>
           </div>
@@ -155,7 +155,7 @@ export default function Experiences() {
             <div className="experiences-section-heading experiences-section-heading--ideas" data-experience-reveal>
               <p className="eyebrow"><span className="eyebrow__dot" /> Real work, and what's next</p>
               <h2>A few we’ve lived,<br /><em>and what we’re excited about next.</em></h2>
-              <p>The photo cards below are real, delivered days — click through for the full story. Everything else is a starting point, not a fixed package. Tell us what excites you, and we’ll shape it around your team, your cause, and your budget.</p>
+              <p>The photo cards below are real, delivered days, click through for the full story. Everything else is a starting point, not a fixed package. Tell us what excites you, and we’ll shape it around your team, your cause, and your budget.</p>
             </div>
             <div className="category-filter" role="tablist" aria-label="Filter experiences by category" data-experience-reveal>
               <button type="button" role="tab" aria-selected={activeCategory === "all"} className={`category-filter__pill ${activeCategory === "all" ? "is-active" : ""}`} onClick={() => setActiveCategory("all")}>All</button>
@@ -201,7 +201,7 @@ export default function Experiences() {
               })}
             </div>
             )}
-            <p className="idea-section__note" data-experience-reveal><Sparkles size={16} strokeWidth={1.5} /> Illustrative concepts — never fixed packages.</p>
+            <p className="idea-section__note" data-experience-reveal><Sparkles size={16} strokeWidth={1.5} /> Illustrative concepts, never fixed packages.</p>
           </div>
         </section>
 
@@ -211,12 +211,12 @@ export default function Experiences() {
             <div className="build-heading" data-experience-reveal>
               <p className="eyebrow"><span className="eyebrow__dot" /> Build your own</p>
               <h2>Don’t see it here?<br /><em>Let’s build it together.</em></h2>
-              <p>We can’t put every idea on this page — most of the best ones come from a real conversation. Here’s roughly how we think it through with you:</p>
+              <p>We can’t put every idea on this page, most of the best ones come from a real conversation. Here’s roughly how we think it through with you:</p>
             </div>
             <div className="build-steps">
-              <article className="build-step" data-experience-reveal><span>01</span><h3>Start with your cause.</h3><p>Whatever your team is already committed to — education, environment, health, anything else — that’s our starting point too.</p></article>
+              <article className="build-step" data-experience-reveal><span>01</span><h3>Start with your cause.</h3><p>Whatever your team is already committed to: education, environment, health, anything else. That’s our starting point too.</p></article>
               <article className="build-step" data-experience-reveal><span>02</span><h3>Pick a shape.</h3><p>A hands-on day where your team gets involved directly, a showcase where a community’s talent takes the stage, a festive touch added to something that’s already happening, or something bigger.</p></article>
-              <article className="build-step" data-experience-reveal><span>03</span><h3>Bring us your flavor.</h3><p>A performer, a surprise, a small idea that’s been sitting in your head — if it fits, we’ll find a way to build it in.</p></article>
+              <article className="build-step" data-experience-reveal><span>03</span><h3>Bring us your flavor.</h3><p>A performer, a surprise, a small idea that’s been sitting in your head. If it fits, we’ll find a way to build it in.</p></article>
             </div>
           </div>
         </section>
@@ -225,8 +225,8 @@ export default function Experiences() {
           <div className="editorial-container story-method__inner">
             <p className="eyebrow"><span className="eyebrow__dot" /> How the story gets told</p>
             <h2>That’s what makes it a<br /><em>Team Up experience.</em></h2>
-            <p>Before anything happens, we decide together what story the day is actually telling. That story — not just a shot list — is what gets handed to everyone on the ground, from the performers to the camera crew. Everyone shows up already knowing what they’re there to capture and create.</p>
-            <p>Then we build in a real ceremony — a spotlight moment, done properly, not an afterthought. But the day itself still isn’t the finish line. We ask, before it happens, what should still be true after it ends — and we build toward that too.</p>
+            <p>Before anything happens, we decide together what story the day is actually telling. That story, not just a shot list, is what gets handed to everyone on the ground, from the performers to the camera crew. Everyone shows up already knowing what they’re there to capture and create.</p>
+            <p>Then we build in a real ceremony: a spotlight moment, done properly, not an afterthought. But the day itself still isn’t the finish line. We ask, before it happens, what should still be true after it ends, and we build toward that too.</p>
             <BuntingDivider />
           </div>
         </section>

@@ -1,12 +1,12 @@
 import { mysqlTable, int, varchar, text, timestamp, boolean, json } from "drizzle-orm/mysql-core";
 
 /**
- * The full experiences catalogue — real, delivered experiences and concept
+ * The full experiences catalogue, real, delivered experiences and concept
  * ideas, in one table. `isReal` decides which set of fields matter:
  *  - isReal=true  -> heroImage/heroAlt/partner/storyDirection/ceremony/impact/
  *                    highlights/gallery/proof/pressLinks/storyLink are used.
  *                    storyDirection+ceremony = the Celebration half (§5A);
- *                    impact = what's still true after the day ends — never
+ *                    impact = what's still true after the day ends, never
  *                    a fabricated stat, only a real, verified outcome.
  *  - isReal=false -> iconName/image/imageAlt/previewDescription/
  *                    previewPossibleElements are used
@@ -44,7 +44,7 @@ export const experiences = mysqlTable("experiences", {
   storyLink: varchar("story_link", { length: 128 }),
   imagePlaceholder: boolean("image_placeholder").default(false),
 
-  // Magazine-format fields — power the long-form /stories page. Only set on
+  // Magazine-format fields, power the long-form /stories page. Only set on
   // isReal rows that have been written up for that treatment; a real
   // experience with no storyNarrative simply doesn't appear on /stories yet
   // (never fabricated to fill the slot). Reuses heroImage/heroAlt, gallery,
@@ -62,7 +62,7 @@ export const experiences = mysqlTable("experiences", {
 
 /**
  * Blog posts. Rich content is authored as HTML from the TipTap editor in
- * /admin/blog. `status` gates public visibility — only 'published' rows with
+ * /admin/blog. `status` gates public visibility, only 'published' rows with
  * a past/present `publishedAt` are ever returned from the public /api/blog
  * endpoints; drafts stay admin-only so a post can be written over time
  * without appearing on the site early.
@@ -108,7 +108,7 @@ export const contactSubmissions = mysqlTable("contact_submissions", {
 
 /**
  * Generic site analytics events (page views, time-on-page, etc).
- * entityId/entityType stay generic on purpose — reuse the same table for
+ * entityId/entityType stay generic on purpose, reuse the same table for
  * new event types by tagging a different entityType rather than adding
  * columns.
  */

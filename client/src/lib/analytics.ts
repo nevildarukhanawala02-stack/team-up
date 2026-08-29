@@ -1,11 +1,11 @@
 /**
  * Lightweight, self-hosted analytics client. No third-party service, no
- * cookies beyond what the admin session already uses — just a session id in
+ * cookies beyond what the admin session already uses, just a session id in
  * localStorage and a fire-and-forget POST to our own /api/analytics/track.
  *
  * Design rules (carried over from the reference playbook):
  * - Tracking is fire-and-forget end to end. Callers never await track(), and
- *   track() itself never throws — a broken analytics call must never break
+ *   track() itself never throws, a broken analytics call must never break
  *   the site or interrupt navigation.
  * - Real conversions (contact form submissions) are never logged here; the
  *   admin dashboard reads the real contact_submissions table directly so
@@ -25,7 +25,7 @@ function getSessionId(): string {
     }
     return id;
   } catch {
-    // Storage unavailable (private browsing, etc.) — fall back to a
+    // Storage unavailable (private browsing, etc.), fall back to a
     // per-page-load id rather than breaking tracking entirely.
     return "no-storage";
   }
@@ -45,7 +45,7 @@ interface TrackOptions {
 
 /**
  * Fires an analytics event and forgets it. Never throws, never returns
- * anything callers need to handle — call it and move on.
+ * anything callers need to handle, call it and move on.
  */
 export function track(eventType: string, options: TrackOptions = {}): void {
   try {
@@ -63,7 +63,7 @@ export function track(eventType: string, options: TrackOptions = {}): void {
       body: JSON.stringify(payload),
       keepalive: true,
     }).catch(() => {
-      // Swallow network errors — analytics must never surface to the user.
+      // Swallow network errors, analytics must never surface to the user.
     });
   } catch {
     // Swallow anything else (e.g. JSON.stringify on a weird value).

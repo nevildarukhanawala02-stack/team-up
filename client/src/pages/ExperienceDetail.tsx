@@ -37,7 +37,7 @@ export default function ExperienceDetail() {
     });
     setSubmitting(false);
     if (result.success) {
-      toast("Thanks — we've got it.", { description: "We'll be in touch soon." });
+      toast("Thanks, we've got it.", { description: "We'll be in touch soon." });
       form.reset();
     } else {
       toast("Something went wrong.", { description: result.error });
@@ -110,7 +110,7 @@ export default function ExperienceDetail() {
                       <span>{experience.detail.proof}</span>
                     </div>
                   </div>
-                  {experience.detail.imagePlaceholder ? <p className="experience-detail__placeholder-note"><CircleHelp size={14} strokeWidth={1.6} /> Placeholder image — pending approved event photography.</p> : null}
+                  {experience.detail.imagePlaceholder ? <p className="experience-detail__placeholder-note"><CircleHelp size={14} strokeWidth={1.6} /> Placeholder image, pending approved event photography.</p> : null}
                 </div>
               </div>
               <div className="hero-section__edge" aria-hidden="true" />
@@ -118,8 +118,8 @@ export default function ExperienceDetail() {
 
             <section className="experience-facts section-paper">
               <div className="editorial-container experience-facts__grid">
-                <div className="experience-facts__item"><span>Format</span><strong>{format ? format.label : "—"}</strong></div>
-                <div className="experience-facts__item"><span>Category</span><strong>{category ? category.label : "—"}</strong></div>
+                <div className="experience-facts__item"><span>Format</span><strong>{format ? format.label : "N/A"}</strong></div>
+                <div className="experience-facts__item"><span>Category</span><strong>{category ? category.label : "N/A"}</strong></div>
                 <div className="experience-facts__item"><span>Delivered with</span><strong>{experience.detail.partner}</strong></div>
                 <div className="experience-facts__item"><span>The proof</span><strong>{experience.detail.proof}</strong></div>
               </div>
@@ -189,14 +189,14 @@ export default function ExperienceDetail() {
                   <p className="eyebrow"><span className="eyebrow__dot" /> {format ? format.label : ""}{category ? ` · ${category.label}` : ""}</p>
                   <h1 className="hero-message"><span>{experience.name}</span></h1>
                   <p className="hero-lede">{experience.hook}</p>
-                  <p className="concept-hero__flag"><Compass size={14} strokeWidth={1.7} /> A starting point, not a fixed package — nothing here has happened yet.</p>
+                  <p className="concept-hero__flag"><Compass size={14} strokeWidth={1.7} /> A starting point, not a fixed package: nothing here has happened yet.</p>
                 </div>
                 <div className="hero-visual concept-hero__visual">
                   <div className="hero-visual__frame">
                     {experience.image ? <img src={experience.image} alt={experience.imageAlt ?? experience.name} /> : null}
                     <div className="hero-visual__wash" />
                     <div className="hero-visual__caption">
-                      <span className="idea-card__concept-badge">Concept — illustrative, not documentary</span>
+                      <span className="idea-card__concept-badge">Concept: illustrative, not documentary</span>
                     </div>
                   </div>
                 </div>

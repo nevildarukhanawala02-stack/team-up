@@ -5,14 +5,14 @@ import * as schema from "./schema";
 import { experiences } from "./schema";
 import seedExperiencesData from "./seed-experiences.json";
 
-// Never throw at import time — a missing/misconfigured MYSQL_URL should
+// Never throw at import time, a missing/misconfigured MYSQL_URL should
 // degrade DB-backed routes gracefully (they already handle query errors),
 // not crash the whole process before the static site can even serve.
 // mysql2's createPool doesn't connect eagerly, so an unreachable/placeholder
 // URL here is safe; only an actual query attempt will fail, inside the
 // try/catch each route already has.
 if (!process.env.MYSQL_URL) {
-  console.error("MYSQL_URL is not set — DB-backed routes will fail until it's added on Railway.");
+  console.error("MYSQL_URL is not set, DB-backed routes will fail until it's added on Railway.");
 }
 const connectionString = process.env.MYSQL_URL || "mysql://unset:unset@localhost:3306/unset";
 
@@ -22,7 +22,7 @@ export const db = drizzle(pool, { schema, mode: "default" });
 
 /**
  * Creates the tables if they don't exist yet. Called once on server startup.
- * Simple, additive-only approach appropriate for this project's scale —
+ * Simple, additive-only approach appropriate for this project's scale,
  * safe to run on every boot since CREATE TABLE IF NOT EXISTS is a no-op
  * once the tables already exist.
  */
@@ -135,7 +135,7 @@ export async function ensureSchema() {
 /**
  * Adds a column to an existing table if it isn't already there. Needed
  * because CREATE TABLE IF NOT EXISTS is a no-op on a table that already
- * exists in production — new columns added to the schema after first
+ * exists in production, new columns added to the schema after first
  * deploy (like `impact`) never actually reach the live table without this.
  * MySQL's ADD COLUMN IF NOT EXISTS support varies by version, so this
  * catches the "duplicate column" error instead of relying on that syntax.
@@ -151,7 +151,7 @@ async function addColumnIfMissing(table: string, column: string, definition: str
 
 /**
  * Backfills fields that are empty on already-existing rows but present in
- * the seed JSON — e.g. `impact`, added after the 3 real experiences were
+ * the seed JSON, e.g. `impact`, added after the 3 real experiences were
  * already live. Only fills NULL/empty values; never overwrites a value
  * that's already set (including real admin edits), so it's safe on every
  * boot and idempotent once every row has the field populated.
