@@ -50,7 +50,21 @@
       }
     ],
     "storyLink": "beat-that-traveled",
-    "impact": "The night itself was the celebration. The impact came after: we took a video crew to Dharavi and shot the crew's hip-hop show like a real music video — full performances, street footage, individual introductions, interviews with each artist. Posted with zero paid promotion, it crossed 500,000 organic views. We went back and told them the number in person. For a self-taught crew performing locally, that's real, documented visibility they didn't have access to before."
+    "impact": "The night itself was the celebration. The impact came after: we took a video crew to Dharavi and shot the crew's hip-hop show like a real music video — full performances, street footage, individual introductions, interviews with each artist. Posted with zero paid promotion, it crossed 500,000 organic views. We went back and told them the number in person. For a self-taught crew performing locally, that's real, documented visibility they didn't have access to before.",
+    "storyScene": "A group of young dancers from Dharavi took their moves out of their neighborhood, and onto Mumbai's biggest stages.",
+    "storyNarrative": "We partnered with Rahi Theatre Collaboration and The Dharavi Dream Project on Dharavi Dreams, India's first musical hip-hop theatre production, written and directed by Neha Singh. Thirteen teenage hip-hop artists from Dharavi took the stage in specially made Sooper Dooper Kids t-shirts, in front of a real audience who came for the show, not the cause. What happened next wasn't something we planned. It just happened, because the story underneath it was already true.",
+    "storyMoment": "One video. Over 500,000 people. Zero paid promotion.",
+    "storyGalleryStyle": "evidence",
+    "storyVideos": [
+      {
+        "src": "/videos/dharavi-dreams-street.mp4",
+        "label": "Where it started"
+      },
+      {
+        "src": "/videos/dharavi-dreams-interview.mp4",
+        "label": "In their own words"
+      }
+    ]
   },
   {
     "slug": "colors-on-the-ward",
@@ -108,7 +122,12 @@
       }
     ],
     "storyLink": "colors-on-the-ward",
-    "impact": "The art competition itself was the celebration — every child went home a winner, no exceptions. As one small extra: a few of their actual drawings are in the gallery below, not just photos of the day — a little piece of what they made, kept around a bit longer than the afternoon itself."
+    "impact": "The art competition itself was the celebration — every child went home a winner, no exceptions. As one small extra: a few of their actual drawings are in the gallery below, not just photos of the day — a little piece of what they made, kept around a bit longer than the afternoon itself.",
+    "storyScene": "For one afternoon, a hospital ward became an art studio, and every child in it became an artist first.",
+    "storyNarrative": "The story we wanted to tell here wasn't about a competition or a winner. It was about a room forgetting, just for a while, where it was. Every child who picked up a brush that day left as a winner: a Sooper Dooper Kids t-shirt and, more than that, an afternoon that looked nothing like the rest of their week.",
+    "storyMoment": "Every single participant. A winner.",
+    "storyGalleryStyle": "closeups",
+    "storyVideos": []
   },
   {
     "slug": "independence-day-childrens-festival",
@@ -161,7 +180,17 @@
       }
     ],
     "storyLink": "independence-day-childrens-festival",
-    "impact": "The festival — mascots, music, 300 children, a full Mumbai banquet hall — was the celebration. The impact is what the date itself gave them: for children who don't usually experience Independence Day as personally theirs, this was one afternoon where the biggest holiday on the calendar was actually about them too."
+    "impact": "The festival — mascots, music, 300 children, a full Mumbai banquet hall — was the celebration. The impact is what the date itself gave them: for children who don't usually experience Independence Day as personally theirs, this was one afternoon where the biggest holiday on the calendar was actually about them too.",
+    "storyScene": "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of.",
+    "storyNarrative": "We joined Giving Tree Foundation and Way of Hope Charitable Trust's Independence Day Children's Festival, held in a Mumbai banquet hall complete with costumed mascots, music, and 300 children. We didn't organize the day, we showed up as participants, the same way we believe every brand should. Every child who came through the door left in a specially donated Sooper Dooper Kids t-shirt, one small, tangible piece of the celebration to carry home.",
+    "storyMoment": "300 children. One shared Independence Day.",
+    "storyGalleryStyle": "festival",
+    "storyVideos": [
+      {
+        "src": "/videos/giving-tree-celebration.mp4",
+        "label": "Inside the celebration"
+      }
+    ]
   },
   {
     "slug": "sunset-sessions",

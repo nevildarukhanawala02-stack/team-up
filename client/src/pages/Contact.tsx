@@ -146,7 +146,7 @@ export default function Contact() {
           <div className="editorial-container contact-details__inner">
             <p className="eyebrow"><span className="eyebrow__dot" /> Direct details</p>
             <div className="contact-details__items">
-              <a href="mailto:hello@teamup.org"><Mail size={18} strokeWidth={1.45} /><span><small>Email</small><b>hello@teamup.org</b></span></a>
+              <a href="mailto:info@teamupfoundation.org.in"><Mail size={18} strokeWidth={1.45} /><span><small>Email</small><b>info@teamupfoundation.org.in</b></span></a>
               <div><Phone size={18} strokeWidth={1.45} /><span><small>Phone</small><b>Available on request</b></span></div>
               <div><span className="contact-pin">●</span><span><small>Based in</small><b>Mumbai, Maharashtra</b></span></div>
             </div>
@@ -156,7 +156,7 @@ export default function Contact() {
 
       <footer className="site-footer section-paper contact-footer">
         <div className="editorial-container">
-          <div className="site-footer__top"><div><a className="brand-link brand-link--footer" href="/" aria-label="Back to homepage"><TeamUpLogo /></a><p className="site-footer__mission">We turn CSR employee activities into moments people remember.</p></div><div className="site-footer__contact"><p className="eyebrow"><span className="eyebrow__dot" /> Keep in touch</p><a href="mailto:hello@teamup.org">hello@teamup.org</a><div className="site-footer__socials"><a href="/stories">Our stories</a><a href="/about">About us</a></div></div></div>
+          <div className="site-footer__top"><div><a className="brand-link brand-link--footer" href="/" aria-label="Back to homepage"><TeamUpLogo /></a><p className="site-footer__mission">We turn CSR employee activities into moments people remember.</p></div><div className="site-footer__contact"><p className="eyebrow"><span className="eyebrow__dot" /> Keep in touch</p><a href="mailto:info@teamupfoundation.org.in">info@teamupfoundation.org.in</a><div className="site-footer__socials"><a href="/stories">Our stories</a><a href="/about">About us</a></div></div></div>
           <div className="site-footer__bottom"><span>Team Up is a registered NGO, with provisional 12A and 80G certification.</span><span>Celebration, not charity.</span></div>
         </div>
       </footer>

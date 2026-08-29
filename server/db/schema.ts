@@ -44,6 +44,18 @@ export const experiences = mysqlTable("experiences", {
   storyLink: varchar("story_link", { length: 128 }),
   imagePlaceholder: boolean("image_placeholder").default(false),
 
+  // Magazine-format fields — power the long-form /stories page. Only set on
+  // isReal rows that have been written up for that treatment; a real
+  // experience with no storyNarrative simply doesn't appear on /stories yet
+  // (never fabricated to fill the slot). Reuses heroImage/heroAlt, gallery,
+  // proof, and color (as the accent) from the fields above rather than
+  // duplicating them.
+  storyScene: text("story_scene"), // one-line scene-setter under the banner image
+  storyNarrative: text("story_narrative"), // the full long-form narrative paragraph
+  storyMoment: text("story_moment"), // short pull-quote for the closing "moment" panel
+  storyGalleryStyle: varchar("story_gallery_style", { length: 32 }), // 'evidence' | 'timeline' | 'closeups' | 'festival'
+  storyVideos: json("story_videos").$type<{ src: string; label: string }[]>(),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });

@@ -87,12 +87,22 @@ export async function ensureSchema() {
       press_links JSON,
       story_link VARCHAR(128),
       image_placeholder BOOLEAN DEFAULT FALSE,
+      story_scene TEXT,
+      story_narrative TEXT,
+      story_moment TEXT,
+      story_gallery_style VARCHAR(32),
+      story_videos JSON,
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `);
 
   await addColumnIfMissing("experiences", "impact", "TEXT AFTER ceremony");
+  await addColumnIfMissing("experiences", "story_scene", "TEXT AFTER story_link");
+  await addColumnIfMissing("experiences", "story_narrative", "TEXT AFTER story_scene");
+  await addColumnIfMissing("experiences", "story_moment", "TEXT AFTER story_narrative");
+  await addColumnIfMissing("experiences", "story_gallery_style", "VARCHAR(32) AFTER story_moment");
+  await addColumnIfMissing("experiences", "story_videos", "JSON AFTER story_gallery_style");
   await syncMissingExperiences();
   await backfillMissingFields();
 
@@ -124,19 +134,38 @@ async function addColumnIfMissing(table: string, column: string, definition: str
  * boot and idempotent once every row has the field populated.
  */
 async function backfillMissingFields() {
-  const existing = await db.select({ slug: experiences.slug, impact: experiences.impact }).from(experiences);
+  const existing = await db
+    .select({
+      slug: experiences.slug,
+      impact: experiences.impact,
+      storyScene: experiences.storyScene,
+      storyNarrative: experiences.storyNarrative,
+      storyMoment: experiences.storyMoment,
+      storyGalleryStyle: experiences.storyGalleryStyle,
+      storyVideos: experiences.storyVideos,
+    })
+    .from(experiences);
   const bySlug = new Map(existing.map((row) => [row.slug, row]));
 
   let backfilled = 0;
   for (const item of seedExperiencesData as Array<Record<string, unknown>>) {
     const row = bySlug.get(item.slug as string);
     if (!row) continue; // handled by syncMissingExperiences instead
-    if (!row.impact && item.impact) {
-      await db.update(experiences).set({ impact: item.impact as string }).where(eq(experiences.slug, item.slug as string));
+
+    const patch: Partial<typeof experiences.$inferInsert> = {};
+    if (!row.impact && item.impact) patch.impact = item.impact as string;
+    if (!row.storyScene && item.storyScene) patch.storyScene = item.storyScene as string;
+    if (!row.storyNarrative && item.storyNarrative) patch.storyNarrative = item.storyNarrative as string;
+    if (!row.storyMoment && item.storyMoment) patch.storyMoment = item.storyMoment as string;
+    if (!row.storyGalleryStyle && item.storyGalleryStyle) patch.storyGalleryStyle = item.storyGalleryStyle as string;
+    if (!row.storyVideos && item.storyVideos) patch.storyVideos = item.storyVideos as { src: string; label: string }[];
+
+    if (Object.keys(patch).length > 0) {
+      await db.update(experiences).set(patch).where(eq(experiences.slug, item.slug as string));
       backfilled++;
     }
   }
-  if (backfilled > 0) console.log(`Backfilled 'impact' on ${backfilled} existing row(s).`);
+  if (backfilled > 0) console.log(`Backfilled story fields on ${backfilled} existing row(s).`);
 }
 
 /**

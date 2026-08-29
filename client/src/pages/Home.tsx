@@ -342,7 +342,7 @@ export default function Home() {
             </div>
             <div className="site-footer__contact">
               <p className="eyebrow"><span className="eyebrow__dot" /> Keep in touch</p>
-              <a href="mailto:hello@teamup.org">hello@teamup.org</a>
+              <a href="mailto:info@teamupfoundation.org.in">info@teamupfoundation.org.in</a>
               <div className="site-footer__socials"><a href="#contact">Instagram</a><a href="#contact">LinkedIn</a></div>
             </div>
           </div>

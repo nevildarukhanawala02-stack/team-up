@@ -3,6 +3,11 @@
  * compact Experiences previews. Story media is intentionally replaceable; the current image set
  * is clearly marked as prototype scaffolding until approved event photography and video arrive.
  * Panel D renders only when an approved video source is supplied, never as an empty player.
+ *
+ * Stories are fetched from the same /api/experiences source as the Experiences page (real,
+ * delivered experiences with `story.narrative` written up for the magazine treatment) rather
+ * than a separate hardcoded array, one edit in /admin now updates both pages. A real experience
+ * with no narrative written yet simply doesn't appear here (never fabricated to fill the slot).
  */
 
 import { useEffect, useState } from "react";
@@ -10,6 +15,7 @@ import { ArrowDownRight, ArrowRight, Camera, CirclePlay, Menu, MessageCircle, X 
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
 import { submitContactForm } from "@/lib/api";
+import { fetchExperiencesFromApi, type Experience } from "@/data/experiences";
 
 type Story = {
   id: string;
@@ -28,78 +34,33 @@ type Story = {
   galleryStyle: "evidence" | "timeline" | "closeups" | "festival";
 };
 
-const stories: Story[] = [
-  {
-    id: "beat-that-traveled",
-    number: "01",
-    title: "The Beat That Traveled",
-    scene: "A group of young dancers from Dharavi took their moves out of their neighborhood — and onto Mumbai’s biggest stages.",
-    image: "/images/dharavi-dreams-hero.jpg",
-    alt: "Young performers mid-jump under red stage lighting during Dharavi Dreams, a hip-hop theatre production",
-    story: "We partnered with Rahi Theatre Collaboration and The Dharavi Dream Project on Dharavi Dreams — India’s first musical hip-hop theatre production, written and directed by Neha Singh. Thirteen teenage hip-hop artists from Dharavi took the stage in specially made Sooper Dooper Kids t-shirts, in front of a real audience who came for the show, not the cause. What happened next wasn’t something we planned — it just happened, because the story underneath it was already true.",
-    moment: "One video. Over 500,000 people. Zero paid promotion.",
-    proof: "500K+ organic views",
-    galleryCaptions: ["Warming up", "Into the light", "A real audience", "The beat carries"],
-    galleryImages: [
-      "/images/dharavi-dreams-warmup.jpg",
-      "/images/dharavi-dreams-light.jpg",
-      "/images/dharavi-dreams-cast.jpg",
-      "/images/dharavi-dreams-energy.jpg",
-    ],
-    accent: "coral",
-    galleryStyle: "evidence",
-    videos: [
-      { src: "/videos/dharavi-dreams-street.mp4", label: "Where it started" },
-      { src: "/videos/dharavi-dreams-interview.mp4", label: "In their own words" },
-    ],
-  },
-  {
-    id: "colors-on-the-ward",
-    number: "02",
-    title: "Colors on the Ward",
-    scene: "For one afternoon, a hospital ward became an art studio — and every child in it became an artist first.",
-    image: "/images/access-life-hero.jpg",
-    alt: "A group of children in matching Little Rockstars t-shirts posing together with a parent",
-    story: "The story we wanted to tell here wasn’t about a competition or a winner. It was about a room forgetting, just for a while, where it was. Every child who picked up a brush that day left as a winner — a Sooper Dooper Kids t-shirt and, more than that, an afternoon that looked nothing like the rest of their week.",
-    moment: "Every single participant. A winner.",
-    proof: "A room that forgot where it was",
-    galleryCaptions: ["The first brushstroke", "Colour in focus", "A small masterpiece", "Artists first"],
-    galleryImages: [
-      "/images/access-life-brushstroke.jpg",
-      "/images/access-life-colour.jpg",
-      "/images/access-life-masterpiece.jpg",
-      "/images/access-life-artists-first.jpg",
-    ],
-    accent: "teal",
-    galleryStyle: "closeups",
-  },
-  {
-    id: "independence-day-childrens-festival",
-    number: "03",
-    title: "Independence Day Children's Festival",
-    scene: "A banquet hall, 300 kids, and a full-scale Independence Day celebration we showed up to be part of.",
-    image: "/images/giving-tree-hero.jpg",
-    alt: "A large hall full of children celebrating together under chandeliers",
-    story: "We joined Giving Tree Foundation and Way of Hope Charitable Trust's Independence Day Children's Festival, held in a Mumbai banquet hall complete with costumed mascots, music, and 300 children. We didn't organize the day — we showed up as participants, the same way we believe every brand should. Every child who came through the door left in a specially donated Sooper Dooper Kids t-shirt, one small, tangible piece of the celebration to carry home.",
-    moment: "300 children. One shared Independence Day.",
-    proof: "300 children, celebrating together",
-    galleryCaptions: ["A new friend arrives", "Independence Day energy", "One festival, matching colours", "Friends first"],
-    galleryImages: [
-      "/images/giving-tree-mascot.jpg",
-      "/images/giving-tree-energy.jpg",
-      "/images/giving-tree-festival.jpg",
-      "/images/giving-tree-friends.jpg",
-    ],
-    accent: "coral",
-    galleryStyle: "festival",
-    videos: [
-      { src: "/videos/giving-tree-celebration.mp4", label: "Inside the celebration" },
-    ],
-  },
-];
+/** Reshapes a real, delivered Experience with a written-up `story` into the Story shape this page renders. */
+function experienceToStory(exp: Experience, index: number): Story | null {
+  const detail = exp.detail;
+  const story = detail?.story;
+  if (!detail || !story) return null;
+  return {
+    id: exp.slug,
+    number: String(index + 1).padStart(2, "0"),
+    title: exp.name,
+    scene: story.scene,
+    image: detail.heroImage,
+    alt: detail.heroAlt,
+    story: story.narrative,
+    moment: story.moment,
+    proof: detail.proof,
+    galleryCaptions: detail.gallery.map((g) => g.caption),
+    galleryImages: detail.gallery.length > 0 ? detail.gallery.map((g) => g.src) : undefined,
+    videos: story.videos.length > 0 ? story.videos : undefined,
+    accent: exp.color,
+    galleryStyle: story.galleryStyle,
+  };
+}
 
-function useReveal() {
+function useReveal(deps: unknown[] = []) {
   useEffect(() => {
+    // Re-scans whenever `deps` changes, needed because story panels now render
+    // after an async fetch, so a mount-only scan would run before they exist.
     const items = Array.from(document.querySelectorAll<HTMLElement>("[data-story-reveal]"));
     if (!("IntersectionObserver" in window)) {
       items.forEach((item) => item.classList.add("is-visible"));
@@ -118,13 +79,29 @@ function useReveal() {
     );
     items.forEach((item) => observer.observe(item));
     return () => observer.disconnect();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 }
 
 export default function OurStories() {
-  useReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [stories, setStories] = useState<Story[]>([]);
+  const [loading, setLoading] = useState(true);
+  useReveal([stories]);
+
+  useEffect(() => {
+    fetchExperiencesFromApi()
+      .then((experiences) => {
+        const realStories = experiences
+          .filter((e) => e.detail && e.detail.story)
+          .map((e, i) => experienceToStory(e, i))
+          .filter((s): s is Story => s !== null);
+        setStories(realStories);
+      })
+      .catch(() => setStories([]))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -140,7 +117,7 @@ export default function OurStories() {
     });
     setSubmitting(false);
     if (result.success) {
-      toast("Thanks — we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
+      toast("Thanks, we\u2019ve got it.", { description: "We\u2019ll be in touch soon." });
       form.reset();
     } else {
       toast("Something went wrong.", { description: result.error });
@@ -187,17 +164,25 @@ export default function OurStories() {
             <p>Every one of these started as a single afternoon. Here’s what they became.</p>
             <BuntingDivider />
           </div>
-          <div className="story-index" aria-label="Story index">
-            <div className="editorial-container story-index__inner">
-              <span className="story-index__label">Jump to a story</span>
-              {stories.map((story) => <a key={story.id} href={`#${story.id}`}>{story.title} <ArrowDownRight size={14} /></a>)}
+          {stories.length > 0 ? (
+            <div className="story-index" aria-label="Story index">
+              <div className="editorial-container story-index__inner">
+                <span className="story-index__label">Jump to a story</span>
+                {stories.map((story) => <a key={story.id} href={`#${story.id}`}>{story.title} <ArrowDownRight size={14} /></a>)}
+              </div>
             </div>
-          </div>
+          ) : null}
         </section>
 
-        <div className="story-media-note"><Camera size={15} strokeWidth={1.5} /><span>Prototype media shown here is replaceable scaffolding — approved event photography and video should take its place before launch.</span></div>
+        <div className="story-media-note"><Camera size={15} strokeWidth={1.5} /><span>Prototype media shown here is replaceable scaffolding, approved event photography and video should take its place before launch.</span></div>
 
-        {stories.map((story) => <StorySequence key={story.id} story={story} />)}
+        {loading ? (
+          <p className="stories-loading">Loading stories…</p>
+        ) : stories.length > 0 ? (
+          stories.map((story) => <StorySequence key={story.id} story={story} />)
+        ) : (
+          <p className="stories-loading">No stories are live yet, check back soon.</p>
+        )}
 
         <section className="stories-cta section-ink" id="inquiry">
           <div className="editorial-container">
@@ -223,7 +208,7 @@ export default function OurStories() {
 
       <footer className="site-footer section-paper stories-footer">
         <div className="editorial-container">
-          <div className="site-footer__top"><div><a className="brand-link brand-link--footer" href="/" aria-label="Back to homepage"><TeamUpLogo /></a><p className="site-footer__mission">We turn CSR employee activities into moments people remember.</p></div><div className="site-footer__contact"><p className="eyebrow"><span className="eyebrow__dot" /> Keep in touch</p><a href="mailto:hello@teamup.org">hello@teamup.org</a><div className="site-footer__socials"><a href="#inquiry">Instagram</a><a href="#inquiry">LinkedIn</a></div></div></div>
+          <div className="site-footer__top"><div><a className="brand-link brand-link--footer" href="/" aria-label="Back to homepage"><TeamUpLogo /></a><p className="site-footer__mission">We turn CSR employee activities into moments people remember.</p></div><div className="site-footer__contact"><p className="eyebrow"><span className="eyebrow__dot" /> Keep in touch</p><a href="mailto:info@teamupfoundation.org.in">info@teamupfoundation.org.in</a><div className="site-footer__socials"><a href="#inquiry">Instagram</a><a href="#inquiry">LinkedIn</a></div></div></div>
           <div className="site-footer__bottom"><span>Team Up is a registered NGO, with provisional 12A and 80G certification.</span><span>Celebration, not charity.</span></div>
         </div>
       </footer>
@@ -258,7 +243,7 @@ function StorySequence({ story }: { story: Story }) {
         <div className="editorial-container">
           <div className="story-gallery__heading"><p className="eyebrow"><span className="eyebrow__dot" /> The gallery</p><p>{story.galleryStyle === "evidence" ? "The stage, the crowd, and the moment the beat left the room." : story.galleryStyle === "closeups" ? "Brushes, hands, paper, and the small concentration of making something new." : story.galleryStyle === "festival" ? "Mascots, music, and a hall full of colour." : "The tree, the guests, and the details that made an ordinary afternoon feel complete."}</p></div>
           <div className={`story-gallery-grid story-gallery-grid--${story.galleryStyle}`}>
-            {story.galleryCaptions.map((caption, index) => <figure key={caption} className={`story-gallery-frame story-gallery-frame--${index + 1}`}><img src={story.galleryImages?.[index] ?? story.image} alt={`${story.alt} — ${caption}`} /><figcaption><span>{String(index + 1).padStart(2, "0")}</span>{caption}</figcaption></figure>)}
+            {story.galleryCaptions.map((caption, index) => <figure key={caption} className={`story-gallery-frame story-gallery-frame--${index + 1}`}><img src={story.galleryImages?.[index] ?? story.image} alt={`${story.alt}: ${caption}`} /><figcaption><span>{String(index + 1).padStart(2, "0")}</span>{caption}</figcaption></figure>)}
           </div>
           {!story.galleryImages ? <p className="story-gallery__note"><Camera size={15} strokeWidth={1.5} /> Gallery frames await the approved event image set.</p> : null}
         </div>

@@ -80,10 +80,23 @@ export interface ExperienceDetail {
   proof: string;
   /** Optional — real, citable press coverage only. Understated "as seen in" credit, never a headline claim. */
   pressLinks?: { title: string; source: string; url: string }[];
-  /** Anchor id of the matching entry in OurStories.tsx, for a "read the full story" cross-link. */
+  /** Anchor id of the matching entry on the /stories page, for a "read the full story" cross-link. */
   storyLink: string;
   /** Set true only while a real event is still waiting on approved photography — keeps the placeholder honest. */
   imagePlaceholder?: boolean;
+  /**
+   * Magazine-format fields for the long-form /stories page. Only present
+   * when this story has been written up for that treatment — a real
+   * experience with no `storyNarrative` simply doesn't appear on /stories
+   * yet, so this stays optional rather than defaulting to empty strings.
+   */
+  story?: {
+    scene: string;
+    narrative: string;
+    moment: string;
+    galleryStyle: "evidence" | "timeline" | "closeups" | "festival";
+    videos: { src: string; label: string }[];
+  };
 }
 
 /**
@@ -143,6 +156,11 @@ export interface ExperienceRow {
   pressLinks: { title: string; source: string; url: string }[] | null;
   storyLink: string | null;
   imagePlaceholder: boolean | null;
+  storyScene: string | null;
+  storyNarrative: string | null;
+  storyMoment: string | null;
+  storyGalleryStyle: string | null;
+  storyVideos: { src: string; label: string }[] | null;
 }
 
 /** Reshapes an API row into the nested Experience shape the pages already render. */
@@ -172,6 +190,15 @@ export function rowToExperience(row: ExperienceRow): Experience {
         pressLinks: row.pressLinks && row.pressLinks.length > 0 ? row.pressLinks : undefined,
         storyLink: row.storyLink || row.slug,
         imagePlaceholder: row.imagePlaceholder || undefined,
+        story: row.storyNarrative
+          ? {
+              scene: row.storyScene || "",
+              narrative: row.storyNarrative,
+              moment: row.storyMoment || "",
+              galleryStyle: (row.storyGalleryStyle as "evidence" | "timeline" | "closeups" | "festival") || "evidence",
+              videos: row.storyVideos || [],
+            }
+          : undefined,
       },
     };
   }

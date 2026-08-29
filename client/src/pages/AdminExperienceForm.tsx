@@ -32,6 +32,12 @@ type FormState = {
   pressLinksText: string;
   storyLink: string;
   imagePlaceholder: boolean;
+  // /stories magazine-page fields (real experiences only)
+  storyScene: string;
+  storyNarrative: string;
+  storyMoment: string;
+  storyGalleryStyle: string;
+  storyVideosText: string;
 };
 
 const emptyForm: FormState = {
@@ -59,6 +65,11 @@ const emptyForm: FormState = {
   pressLinksText: "",
   storyLink: "",
   imagePlaceholder: false,
+  storyScene: "",
+  storyNarrative: "",
+  storyMoment: "",
+  storyGalleryStyle: "evidence",
+  storyVideosText: "",
 };
 
 function rowToForm(row: ExperienceRow): FormState {
@@ -87,6 +98,11 @@ function rowToForm(row: ExperienceRow): FormState {
     pressLinksText: (row.pressLinks || []).map((p) => `${p.title} | ${p.source} | ${p.url}`).join("\n"),
     storyLink: row.storyLink || "",
     imagePlaceholder: row.imagePlaceholder || false,
+    storyScene: row.storyScene || "",
+    storyNarrative: row.storyNarrative || "",
+    storyMoment: row.storyMoment || "",
+    storyGalleryStyle: row.storyGalleryStyle || "evidence",
+    storyVideosText: (row.storyVideos || []).map((v) => `${v.src} | ${v.label}`).join("\n"),
   };
 }
 
@@ -121,6 +137,14 @@ function formToPayload(form: FormState): Partial<ExperienceRow> {
       }),
       storyLink: form.storyLink.trim() || form.slug.trim(),
       imagePlaceholder: form.imagePlaceholder,
+      storyScene: form.storyScene.trim() || null,
+      storyNarrative: form.storyNarrative.trim() || null,
+      storyMoment: form.storyMoment.trim() || null,
+      storyGalleryStyle: form.storyNarrative.trim() ? form.storyGalleryStyle : null,
+      storyVideos: form.storyVideosText.split("\n").map((s) => s.trim()).filter(Boolean).map((line) => {
+        const [src, label] = line.split("|").map((p) => p.trim());
+        return { src: src || "", label: label || "" };
+      }),
       iconName: null,
       image: null,
       imageAlt: null,
@@ -146,6 +170,11 @@ function formToPayload(form: FormState): Partial<ExperienceRow> {
     pressLinks: null,
     storyLink: null,
     imagePlaceholder: false,
+    storyScene: null,
+    storyNarrative: null,
+    storyMoment: null,
+    storyGalleryStyle: null,
+    storyVideos: null,
   };
 }
 
@@ -306,7 +335,22 @@ export default function AdminExperienceForm() {
               <label className="admin-form__field"><span>Proof stat (the headline number/quote)</span><input type="text" value={form.proof} onChange={(e) => update("proof", e.target.value)} /></label>
               <label className="admin-form__field"><span>Press links — one per line: title | source | url (optional)</span><textarea rows={3} value={form.pressLinksText} onChange={(e) => update("pressLinksText", e.target.value)} /></label>
               <label className="admin-form__field"><span>Story link (anchor id on the Stories page)</span><input type="text" value={form.storyLink} onChange={(e) => update("storyLink", e.target.value)} placeholder="defaults to slug" /></label>
-              <label className="admin-form__toggle"><input type="checkbox" checked={form.imagePlaceholder} onChange={(e) => update("imagePlaceholder", e.target.checked)} /><span>Photos are still placeholders — flag as pending real event photography</span></label>
+              <label className="admin-form__toggle"><input type="checkbox" checked={form.imagePlaceholder} onChange={(e) => update("imagePlaceholder", e.target.checked)} /><span>Photos are still placeholders, flag as pending real event photography</span></label>
+
+              <div className="admin-form__section">Stories page (long-form magazine treatment)</div>
+              <p className="admin-form__hint">Leave "Narrative" blank to keep this story off the /stories page for now — it stays on /experiences either way.</p>
+              <label className="admin-form__field"><span>Scene (one line under the banner image)</span><textarea rows={2} value={form.storyScene} onChange={(e) => update("storyScene", e.target.value)} /></label>
+              <label className="admin-form__field"><span>Narrative (the full long-form story paragraph)</span><textarea rows={5} value={form.storyNarrative} onChange={(e) => update("storyNarrative", e.target.value)} /></label>
+              <label className="admin-form__field"><span>Moment (short pull-quote for the closing panel)</span><input type="text" value={form.storyMoment} onChange={(e) => update("storyMoment", e.target.value)} /></label>
+              <label className="admin-form__field"><span>Gallery layout style</span>
+                <select value={form.storyGalleryStyle} onChange={(e) => update("storyGalleryStyle", e.target.value)}>
+                  <option value="evidence">Evidence</option>
+                  <option value="timeline">Timeline</option>
+                  <option value="closeups">Closeups</option>
+                  <option value="festival">Festival</option>
+                </select>
+              </label>
+              <label className="admin-form__field"><span>Videos — one per line: video URL | label (optional)</span><textarea rows={3} value={form.storyVideosText} onChange={(e) => update("storyVideosText", e.target.value)} placeholder="/videos/example.mp4 | Where it started" /></label>
             </>
           ) : (
             <>
