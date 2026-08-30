@@ -446,8 +446,9 @@ img { display: block; max-width: 100%; }
 .experiences-mobile-nav--open { max-height: 520px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
 @media (prefers-reduced-motion: reduce) { .experiences-page [data-experience-reveal] { opacity: 1; transform: none; } }
 @media (max-width: 900px) {
-  .experiences-hero { min-height: 600px; padding-top: 150px; }
-  .experiences-hero__image { inset: 42% 0 0; background: linear-gradient(180deg, rgba(240,230,210,.24), rgba(28,27,26,.2)), url("/images/team-up-hero.jpg") center 48%/cover no-repeat; }
+  .experiences-hero { min-height: 0; padding: 150px 0 40px; }
+  .experiences-hero__image { position: static; inset: auto; width: 100%; height: 260px; margin-top: 36px; opacity: 1; background: url("/images/team-up-hero.jpg") center 48%/cover no-repeat; }
+  .experiences-hero__inner { position: relative; z-index: 1; }
   .experiences-hero__inner > p:not(.eyebrow) { max-width: 560px; }
   .experiences-section-heading, .experiences-section-heading--ideas, .build-heading { grid-template-columns: 1fr; gap: 24px; }
   .experiences-section-heading > p:last-child, .build-heading > p:last-child { max-width: 510px; }
@@ -734,9 +735,10 @@ img { display: block; max-width: 100%; }
   .celebrate-inquiry { max-width: 610px; }
 }
 @media (max-width: 560px) {
-  .celebrate-hero { min-height: 570px; padding-top: 122px; padding-bottom: 65px; }
-  .celebrate-hero__image { inset: 44% 0 0; background: linear-gradient(180deg, rgba(240,230,210,.24), rgba(28,27,26,.2)), url("/images/giving-tree-energy.jpg") center 38%/cover no-repeat; }
-  .celebrate-hero h1 { font-size: 78px; }
+  .celebrate-hero { min-height: 0; padding: 122px 0 60px; overflow: visible; }
+  .celebrate-hero__image { position: static; inset: auto; width: 100%; height: 220px; margin-top: 28px; opacity: 1; background: url("/images/giving-tree-energy.jpg") center 38%/cover no-repeat; }
+  .celebrate-hero__inner { position: relative; z-index: 1; }
+  .celebrate-hero h1 { font-size: 46px; }
   .celebrate-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .celebrate-meaning { padding: 89px 0 84px; }
   .celebrate-meaning h2 { font-size: 51px; }
@@ -865,9 +867,10 @@ img { display: block; max-width: 100%; }
   .stories-inquiry { max-width: 610px; }
 }
 @media (max-width: 560px) {
-  .stories-hero { min-height: 570px; padding-top: 122px; }
-  .stories-hero__image { inset: 42% 0 0; background: linear-gradient(180deg, rgba(240,230,210,.24), rgba(28,27,26,.2)), url("/images/dharavi-dreams-energy.jpg") center 42%/cover no-repeat; }
-  .stories-hero h1 { font-size: 82px; }
+  .stories-hero { min-height: 0; padding: 122px 0 40px; overflow: visible; }
+  .stories-hero__image { position: static; inset: auto; width: 100%; height: 220px; margin-top: 28px; opacity: 1; background: url("/images/dharavi-dreams-energy.jpg") center 42%/cover no-repeat; }
+  .stories-hero__inner { position: relative; z-index: 1; }
+  .stories-hero h1 { font-size: 46px; }
   .stories-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .story-index__inner { align-items: flex-start; flex-direction: column; gap: 12px; }
   .story-index { padding: 17px 0 19px; }
@@ -918,9 +921,10 @@ img { display: block; max-width: 100%; }
   .about-inquiry { max-width: 610px; }
 }
 @media (max-width: 560px) {
-  .about-hero { min-height: 600px; padding-top: 122px; padding-bottom: 65px; }
-  .about-hero__image { inset: 44% 0 0; background: linear-gradient(180deg, rgba(240,230,210,.24), rgba(28,27,26,.2)), url("/images/dharavi-dreams-cast.jpg") center 38%/cover no-repeat; }
-  .about-hero h1 { font-size: 77px; }
+  .about-hero { min-height: 0; padding: 122px 0 60px; overflow: visible; }
+  .about-hero__image { position: static; inset: auto; width: 100%; height: 220px; margin-top: 28px; opacity: 1; background: url("/images/dharavi-dreams-cast.jpg") center 38%/cover no-repeat; }
+  .about-hero__inner { position: relative; z-index: 1; }
+  .about-hero h1 { font-size: 46px; }
   .about-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .about-hero__chapter { right: 18px; bottom: 22px; }
   .about-origin { padding: 88px 0 82px; }
@@ -942,8 +946,8 @@ img { display: block; max-width: 100%; }
 @media (max-width: 560px) {
   .story-video-row { flex-direction: column; align-items: center; }
   .story-video-row--2 .story-video { max-width: 280px; }
-  .experiences-hero__image { inset: 50% 0 0; }
-  .experiences-hero h1 { font-size: 59px; }
+  .experiences-hero__image { height: 200px; margin-top: 28px; }
+  .experiences-hero h1 { font-size: 42px; }
   .experiences-hero__inner > p:not(.eyebrow) { margin-top: 27px; font-size: 14px; }
   .experiences-hero__chapter { right: 18px; bottom: 22px; }
   .real-experiences.section-space, .idea-section.section-space, .build-section.section-space { padding-block: 91px; }
