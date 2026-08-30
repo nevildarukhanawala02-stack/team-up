@@ -3,6 +3,7 @@ import { desc, eq, asc, and, gte, lte, sql } from "drizzle-orm";
 import multer from "multer";
 import { db } from "./db/client";
 import { contactSubmissions, experiences, analyticsEvents, blogPosts } from "./db/schema";
+import { sendLeadNotification } from "./mailer";
 import { createAdminSession, verifyAdminSession, getSessionCookieOptions, requireAdmin, COOKIE_NAME } from "./auth";
 import { uploadToCloudinary } from "./cloudinary";
 
@@ -53,7 +54,7 @@ export function registerRoutes(app: Express) {
     }
 
     try {
-      await db.insert(contactSubmissions).values({
+      const submission = {
         name,
         organization: organization || null,
         email: email || null,
@@ -62,7 +63,9 @@ export function registerRoutes(app: Express) {
         source,
         sourceDetail: sourceDetail || null,
         metadata: metadata && Object.keys(metadata).length > 0 ? metadata : null,
-      });
+      };
+      await db.insert(contactSubmissions).values(submission);
+      sendLeadNotification(submission); // fire-and-forget, never blocks or fails this response
       res.json({ success: true });
     } catch (err) {
       console.error("Failed to save contact submission:", err);
