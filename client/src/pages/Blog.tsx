@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { Link } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { useScrolled } from "@/hooks/useScrolled";
 import { blogCategories, fetchBlogPosts, estimateReadTime, type BlogPostRow } from "@/data/blog";
 
 function useReveal(deps: React.DependencyList) {
@@ -38,6 +39,7 @@ function useReveal(deps: React.DependencyList) {
 
 export default function Blog() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled();
   const [posts, setPosts] = useState<BlogPostRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -58,7 +60,7 @@ export default function Blog() {
 
   return (
     <div className="blog-page">
-      <header className="site-header experiences-header">
+      <header className={`site-header experiences-header ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}><TeamUpLogo compact /></a>
           <nav className="desktop-nav" aria-label="Primary navigation">
