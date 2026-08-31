@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
 import { submitContactForm } from "@/lib/api";
 import { fetchBlogPosts, estimateReadTime, type BlogPostRow } from "@/data/blog";
+import { useScrolled } from "@/hooks/useScrolled";
 
 const proofStories = [
   {
@@ -84,6 +85,7 @@ export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [blogPosts, setBlogPosts] = useState<BlogPostRow[]>([]);
+  const scrolled = useScrolled();
 
   useEffect(() => {
     fetchBlogPosts({ limit: 3 })
@@ -118,7 +120,7 @@ export default function Home() {
 
   return (
     <div className="teamup-page">
-      <header className={`site-header ${mobileOpen ? "site-header--open" : ""}`}>
+      <header className={`site-header ${mobileOpen ? "site-header--open" : ""} ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="#top" aria-label="Team Up home" onClick={closeMenu}>
             <TeamUpLogo compact />
