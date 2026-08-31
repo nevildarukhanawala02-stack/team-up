@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
 import { Link, useParams } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { useScrolled } from "@/hooks/useScrolled";
 import { fetchBlogPost, estimateReadTime, type BlogPostRow } from "@/data/blog";
 import NotFound from "@/pages/NotFound";
 
@@ -9,6 +10,7 @@ export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPostRow | null | undefined>(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -29,7 +31,7 @@ export default function BlogPost() {
 
   return (
     <div className="blog-post-page">
-      <header className="site-header experiences-header">
+      <header className={`site-header experiences-header ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}><TeamUpLogo compact /></a>
           <nav className="desktop-nav" aria-label="Primary navigation">
