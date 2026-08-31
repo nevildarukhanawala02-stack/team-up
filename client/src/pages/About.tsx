@@ -5,17 +5,20 @@
  */
 
 import { useEffect, useState } from "react";
-import { ArrowDownRight, ArrowRight, Download, FileCheck2, Menu, MessageCircle, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, Download, FileCheck2, Linkedin, Menu, MessageCircle, X } from "lucide-react";
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { useScrolled } from "@/hooks/useScrolled";
+import { WHATSAPP_LINK } from "@/const";
 import { submitContactForm } from "@/lib/api";
 
-const trustees: { initials: string; name: string; bio: string; color: string; photo?: string; photoAlt?: string }[] = [
+const trustees: { initials: string; name: string; bio: string; color: string; photo?: string; photoAlt?: string; linkedin: string }[] = [
   {
     initials: "AK",
     name: "Arvind Kukreti",
     bio: "Arvind co-founded Ginger Domain, a Mumbai-based digital agency that has spent close to two decades building websites, ecommerce platforms, and digital marketing for businesses across India and beyond. That hands-on understanding of how stories travel online is what shapes how Team Up shows up on screen.",
     color: "teal",
+    linkedin: "https://in.linkedin.com/in/arvindkukreti",
   },
   {
     initials: "ND",
@@ -24,6 +27,7 @@ const trustees: { initials: string; name: string; bio: string; color: string; ph
     photoAlt: "Nevil Darukhanawala, Trustee, Team Up",
     bio: "Nevil brings over two decades of entrepreneurial experience across web technology and business systems, most recently as founder of StartupAIAdvantage, building AI-driven automation systems that help startups and manufacturing and logistics businesses run smarter. That same systems-thinking, building things that scale without losing their heart, is what shaped how Team Up operates behind the scenes.",
     color: "gold",
+    linkedin: "https://in.linkedin.com/in/nevildarukhanawala",
   },
 ];
 
@@ -53,6 +57,7 @@ function useReveal() {
 export default function About() {
   useReveal();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled();
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -76,13 +81,6 @@ export default function About() {
     }
   };
 
-  const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    toast("Add the official WhatsApp number here before launch.", {
-      description: "The lower-friction conversation path is ready in the design.",
-    });
-  };
-
   const handleCertificate = (label: string) => {
     toast(`${label} is ready for the final certificate file.`, {
       description: "The download path is a placeholder until the approved PDF is supplied.",
@@ -91,7 +89,7 @@ export default function About() {
 
   return (
     <div className="about-page">
-      <header className="site-header about-header">
+      <header className={`site-header about-header ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}><TeamUpLogo compact /></a>
           <nav className="desktop-nav" aria-label="Primary navigation">
@@ -161,6 +159,7 @@ export default function About() {
                     <p className="trustee-card__role">Trustee, Team Up</p>
                     <h3>{trustee.name}</h3>
                     <p>{trustee.bio}</p>
+                    <a className="trustee-card__linkedin" href={trustee.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={15} strokeWidth={1.6} /> View LinkedIn profile</a>
                     <span className="trustee-card__rule" aria-hidden="true" />
                   </div>
                 </article>
@@ -205,7 +204,7 @@ export default function About() {
                 <label><span>Organization</span><input name="organization" placeholder="Where are you working from?" required /></label>
                 <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
                 <button type="submit" className="button button--coral" disabled={submitting}>{submitting ? "Sending…" : "Send us an inquiry"} <ArrowRight size={17} /></button>
-                <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
+                <a className="whatsapp-button" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
                 <p className="about-inquiry__fineprint">Short form, low pressure. We'll get back to you soon.</p>
               </form>
             </div>
