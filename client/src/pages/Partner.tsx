@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { ArrowDownRight, ArrowRight, Menu, X } from "lucide-react";
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { useScrolled } from "@/hooks/useScrolled";
 import { submitContactForm } from "@/lib/api";
 
 function useReveal(deps: React.DependencyList = []) {
@@ -42,6 +43,7 @@ const volunteerInterests = ["Event day support", "Skilled volunteering", "Mentor
 
 export default function Partner() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled();
   useReveal();
 
   const [donateSubmitting, setDonateSubmitting] = useState(false);
@@ -126,7 +128,7 @@ export default function Partner() {
 
   return (
     <div className="partner-page">
-      <header className="site-header experiences-header">
+      <header className={`site-header experiences-header ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}><TeamUpLogo compact /></a>
           <nav className="desktop-nav" aria-label="Primary navigation">
