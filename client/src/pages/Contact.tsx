@@ -5,9 +5,11 @@
  */
 
 import { useEffect, useState } from "react";
-import { ArrowRight, Check, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { ArrowRight, Check, Mail, MapPin, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { toast } from "sonner";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { useScrolled } from "@/hooks/useScrolled";
+import { WHATSAPP_LINK, OFFICE_ADDRESS } from "@/const";
 import { submitContactForm } from "@/lib/api";
 
 function useReveal() {
@@ -35,6 +37,7 @@ function useReveal() {
 
 export default function Contact() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled();
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -67,14 +70,9 @@ export default function Contact() {
     }
   };
 
-  const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    toast("Add the official WhatsApp number here before launch.", { description: "The lower-friction conversation path is ready in the design." });
-  };
-
   return (
     <div className="contact-page">
-      <header className="site-header contact-header">
+      <header className={`site-header contact-header ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}><TeamUpLogo compact /></a>
           <nav className="desktop-nav" aria-label="Primary navigation">
@@ -142,7 +140,7 @@ export default function Contact() {
         <section className="contact-alternative section-sand" data-contact-reveal>
           <div className="editorial-container contact-alternative__inner">
             <div><p className="eyebrow"><span className="eyebrow__dot" /> Or, skip the form</p><h2>Prefer to<br /><em>just chat?</em></h2></div>
-            <a className="contact-whatsapp" href="#contact" onClick={handleWhatsApp}><MessageCircle size={21} strokeWidth={1.45} /><span><b>Message us on WhatsApp</b><small>Lower friction, same conversation.</small></span><ArrowRight size={18} /></a>
+            <a className="contact-whatsapp" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"><MessageCircle size={21} strokeWidth={1.45} /><span><b>Message us on WhatsApp</b><small>Lower friction, same conversation.</small></span><ArrowRight size={18} /></a>
           </div>
         </section>
 
@@ -152,7 +150,7 @@ export default function Contact() {
             <div className="contact-details__items">
               <a href="mailto:info@teamupfoundation.org.in"><Mail size={18} strokeWidth={1.45} /><span><small>Email</small><b>info@teamupfoundation.org.in</b></span></a>
               <div><Phone size={18} strokeWidth={1.45} /><span><small>Phone</small><b>Available on request</b></span></div>
-              <div><span className="contact-pin">●</span><span><small>Based in</small><b>Mumbai, Maharashtra</b></span></div>
+              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE_ADDRESS)}`} target="_blank" rel="noopener noreferrer"><MapPin size={18} strokeWidth={1.45} /><span><small>Registered office</small><b>{OFFICE_ADDRESS}</b></span></a>
             </div>
           </div>
         </section>
