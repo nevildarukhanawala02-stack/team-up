@@ -55,6 +55,7 @@
   --gold: #e3a72e;
   --coral: #e85d4c;
   --teal: #1f5c56;
+  --orange: #e8722e; /* Primary CTA colour (client brand direction, Aug 2026) — used for buttons/CTAs only, not editorial accents */
   --ash: #c9bfa8;
   --white-paper: #f7f1e7;
   --background: var(--paper);
@@ -95,7 +96,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Manrope", sans-serif; overflow-x: hidden; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", sans-serif; overflow-x: hidden; }
 button, input, textarea { font: inherit; }
 button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 a { color: inherit; text-decoration: none; }
@@ -110,7 +111,8 @@ img { display: block; max-width: 100%; }
 .section-teal { background: var(--teal); color: var(--paper); }
 .section-space { padding-block: 128px; }
 
-.site-header { position: absolute; inset: 0 0 auto; z-index: 30; color: var(--ink); }
+.site-header { position: fixed; inset: 0 0 auto; z-index: 30; color: var(--ink); background: transparent; box-shadow: none; transition: background 220ms var(--ease-out), box-shadow 220ms var(--ease-out); }
+.site-header--scrolled { background: rgba(240, 230, 210, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 rgba(28, 27, 26, 0.1); }
 .site-header__inner { width: min(1280px, calc(100% - 64px)); height: 96px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; }
 .brand-link { display: inline-flex; align-items: center; }
 .site-header__inner .brand-link { align-self: flex-start; }
@@ -120,8 +122,9 @@ img { display: block; max-width: 100%; }
 .desktop-nav { display: flex; align-items: center; gap: 34px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .desktop-nav > a:not(.nav-cta) { transition: color 180ms var(--ease-out); }
 .desktop-nav > a:not(.nav-cta):hover { color: var(--coral); }
-.nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 13px 16px 13px 18px; border: 1px solid rgba(28, 27, 26, 0.42); transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 180ms var(--ease-out); }
-.nav-cta:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+.nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 13px 16px 13px 18px; border: 1px solid var(--orange); background: var(--orange); color: var(--ink); transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 180ms var(--ease-out); }
+.nav-cta:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: translateY(-2px); }
+.nav-cta.nav-current { color: var(--ink); }
 .mobile-menu-button, .mobile-nav { display: none; }
 
 .hero-section { min-height: 640px; position: relative; padding-top: 140px; padding-bottom: 80px; }
@@ -148,10 +151,10 @@ img { display: block; max-width: 100%; }
 .hero-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 50px; padding: 14px 18px 14px 20px; border: 1px solid transparent; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; transition: transform 160ms var(--ease-out), background 180ms var(--ease-out), color 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
 .button:active { transform: scale(0.97); }
-.button--ink { background: var(--ink); color: var(--paper); box-shadow: 5px 5px 0 var(--gold); }
-.button--ink:hover { background: var(--teal); box-shadow: 3px 3px 0 var(--gold); transform: translate(2px, 2px); }
-.button--coral { background: var(--coral); color: var(--paper); }
-.button--coral:hover { background: var(--gold); color: var(--ink); }
+.button--ink { background: var(--ink); color: var(--paper); box-shadow: 5px 5px 0 var(--orange); }
+.button--ink:hover { background: var(--orange); color: var(--ink); box-shadow: 3px 3px 0 var(--ink); transform: translate(2px, 2px); }
+.button--coral { background: var(--orange); color: var(--ink); }
+.button--coral:hover { background: var(--ink); color: var(--paper); }
 .button--ghost { background: transparent; color: var(--ink); border-color: rgba(28,27,26,.3); }
 .button--ghost:hover { border-color: var(--ink); background: rgba(28,27,26,.05); }
 .text-link, .arrow-link { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -328,7 +331,7 @@ img { display: block; max-width: 100%; }
 /* Team Up Experiences page: same Civic Editorial system, extended into a chapter-led spread.
    Photography proves what happened; line icons signal what is still only an idea. */
 .experiences-page { background: var(--paper); color: var(--ink); overflow: hidden; }
-.experiences-header { position: absolute; }
+.experiences-header { position: fixed; }
 .experiences-header .nav-current { color: var(--coral); }
 .experiences-hero { position: relative; min-height: 560px; padding: 176px 0 92px; overflow: hidden; }
 .blog-hero { background: var(--paper); }
@@ -437,13 +440,13 @@ img { display: block; max-width: 100%; }
 .experience-inquiry input::placeholder, .experience-inquiry textarea::placeholder { color: rgba(240,230,210,.45); }
 .experience-inquiry input:focus, .experience-inquiry textarea:focus { border-color: var(--gold); }
 .experience-inquiry .button { width: 100%; margin-top: 8px; }
-.whatsapp-button { display: flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; margin-top: 11px; border: 1px solid rgba(240,230,210,.38); color: var(--paper); font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; transition: background 180ms var(--ease-out), color 180ms var(--ease-out); }
-.whatsapp-button:hover { background: var(--paper); color: var(--ink); }
+.whatsapp-button { display: flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; margin-top: 11px; border: 1px solid var(--orange); color: var(--paper); font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; transition: background 180ms var(--ease-out), color 180ms var(--ease-out); }
+.whatsapp-button:hover { background: var(--orange); color: var(--ink); }
 .experience-inquiry__fineprint { margin: 16px 0 0; color: rgba(240,230,210,.46); font-family: "IBM Plex Mono", monospace; font-size: 9px; line-height: 1.5; }
 .experiences-footer { padding-top: 76px; }
 .experiences-page [data-experience-reveal] { opacity: 0; transform: translateY(23px); transition: opacity 650ms var(--ease-out), transform 650ms var(--ease-out); }
 .experiences-page [data-experience-reveal].is-visible { opacity: 1; transform: translateY(0); }
-.experiences-mobile-nav--open { max-height: 520px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
+.mobile-nav.experiences-mobile-nav--open { max-height: 520px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
 @media (prefers-reduced-motion: reduce) { .experiences-page [data-experience-reveal] { opacity: 1; transform: none; } }
 @media (max-width: 900px) {
   .experiences-hero { min-height: 0; padding: 150px 0 40px; }
@@ -472,7 +475,7 @@ img { display: block; max-width: 100%; }
 /* Team Up About Us page: a quieter trust chapter. Real people require real photos; until approved
    assets arrive, initials keep the page human without inventing anyone's likeness. */
 .about-page { background: var(--paper); color: var(--ink); overflow: hidden; }
-.about-header { position: absolute; }
+.about-header { position: fixed; }
 .about-header .nav-current { color: var(--coral); }
 .about-hero { position: relative; min-height: 540px; padding: 176px 0 88px; overflow: hidden; }
 .about-hero__image { position: absolute; inset: 0 0 0 42%; background: linear-gradient(90deg, var(--paper) 0%, rgba(240,230,210,.96) 15%, rgba(240,230,210,.15) 60%, rgba(28,27,26,.12) 100%), url("/images/dharavi-dreams-cast.jpg") center 38%/cover no-repeat; opacity: .88; }
@@ -511,6 +514,10 @@ img { display: block; max-width: 100%; }
 .trustee-card--teal .trustee-card__role { color: var(--teal); }
 .trustee-card__body h3 { margin: 0; font-family: "DM Serif Display", serif; font-size: 34px; font-weight: 400; letter-spacing: -.045em; line-height: .98; }
 .trustee-card__body > p:not(.trustee-card__role) { margin: 22px 0 0; color: #6b6256; font-size: 12px; line-height: 1.72; }
+.trustee-card__linkedin { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; color: var(--ink); font-size: 11px; font-weight: 700; letter-spacing: .03em; transition: color 180ms var(--ease-out); }
+.trustee-card__linkedin svg { color: var(--gold); }
+.trustee-card__linkedin:hover { color: var(--coral); }
+.trustee-card--teal .trustee-card__linkedin svg { color: var(--teal); }
 .trustee-card__rule { display: block; width: 39px; height: 3px; margin-top: 24px; background: var(--gold); }
 .trustee-card--teal .trustee-card__rule { background: var(--teal); }
 .trustee-closing { max-width: 700px; margin: 74px auto 0; text-align: center; font-family: "DM Serif Display", serif; font-size: clamp(30px, 3.2vw, 45px); letter-spacing: -.04em; line-height: 1.05; }
@@ -552,7 +559,7 @@ img { display: block; max-width: 100%; }
 /* Team Up Our Stories archive: slower, full-bleed magazine chapters after the compact Experiences
    preview. Every image is replaceable scaffolding until approved event photography/video arrives. */
 .stories-page { background: var(--paper); color: var(--ink); overflow: hidden; }
-.stories-header { position: absolute; }
+.stories-header { position: fixed; }
 .stories-header .nav-current { color: var(--coral); }
 .stories-page [data-story-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
 .stories-page [data-story-reveal].is-visible { opacity: 1; transform: translateY(0); }
@@ -560,7 +567,7 @@ img { display: block; max-width: 100%; }
 /* Team Up How We Celebrate page: the quietest chapter. Fewer images, smaller promises, and an
    always/sometimes split that makes honesty legible before the copy is read. */
 .celebrate-page { background: var(--paper); color: var(--ink); overflow: hidden; }
-.celebrate-header { position: absolute; }
+.celebrate-header { position: fixed; }
 .celebrate-header .nav-current { color: var(--coral); }
 .celebrate-page [data-celebrate-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 650ms var(--ease-out), transform 650ms var(--ease-out); }
 .celebrate-page [data-celebrate-reveal].is-visible { opacity: 1; transform: translateY(0); }
@@ -568,11 +575,11 @@ img { display: block; max-width: 100%; }
 /* Team Up Contact page: a light, low-friction doorway. No hero imagery, one divider, one short
    form, and an equal WhatsApp path keep the page focused on starting the conversation. */
 .contact-page { background: var(--paper); color: var(--ink); overflow: hidden; }
-.contact-header { position: absolute; }
+.contact-header { position: fixed; }
 .contact-header .nav-current { color: var(--coral); }
 .contact-page [data-contact-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out); }
 .contact-page [data-contact-reveal].is-visible { opacity: 1; transform: translateY(0); }
-.contact-mobile-nav--open { max-height: 340px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
+.mobile-nav.contact-mobile-nav--open { max-height: 340px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
 .contact-page-intro { min-height: 520px; padding: 176px 0 90px; text-align: center; }
 .contact-page-intro__inner { max-width: 900px; }
 .contact-page-intro .eyebrow { justify-content: center; }
@@ -605,11 +612,11 @@ img { display: block; max-width: 100%; }
 .contact-alternative__inner { display: grid; grid-template-columns: .7fr 1fr; align-items: center; gap: 100px; }
 .contact-alternative h2 { margin: 0; font-family: "DM Serif Display", serif; font-size: clamp(47px, 4.9vw, 68px); font-weight: 400; letter-spacing: -.06em; line-height: .9; }
 .contact-alternative h2 em { color: var(--teal); font-style: italic; }
-.contact-whatsapp { display: grid; grid-template-columns: 27px 1fr 18px; align-items: center; gap: 16px; min-height: 82px; padding: 20px 24px; border: 1px solid var(--gold); background: var(--paper); color: var(--ink); transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 180ms var(--ease-out); }
-.contact-whatsapp:hover { background: var(--coral); color: var(--paper); transform: translateY(-3px); }
+.contact-whatsapp { display: grid; grid-template-columns: 27px 1fr 18px; align-items: center; gap: 16px; min-height: 82px; padding: 20px 24px; border: 1px solid var(--orange); background: var(--paper); color: var(--ink); transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 180ms var(--ease-out); }
+.contact-whatsapp:hover { background: var(--orange); color: var(--ink); transform: translateY(-3px); }
 .contact-whatsapp b { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 .contact-whatsapp small { display: block; margin-top: 5px; color: #756c5d; font-family: "IBM Plex Mono", monospace; font-size: 9px; }
-.contact-whatsapp:hover small { color: rgba(240,230,210,.75); }
+.contact-whatsapp:hover small { color: rgba(28,27,26,.68); }
 .contact-details { padding: 73px 0 86px; border-top: 1px solid rgba(28,27,26,.14); }
 .contact-details__inner { display: grid; grid-template-columns: .45fr 1fr; gap: 65px; align-items: start; }
 .contact-details__items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 19px; }
@@ -657,7 +664,7 @@ img { display: block; max-width: 100%; }
   .contact-details { padding: 67px 0 74px; }
   .contact-details__items { grid-template-columns: 1fr; gap: 24px; }
 }
-.celebrate-mobile-nav--open { max-height: 325px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
+.mobile-nav.celebrate-mobile-nav--open { max-height: 325px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
 .celebrate-hero { position: relative; min-height: 520px; padding: 176px 0 88px; overflow: hidden; }
 .celebrate-hero__image { position: absolute; inset: 0 0 0 42%; background: linear-gradient(90deg, var(--paper) 0%, rgba(240,230,210,.96) 15%, rgba(240,230,210,.15) 60%, rgba(28,27,26,.12) 100%), url("/images/giving-tree-energy.jpg") center 38%/cover no-repeat; opacity: .88; }
 .celebrate-hero__inner { position: relative; z-index: 1; }
@@ -760,7 +767,7 @@ img { display: block; max-width: 100%; }
   .celebrate-cta > .editorial-container > .bunting-divider { margin-bottom: 53px; }
   .celebrate-inquiry { padding: 22px 19px; }
 }
-.stories-mobile-nav--open { max-height: 300px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
+.mobile-nav.stories-mobile-nav--open { max-height: 300px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
 .stories-hero { min-height: 565px; padding: 176px 0 0; position: relative; overflow: hidden; }
 .stories-hero__image { position: absolute; inset: 0 0 0 42%; background: linear-gradient(90deg, var(--paper) 0%, rgba(240,230,210,.96) 15%, rgba(240,230,210,.15) 60%, rgba(28,27,26,.12) 100%), url("/images/dharavi-dreams-energy.jpg") center 42%/cover no-repeat; opacity: .88; }
 .stories-hero__inner { position: relative; z-index: 1; }
@@ -908,7 +915,7 @@ img { display: block; max-width: 100%; }
   .stories-cta h2 { font-size: 55px; }
   .stories-inquiry { padding: 22px 19px; }
 }
-.about-mobile-nav--open { max-height: 270px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
+.mobile-nav.about-mobile-nav--open { max-height: 270px; padding-block: 15px 24px; border-top: 1px solid rgba(28,27,26,.12); }
 @media (prefers-reduced-motion: reduce) { .about-page [data-about-reveal] { opacity: 1; transform: none; } }
 @media (max-width: 900px) {
   .about-hero { min-height: 575px; padding-top: 150px; }
