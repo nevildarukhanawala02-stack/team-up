@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowRight, CircleCheck, CircleHelp, Compass, Menu, MessageC
 import { toast } from "sonner";
 import { Link, useParams } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { useScrolled } from "@/hooks/useScrolled";
+import { WHATSAPP_LINK } from "@/const";
 import { categories, formats, fetchExperienceFromApi, type Experience } from "@/data/experiences";
 import { submitContactForm } from "@/lib/api";
 import NotFound from "@/pages/NotFound";
@@ -11,6 +13,7 @@ export default function ExperienceDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [experience, setExperience] = useState<Experience | null | undefined>(undefined);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled();
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -44,13 +47,6 @@ export default function ExperienceDetail() {
     }
   };
 
-  const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    toast("Add the official WhatsApp number here before launch.", {
-      description: "The lower-friction conversation path is ready in the design.",
-    });
-  };
-
   if (experience === undefined) {
     return <div className="idea-grid__loading" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>Loading…</div>;
   }
@@ -64,7 +60,7 @@ export default function ExperienceDetail() {
 
   return (
     <div className="experiences-page">
-      <header className="site-header experiences-header">
+      <header className={`site-header experiences-header ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}>
             <TeamUpLogo compact />
@@ -236,7 +232,7 @@ export default function ExperienceDetail() {
                 <label><span>Your starting point</span><textarea name="thought" rows={3} defaultValue={`I'm interested in: ${experience.name}`} required /></label>
                 <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
                 <button type="submit" className="button button--coral" disabled={submitting}>{submitting ? "Sending…" : "Send us an inquiry"} <ArrowRight size={17} /></button>
-                <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
+                <a className="whatsapp-button" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
                 <p className="experience-inquiry__fineprint">Short form, low pressure. We'll get back to you soon.</p>
               </form>
             </div>
