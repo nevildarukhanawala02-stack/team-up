@@ -17,6 +17,8 @@ import {
 import { toast } from "sonner";
 import { Link } from "wouter";
 import { BuntingDivider, TeamUpLogo } from "@/components/TeamUpBrand";
+import { useScrolled } from "@/hooks/useScrolled";
+import { WHATSAPP_LINK } from "@/const";
 import { categories, fetchExperiencesFromApi, type Experience } from "@/data/experiences";
 import { submitContactForm } from "@/lib/api";
 
@@ -57,6 +59,7 @@ function useReveal(deps: React.DependencyList) {
 
 export default function Experiences() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const scrolled = useScrolled();
   const [submitting, setSubmitting] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [experiences, setExperiences] = useState<Experience[]>([]);
@@ -97,16 +100,9 @@ export default function Experiences() {
     }
   };
 
-  const handleWhatsApp = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    toast("Add the official WhatsApp number here before launch.", {
-      description: "The lower-friction conversation path is ready in the design.",
-    });
-  };
-
   return (
     <div className="experiences-page">
-      <header className="site-header experiences-header">
+      <header className={`site-header experiences-header ${scrolled ? "site-header--scrolled" : ""}`}>
         <div className="site-header__inner">
           <a className="brand-link" href="/" aria-label="Team Up home" onClick={() => setMobileOpen(false)}>
             <TeamUpLogo compact />
@@ -246,7 +242,7 @@ export default function Experiences() {
                 <label><span>Your starting point</span><textarea name="thought" rows={3} placeholder="One line about what you’re thinking" required /></label>
                 <label><span>Email or phone</span><input name="contact" placeholder="How should we reach you?" required /></label>
                 <button type="submit" className="button button--coral" disabled={submitting}>{submitting ? "Sending…" : "Send us an inquiry"} <ArrowRight size={17} /></button>
-                <a className="whatsapp-button" href="#inquiry" onClick={handleWhatsApp}><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
+                <a className="whatsapp-button" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} strokeWidth={1.5} /> Chat with us on WhatsApp</a>
                 <p className="experience-inquiry__fineprint">Short form, low pressure. We'll get back to you soon.</p>
               </form>
             </div>
