@@ -149,7 +149,7 @@ export default function Contact() {
             <p className="eyebrow"><span className="eyebrow__dot" /> Direct details</p>
             <div className="contact-details__items">
               <a href="mailto:info@teamupfoundation.org.in"><Mail size={18} strokeWidth={1.45} /><span><small>Email</small><b>info@teamupfoundation.org.in</b></span></a>
-              <div><Phone size={18} strokeWidth={1.45} /><span><small>Phone</small><b>Available on request</b></span></div>
+              <a href="tel:+919967413441"><Phone size={18} strokeWidth={1.45} /><span><small>Phone</small><b>+91 99674 13441</b></span></a>
               <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE_ADDRESS)}`} target="_blank" rel="noopener noreferrer"><MapPin size={18} strokeWidth={1.45} /><span><small>Registered office</small><b>{OFFICE_ADDRESS}</b></span></a>
             </div>
           </div>
