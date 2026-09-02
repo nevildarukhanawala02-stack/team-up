@@ -111,7 +111,15 @@ function buildEmailHtml(submission: NewSubmission): string {
  * lead is already safely in the database by the time this is called.
  */
 export function sendLeadNotification(submission: NewSubmission): void {
-  const to = process.env.LEAD_NOTIFICATION_EMAIL || "nevildarukhanawala02@gmail.com";
+  // Always notify both trustees. LEAD_NOTIFICATION_EMAIL (if set on Railway)
+  // is added on top rather than replacing these, so an override there can't
+  // accidentally drop one of the trustees from the notification.
+  const recipients = Array.from(new Set([
+    "nevildarukhanawala02@gmail.com",
+    "arvindkukreti@gmail.com",
+    process.env.LEAD_NOTIFICATION_EMAIL,
+  ].filter((email): email is string => Boolean(email))));
+  const to = recipients.join(", ");
   try {
     const t = getTransporter();
     if (!t) return;
