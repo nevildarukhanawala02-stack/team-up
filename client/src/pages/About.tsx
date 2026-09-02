@@ -1,7 +1,7 @@
 /**
  * Team Up Civic Editorial About page: a quiet trust chapter after the homepage and Experiences.
- * Named people use neutral initials placeholders only until approved real photographs are supplied;
- * no synthetic portraits are used. Copy marked as draft in the framework remains visibly provisional.
+ * Named people use real, approved photographs where supplied, falling back to a neutral initials
+ * placeholder otherwise; no synthetic portraits are used. Copy marked as draft in the framework remains visibly provisional.
  */
 
 import { useEffect, useState } from "react";
@@ -16,6 +16,8 @@ const trustees: { initials: string; name: string; bio: string; color: string; ph
   {
     initials: "AK",
     name: "Arvind Kukreti",
+    photo: "/images/arvind-kukreti.jpg",
+    photoAlt: "Arvind Kukreti, Trustee, Team Up",
     bio: "Arvind co-founded Ginger Domain, a Mumbai-based digital agency that has spent close to two decades building websites, ecommerce platforms, and digital marketing for businesses across India and beyond. That hands-on understanding of how stories travel online is what shapes how Team Up shows up on screen.",
     color: "teal",
     linkedin: "https://in.linkedin.com/in/arvindkukreti",
