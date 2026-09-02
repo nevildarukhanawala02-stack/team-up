@@ -123,7 +123,7 @@ img { display: block; max-width: 100%; }
 .desktop-nav > a:not(.nav-cta):hover { color: var(--coral); }
 .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 13px 16px 13px 18px; border: 1px solid var(--orange); background: var(--orange); color: var(--ink); transition: background 180ms var(--ease-out), color 180ms var(--ease-out), transform 180ms var(--ease-out); }
 .nav-cta:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: translateY(-2px); }
-.nav-cta.nav-current { color: var(--ink); }
+.nav-cta.nav-current, .site-header .nav-cta.nav-current { color: var(--ink); }
 .mobile-menu-button, .mobile-nav { display: none; }
 
 .hero-section { min-height: 640px; position: relative; padding-top: 140px; padding-bottom: 80px; }
