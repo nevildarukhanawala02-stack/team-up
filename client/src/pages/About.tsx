@@ -158,7 +158,6 @@ export default function About() {
                     <div className="trustee-card__photo" aria-label={`${trustee.name} photograph placeholder`}><span>{trustee.initials}</span><small>Real photograph required</small></div>
                   )}
                   <div className="trustee-card__body">
-                    <p className="trustee-card__role">Trustee, Team Up</p>
                     <h3>{trustee.name}</h3>
                     <p>{trustee.bio}</p>
                     <a className="trustee-card__linkedin" href={trustee.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={15} strokeWidth={1.6} /> View LinkedIn profile</a>
