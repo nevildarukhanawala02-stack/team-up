@@ -167,7 +167,6 @@ export default function About() {
               ))}
             </div>
             <p className="trustee-closing" data-about-reveal>Two different paths, one shared instinct: that a celebration means more when it leaves something behind it.</p>
-            <p className="about-draft-note" data-about-reveal>Trustee biographies are a first draft for review and direct verification before publication.</p>
           </div>
         </section>
 
